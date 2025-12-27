@@ -1,0 +1,311 @@
+{% load static %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>تسعير منتج واحد</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body{background:#f4f6f9}
+    .card{border:0; box-shadow:0 2px 10px rgba(0,0,0,.06)}
+    .kpi{font-size:1.3rem; font-weight:700}
+    .muted{color:#6c757d}
+    .chip{padding:.25rem .6rem;border-radius:999px;font-size:.85rem}
+    .chip.green{background:#e7f7ee;color:#1d6f42}
+    .chip.yellow{background:#fff7e6;color:#8a5b00}
+    .chip.red{background:#fde8e8;color:#8a1f1f}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+  </style>
+</head>
+<body class="p-3">
+
+<div class="container-fluid">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <div class="h5 m-0">🧾 تسعير منتج واحد</div>
+      <div class="muted">اختر المنتج والفترة، ثم عدّل السياسة والمؤثرات وسترى النتيجة فورًا.</div>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-outline-secondary btn-sm" id="resetBtn">إرجاع القيم الافتراضية</button>
+      <button class="btn btn-primary btn-sm" id="applyBtn">تطبيق</button>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <!-- LEFT: RESULT -->
+    <div class="col-lg-8">
+      <div class="card p-3">
+        <div class="d-flex align-items-center justify-content-between">
+          <div>
+            <div class="muted">المنتج</div>
+            <div class="h6 m-0" id="prodTitle">—</div>
+          </div>
+          <div class="text-end">
+            <div class="muted">نوع</div>
+            <span class="chip yellow" id="prodType">—</span>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row g-3">
+          <div class="col-md-3">
+            <div class="muted">التكلفة</div>
+            <div class="kpi mono" id="k_cost">0.00</div>
+          </div>
+          <div class="col-md-3">
+            <div class="muted">السعر الحالي</div>
+            <div class="kpi mono" id="k_current">0.00</div>
+          </div>
+          <div class="col-md-3">
+            <div class="muted">السعر المقترح</div>
+            <div class="kpi mono" id="k_suggested">0.00</div>
+          </div>
+          <div class="col-md-3">
+            <div class="muted">فرق السعر</div>
+            <div class="kpi mono" id="k_delta_price">0.00</div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row g-3">
+          <div class="col-md-3">
+            <div class="muted">مجمل ربح (حالي)</div>
+            <div class="mono fw-bold" id="k_gross_current">0.00</div>
+            <div class="muted">هامش (حالي)</div>
+            <div class="mono" id="k_margin_current">—</div>
+          </div>
+          <div class="col-md-3">
+            <div class="muted">مجمل ربح (مقترح)</div>
+            <div class="mono fw-bold" id="k_gross_suggested">0.00</div>
+            <div class="muted">هامش (مقترح)</div>
+            <div class="mono" id="k_margin_suggested">—</div>
+          </div>
+          <div class="col-md-3">
+            <div class="muted">صافي ربح (حالي)</div>
+            <div class="mono fw-bold" id="k_net_current">0.00</div>
+          </div>
+          <div class="col-md-3">
+            <div class="muted">صافي ربح (مقترح)</div>
+            <div class="mono fw-bold" id="k_net_suggested">0.00</div>
+            <div class="muted">فرق الصافي</div>
+            <div class="mono" id="k_delta_net">0.00</div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="muted">مساهمة المنتج (للوحدة)</div>
+            <div class="mono fw-bold" id="k_contrib">0.00</div>
+          </div>
+          <div class="col-md-4">
+            <div class="muted">نقطة التعادل (وحدات)</div>
+            <div class="mono fw-bold" id="k_be">—</div>
+          </div>
+          <div class="col-md-4 text-end">
+            <span class="chip" id="badge">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: INPUTS -->
+    <div class="col-lg-4">
+      <div class="card p-3 mb-3">
+        <div class="fw-bold mb-2">⚙️ الأساسيات</div>
+
+        <label class="form-label">الفترة</label>
+        <select class="form-select mb-2" id="period">
+          {% for per in periods %}
+            <option value="{{ per.id }}" {% if per.id == default_period_id %}selected{% endif %}>{{ per }}</option>
+          {% endfor %}
+        </select>
+
+        <label class="form-label">المنتج</label>
+        <select class="form-select mb-2" id="product">
+          <option value="">— اختر منتج —</option>
+          {% for p in products %}
+            <option value="{{ p.id }}">{{ p.code }} - {{ p.name }}</option>
+          {% endfor %}
+        </select>
+
+        <label class="form-label">طريقة التسعير</label>
+        <select class="form-select" id="method">
+          <option value="markup">Markup (زيادة على التكلفة)</option>
+          <option value="target_margin">Target Margin (هامش مستهدف)</option>
+          <option value="custom_price">Custom Price (سعر يدوي)</option>
+        </select>
+      </div>
+
+      <div class="card p-3">
+        <div class="fw-bold mb-2">📌 السياسة / المؤثرات</div>
+
+        <div class="row g-2">
+          <div class="col-6">
+            <label class="form-label">% Markup SELL</label>
+            <input class="form-control" id="markup_sell" value="60">
+          </div>
+          <div class="col-6">
+            <label class="form-label">% Markup INTERNAL</label>
+            <input class="form-control" id="markup_internal" value="20">
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">% Target Margin</label>
+            <input class="form-control" id="target_margin" value="30">
+          </div>
+          <div class="col-6">
+            <label class="form-label">Custom Price</label>
+            <input class="form-control" id="custom_price" value="0">
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">% OPEX</label>
+            <input class="form-control" id="opex_percent" value="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label">OPEX ثابت/وحدة</label>
+            <input class="form-control" id="fixed_opex_per_unit" value="0">
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">% Discount</label>
+            <input class="form-control" id="discount_percent" value="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label">% VAT</label>
+            <input class="form-control" id="vat_percent" value="0">
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">Min Price</label>
+            <input class="form-control" id="min_price" value="0">
+          </div>
+          <div class="col-6">
+            <label class="form-label">Fixed Cost Total</label>
+            <input class="form-control" id="fixed_cost_total" value="0">
+          </div>
+        </div>
+
+        <div class="alert alert-light mt-3 mb-0 small">
+          ✅ الناتج يعتمد على **تكلفة BOM المحفوظة** (unit_cost_final) أو حساب التكلفة عند الحاجة.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function v(id){ return document.getElementById(id).value; }
+function setText(id, val){ document.getElementById(id).textContent = val; }
+
+function setBadge(kind, text){
+  const el = document.getElementById("badge");
+  el.className = "chip " + kind;
+  el.textContent = text;
+}
+
+async function apply(){
+  const product = v("product");
+  if(!product){
+    alert("اختر منتج أولاً");
+    return;
+  }
+
+  const params = new URLSearchParams({
+    product,
+    period: v("period"),
+    method: v("method"),
+
+    markup_sell: v("markup_sell"),
+    markup_internal: v("markup_internal"),
+
+    target_margin: v("target_margin"),
+    custom_price: v("custom_price"),
+
+    opex_percent: v("opex_percent"),
+    fixed_opex_per_unit: v("fixed_opex_per_unit"),
+
+    discount_percent: v("discount_percent"),
+    vat_percent: v("vat_percent"),
+    min_price: v("min_price"),
+    fixed_cost_total: v("fixed_cost_total"),
+  });
+
+  const url = "/pricing/api/product-calc/?" + params.toString();
+  const res = await fetch(url, {headers: {"X-Requested-With":"XMLHttpRequest"}});
+  const data = await res.json();
+
+  if(!data.ok){
+    alert(data.error || "Error");
+    return;
+  }
+
+  // header
+  setText("prodTitle", `${data.product.code} - ${data.product.name}`);
+  const t = document.getElementById("prodType");
+  t.textContent = data.product.type;
+  t.className = "chip " + (data.product.type === "SELL" ? "green" : "yellow");
+
+  const r = data.results;
+
+  setText("k_cost", r.cost.toFixed(2));
+  setText("k_current", r.current_price.toFixed(2));
+  setText("k_suggested", r.suggested_price.toFixed(2));
+  setText("k_delta_price", r.delta_price.toFixed(2));
+
+  setText("k_gross_current", r.gross_current.toFixed(2));
+  setText("k_gross_suggested", r.gross_suggested.toFixed(2));
+  setText("k_net_current", r.net_current.toFixed(2));
+  setText("k_net_suggested", r.net_suggested.toFixed(2));
+  setText("k_delta_net", r.delta_net.toFixed(2));
+
+  setText("k_margin_current", r.margin_current === null ? "—" : (r.margin_current.toFixed(2) + "%"));
+  setText("k_margin_suggested", r.margin_suggested === null ? "—" : (r.margin_suggested.toFixed(2) + "%"));
+
+  setText("k_contrib", r.contribution_per_unit.toFixed(2));
+  setText("k_be", r.breakeven_units === null ? "—" : r.breakeven_units.toFixed(2));
+
+  // badge
+  if(r.net_suggested <= 0){
+    setBadge("red", "❌ صافي الربح المقترح <= 0");
+  }else if(r.margin_suggested !== null && r.margin_suggested >= 30){
+    setBadge("green", "✅ هامش ممتاز");
+  }else if(r.margin_suggested !== null && r.margin_suggested >= 15){
+    setBadge("yellow", "⚠️ هامش متوسط");
+  }else{
+    setBadge("red", "⚠️ هامش ضعيف");
+  }
+}
+
+function resetDefaults(){
+  document.getElementById("method").value = "markup";
+  document.getElementById("markup_sell").value = "60";
+  document.getElementById("markup_internal").value = "20";
+  document.getElementById("target_margin").value = "30";
+  document.getElementById("custom_price").value = "0";
+  document.getElementById("opex_percent").value = "0";
+  document.getElementById("fixed_opex_per_unit").value = "0";
+  document.getElementById("discount_percent").value = "0";
+  document.getElementById("vat_percent").value = "0";
+  document.getElementById("min_price").value = "0";
+  document.getElementById("fixed_cost_total").value = "0";
+}
+
+document.getElementById("applyBtn").addEventListener("click", apply);
+document.getElementById("resetBtn").addEventListener("click", () => { resetDefaults(); apply(); });
+
+// تحديث فوري عند تغيير أي حقل (لو المنتج مختار)
+["period","product","method","markup_sell","markup_internal","target_margin","custom_price","opex_percent","fixed_opex_per_unit","discount_percent","vat_percent","min_price","fixed_cost_total"]
+.forEach(id=>{
+  document.getElementById(id).addEventListener("change", ()=>{
+    if(v("product")) apply();
+  });
+});
+</script>
+
+</body>
+</html>

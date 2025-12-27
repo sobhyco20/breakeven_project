@@ -1,0 +1,16 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <br>
+    <input type="submit" value="استيراد" class="default">
+    <a href="{% url 'admin:costing_billofmaterial_changelist' %}">رجوع</a>
+  </form>
+{% endblock %}

@@ -1,0 +1,355 @@
+{% load numfmt %}
+{# templates/reports/product_cost_breakdown_pdf.html #}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+
+<style>
+  /* حجم الصفحة وهوامشها */
+  @page {
+    size: A4 landscape;
+    margin: 6mm 8mm 6mm 8mm;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Tahoma", "Arial", sans-serif;
+    font-size: 10px;
+    max-width: 100%;
+    overflow-x: hidden !important;
+  }
+
+  .product-page {
+    padding: 0;
+    margin: 0;
+  }
+
+  /* فاصل صفحة بين المنتجات عند الطباعة الكاملة لكل المنتجات */
+  .page-break {
+    page-break-before: always;
+  }
+
+  .page-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0d6efd;
+    text-align: center;
+    margin: 2mm 0 1mm 0;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .sub-info {
+    text-align: center;
+    margin-bottom: 2mm;
+    font-size: 9px;
+  }
+
+  .total-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #198754;
+    text-align: center;
+    margin-top: 3mm;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    page-break-inside: avoid;
+  }
+
+  .total-title span {
+    color: #0d6efd;
+  }
+
+  h5.section-title {
+    font-size: 11px;
+    font-weight: 700;
+    margin: 2mm 0 1mm 0;
+  }
+
+  /* --------- الجداول --------- */
+
+  table {
+    width: 100% !important;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-bottom: 3mm;
+    page-break-inside: auto !important;   /* اسمح بتقسيم الجدول على أكثر من صفحة */
+  }
+
+  th, td {
+    border: 1px solid #cfd4da;
+    padding: 1px 2px;
+    line-height: 1.25;
+    font-size: 9px;
+    word-wrap: break-word !important;
+    white-space: normal !important;
+    page-break-inside: avoid !important;  /* لا تقطع الخلية نفسها */
+  }
+
+  thead {
+    background-color: #e9ecef;
+    font-weight: 700;
+    text-align: center;
+    display: table-header-group !important;   /* تكرار الهيدر في كل صفحة */
+  }
+
+  tfoot {
+    display: table-footer-group !important;
+  }
+
+  /* توزيع أعمدة مريح أقل من 100% من عرض الصفحة */
+  .col-type   { width: 9%;  }
+  .col-code   { width: 9%;  }
+  .col-name   { width: 26%; }
+  .col-parent { width: 20%; }
+  .col-per    { width: 10%; }
+  .col-totalq { width: 10%; }
+  .col-unit   { width: 8%;  }
+  .col-sum    { width: 8%;  }
+
+  /* ألوان الصفوف */
+  .table-success {
+    background-color: #e5f4eb;
+  }
+
+  .table-warning {
+    background-color: #fff6dd;
+  }
+
+  .tfoot-total td {
+    background-color: #e0f4ff;
+    font-weight: 800;
+  }
+
+  /* محاذاة الأعمدة الرقمية */
+  .col-per,
+  .col-totalq,
+  .col-unit,
+  .col-sum {
+    text-align: right;
+  }
+
+  .col-code {
+    text-align: center;
+  }
+
+  .col-type {
+    text-align: center;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.5px 3px;
+    border-radius: 3px;
+    font-size: 8px;
+    font-weight: 600;
+  }
+
+  .badge-raw {
+    background-color: #198754;
+    color: #fff;
+  }
+
+  .badge-manuf {
+    background-color: #ffc107;
+    color: #000;
+  }
+</style>
+</head>
+<body>
+
+{% for data in reports %}
+
+  {# لو ليس أول منتج نعمل فاصل صفحة #}
+  {% if not forloop.first %}
+    <div class="page-break"></div>
+  {% endif %}
+
+  <div class="product-page">
+
+    <div class="page-title">
+      {{ data.product.code }} - {{ data.product.name }}
+    </div>
+
+    <div class="sub-info">
+      <strong>الفترة:</strong>
+      {{ current_period.name }} ({{ current_period.start_date }} - {{ current_period.end_date }})
+      &nbsp;&nbsp; | &nbsp;&nbsp;
+      <strong>الكمية المطلوب حساب تكلفتها:</strong>
+      {{ data.qty|num:3 }}
+    </div>
+
+    {# ====================== جدول المستوى الأول (بدون المستوى وبدون المصدر) ====================== #}
+    <h5 class="section-title">مكوّنات المستوى الأول</h5>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="col-type">النوع</th>
+          <th class="col-code">الكود</th>
+          <th class="col-name">الاسم</th>
+          <th class="col-per">كمية في الوصفة</th>
+          <th class="col-totalq">الكمية الإجمالية</th>
+          <th class="col-unit">تكلفة الوحدة</th>
+          <th class="col-sum">إجمالي التكلفة</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data.level1_lines %}
+          <tr class="{% if row.type == 'raw' %}table-success{% elif row.type == 'manufactured' %}table-warning{% endif %}">
+            <td class="col-type">
+              {% if row.type == "raw" %}
+                <span class="badge badge-raw">مادة خام</span>
+              {% elif row.type == "manufactured" %}
+                <span class="badge badge-manuf">منتج نصف مصنع</span>
+              {% endif %}
+            </td>
+            <td class="col-code">{{ row.code }}</td>
+            <td class="col-name">{{ row.name }}</td>
+
+            <td class="col-per">
+              {% if row.per_order_qty %}
+                {{ row.per_order_qty|num:3 }}
+              {% else %}-{% endif %}
+            </td>
+
+            <td class="col-totalq">
+              {% if row.qty %}
+                {{ row.qty|num:3 }}
+              {% else %}-{% endif %}
+            </td>
+
+            <td class="col-unit">
+              {% if row.unit_cost %}
+                {{ row.unit_cost|num:3 }}
+              {% else %}-{% endif %}
+            </td>
+
+            <td class="col-sum">
+              {% if row.type == "raw" and row.total_cost %}
+                {{ row.total_cost|num:3 }}
+              {% else %}-{% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="7" style="text-align:center;">
+              لا توجد مكونات في المستوى الأول.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr class="tfoot-total">
+          <td colspan="6" style="text-align:left;">
+            إجمالي تكلفة مكوّنات المستوى الأول (مواد خام فقط):
+          </td>
+          <td class="col-sum">
+            {{ data.level1_total_cost|num:3 }}
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    {# ====================== جدول المستويات الثانية (2 فأعلى) بدون عمود المستوى ====================== #}
+    <h5 class="section-title">مكوّنات المستويات الثانية (2 فأعلى)</h5>
+
+    <table>
+      <thead>
+        <tr>
+          <th class="col-type">النوع</th>
+          <th class="col-code">الكود</th>
+          <th class="col-name">الاسم</th>
+          <th class="col-parent">المصدر / المنتج الأعلى</th>
+          <th class="col-per">كمية في الوصفة</th>
+          <th class="col-totalq">الكمية الإجمالية</th>
+          <th class="col-unit">تكلفة الوحدة</th>
+          <th class="col-sum">إجمالي التكلفة</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data.level2_lines %}
+          <tr class="{% if row.type == 'raw' %}table-success{% elif row.type == 'manufactured' %}table-warning{% endif %}">
+            <td class="col-type">
+              {% if row.type == "raw" %}
+                <span class="badge badge-raw">مادة خام</span>
+              {% elif row.type == "manufactured" %}
+                <span class="badge badge-manuf">منتج نصف مصنع</span>
+              {% else %}
+                -
+              {% endif %}
+            </td>
+
+            <td class="col-code">{{ row.code }}</td>
+
+            <td class="col-name">
+              {% if row.level > 1 %}
+                <span style="padding-right: {{ row.level|add:'-1' }}0px;">⮞ {{ row.name }}</span>
+              {% else %}
+                {{ row.name }}
+              {% endif %}
+            </td>
+
+            <td class="col-parent">{{ row.parent }}</td>
+
+            <td class="col-per">
+              {% if row.per_order_qty %}
+                {{ row.per_order_qty|num:3 }}
+              {% else %}-{% endif %}
+            </td>
+
+            <td class="col-totalq">
+              {% if row.qty %}
+                {{ row.qty|num:3 }}
+              {% else %}-{% endif %}
+            </td>
+
+            <td class="col-unit">
+              {% if row.unit_cost %}
+                {{ row.unit_cost|num:3 }}
+              {% else %}-{% endif %}
+            </td>
+
+            <td class="col-sum">
+              {% if row.type == "raw" and row.total_cost %}
+                {{ row.total_cost|num:3 }}
+              {% else %}-{% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="8" style="text-align:center;">
+              لا توجد مكونات في المستويات الأعمق.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr class="tfoot-total">
+          <td colspan="7" style="text-align:left;">
+            إجمالي تكلفة مكوّنات المستويات الثانية (مواد خام فقط):
+          </td>
+          <td class="col-sum">
+            {{ data.level2_total_cost|num:3 }}
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    {# ====================== إجمالي تكلفة الوصفة ====================== #}
+    <div class="total-title">
+      إجمالي تكلفة الوصفة للكمية
+      {{ data.qty|num:3 }}
+      من المنتج:
+      <span>{{ data.product_total_cost|num:3 }}</span>
+    </div>
+
+  </div>
+
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <input type="submit" value="استيراد" class="default">
+  </form>
+
+  <p style="margin-top: 20px; color: #555;">
+    تأكد أن ملف الإكسل يحتوي على الأعمدة التالية:
+    <code>code, name, base_unit, selling_price, is_sellable, is_semi_finished</code>
+  </p>
+{% endblock %}

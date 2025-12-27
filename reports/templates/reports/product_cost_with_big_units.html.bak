@@ -1,0 +1,332 @@
+{# templates/reports/product_cost_with_big_units.html #}
+{% extends "base_reports.html" %}
+
+{% block title %}تقرير تكلفة المنتج (وحدات الشراء الكبيرة){% endblock %}
+
+{# =============================== الفلاتر =============================== #}
+{% block filters %}
+<form method="get" class="row g-2 mb-3">
+  <div class="col-md-3">
+    <label class="form-label">الفترة</label>
+    <select name="period" class="form-select">
+      {% for p in periods %}
+        <option value="{{ p.id }}"
+          {% if current_period and p.id == current_period.id %}selected{% endif %}>
+          {{ p.name }} ({{ p.start_date }} - {{ p.end_date }})
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-5">
+    <label class="form-label">المنتج</label>
+    <select name="product" class="form-select">
+      <option value="">-- اختر منتجاً --</option>
+      {% for pr in products %}
+        <option value="{{ pr.id }}"
+          {% if selected_product and pr.id == selected_product.id %}selected{% endif %}>
+          {{ pr.code }} - {{ pr.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">الكمية</label>
+    <input type="number" step="0.001" name="qty"
+           value="{{ qty }}" class="form-control">
+  </div>
+
+  <div class="col-md-2 align-self-end">
+    <button type="submit" class="btn btn-primary w-100">
+      عرض التقرير
+    </button>
+  </div>
+
+</form>
+{% endblock %}
+
+{# =============================== المحتوى =============================== #}
+{% block content %}
+
+{% if selected_product and current_period and level1_rows %}
+
+  {# عنوان المنتج والفترة #}
+  <div class="text-center my-3">
+    <h1 style="
+        font-size: 32px;
+        font-weight: 800;
+        color: #0d6efd;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    ">
+      {{ selected_product.code }} - {{ selected_product.name }}
+    </h1>
+    <div class="mt-1">
+      <strong>الفترة:</strong>
+      {{ current_period.name }} ({{ current_period.start_date }} - {{ current_period.end_date }})
+      &nbsp; | &nbsp;
+      <strong>الكمية المطلوب حساب تكلفتها:</strong>
+      {{ qty|floatformat:3 }}
+    </div>
+  </div>
+
+  {# أزرار تصدير PDF #}
+  <div class="mb-3 text-end">
+    <a href="{% url 'product_cost_with_big_units_pdf' %}?period={{ current_period.id }}&product={{ selected_product.id }}&qty={{ qty }}"
+       class="btn btn-danger btn-sm">
+      📄 تحميل PDF (وحدات كبيرة) لهذا المنتج
+    </a>
+
+    <a href="{% url 'product_cost_with_big_units_all_pdf' %}?period={{ current_period.id }}&qty={{ qty }}"
+       class="btn btn-outline-danger btn-sm">
+      📂 تحميل PDF (وحدات كبيرة) لجميع المنتجات
+    </a>
+  </div>
+
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body p-2">
+
+      {# =================== الجدول الأول =================== #}
+      <h5 class="mt-1 mb-2">
+        🧱 مكوّنات المستوى الأول (مواد خام + منتجات نصف مصنع)
+      </h5>
+
+      <table class="table table-bordered table-striped table-sm align-middle mb-3">
+        <thead class="table-secondary text-center">
+          <tr>
+            <th style="width: 100px;">النوع</th>
+            <th style="width: 110px;">الكود</th>
+            <th>اسم المادة</th>
+            <th style="width: 130px;">وحدة القياس الكبيرة</th>
+            <th style="width: 160px;">حجم وحدة الشراء الكبيرة</th>
+            <th style="width: 160px;">سعر وحدة الشراء الكبيرة</th>
+            <th style="width: 160px;">الكمية المستخدمة في الوصفة</th>
+            <th style="width: 130px;">الوحدة الصغيرة</th>
+            <th style="width: 150px;">التكلفة</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for row in level1_rows %}
+            <tr
+              class="
+                {% if row.type == 'raw' %}
+                  table-success
+                {% elif row.type == 'manufactured' %}
+                  table-warning
+                {% endif %}
+              "
+            >
+              <td class="text-center">
+                {% if row.type == "raw" %}
+                  <span class="badge bg-success">مادة خام</span>
+                {% elif row.type == "manufactured" %}
+                  <span class="badge bg-warning text-dark">منتج نصف مصنع</span>
+                {% endif %}
+              </td>
+
+              <td class="text-center">
+                {{ row.code }}
+              </td>
+
+              <td>
+                {{ row.name }}
+              </td>
+
+              <td class="text-center">
+                {{ row.big_unit_name }}
+              </td>
+
+              <td class="text-center">
+                {% if row.big_unit_qty %}
+                  {{ row.big_unit_qty|floatformat:0 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+
+              <td class="text-end">
+                {% if row.big_unit_price %}
+                  {{ row.big_unit_price|floatformat:3 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+
+              <td class="text-end">
+                {% if row.qty %}
+                  {{ row.qty|floatformat:3 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+
+              <td class="text-center">
+                {{ row.small_unit_name }}
+              </td>
+
+              <td class="text-end">
+                {% if row.total_cost %}
+                  {{ row.total_cost|floatformat:3 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="9" class="text-center">
+                لا توجد مكونات في المستوى الأول.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr class="table-info fw-bold">
+            <td colspan="8" class="text-end">
+              إجمالي تكلفة مكوّنات المستوى الأول:
+            </td>
+            <td class="text-end">
+              {{ level1_total_cost|floatformat:3 }}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+      {# =================== الجدول الثاني =================== #}
+      <h5 class="mt-3 mb-2">
+        🧬 مكوّنات المنتجات المصنّعة (المستويات الثانية فأعلى)
+      </h5>
+
+      <table class="table table-bordered table-striped table-sm align-middle mb-3">
+        <thead class="table-secondary text-center">
+          <tr>
+            <th style="width: 100px;">النوع</th>
+            <th style="width: 110px;">الكود</th>
+            <th>اسم المادة</th>
+            <th style="width: 130px;">وحدة القياس الكبيرة</th>
+            <th style="width: 160px;">حجم وحدة الشراء الكبيرة</th>
+            <th style="width: 160px;">سعر وحدة الشراء الكبيرة</th>
+            <th style="width: 160px;">الكمية المستخدمة في الوصفة</th>
+            <th style="width: 130px;">الوحدة الصغيرة</th>
+            <th style="width: 150px;">التكلفة</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for row in level2_rows %}
+            <tr
+              class="
+                {% if row.type == 'raw' %}
+                  table-success
+                {% elif row.type == 'manufactured' %}
+                  table-warning
+                {% endif %}
+              "
+            >
+              <td class="text-center">
+                {% if row.type == "raw" %}
+                  <span class="badge bg-success">مادة خام</span>
+                {% elif row.type == "manufactured" %}
+                  <span class="badge bg-warning text-dark">منتج نصف مصنع</span>
+                {% endif %}
+              </td>
+
+              <td class="text-center">
+                {{ row.code }}
+              </td>
+
+              <td>
+                {{ row.name }}
+              </td>
+
+              <td class="text-center">
+                {{ row.big_unit_name }}
+              </td>
+
+              <td class="text-center">
+                {% if row.big_unit_qty %}
+                  {{ row.big_unit_qty|floatformat:0 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+
+              <td class="text-end">
+                {% if row.big_unit_price %}
+                  {{ row.big_unit_price|floatformat:3 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+
+              <td class="text-end">
+                {% if row.qty %}
+                  {{ row.qty|floatformat:3 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+
+              <td class="text-center">
+                {{ row.small_unit_name }}
+              </td>
+
+              <td class="text-end">
+                {% if row.total_cost %}
+                  {{ row.total_cost|floatformat:3 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="9" class="text-center">
+                لا توجد مكوّنات في المستويات الأعمق.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr class="table-info fw-bold">
+            <td colspan="8" class="text-end">
+              إجمالي تكلفة مكوّنات المنتجات المصنّعة (المستويات الثانية فأعلى):
+            </td>
+            <td class="text-end">
+              {{ level2_total_cost|floatformat:3 }}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+      {# =================== إجمالي تكلفة الوصفة =================== #}
+      {% if product_total_cost %}
+        <div class="text-center my-4">
+          <h2 style="
+              font-size: 26px;
+              font-weight: 800;
+              color: #198754;
+              text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+          ">
+            إجمالي تكلفة الوصفة للكمية
+            {{ qty|floatformat:0 }}
+            من المنتج:
+            <span style="color:#0d6efd;">
+              {{ product_total_cost|floatformat:2 }}
+              ريال
+            </span>
+          </h2>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+{% else %}
+  <div class="alert alert-info text-center">
+    من فضلك اختر الفترة والمنتج ثم اضغط "عرض التقرير".
+  </div>
+{% endif %}
+
+{% endblock %}

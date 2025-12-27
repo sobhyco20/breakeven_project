@@ -1,0 +1,17 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<h1>تقارير المخزون</h1>
+
+<div class="module">
+    <h2>تقارير المخزون</h2>
+    <ul>
+        <li>
+            <a href="{% url 'inventory:materials_period_report' %}">
+                تقرير حركة المواد للفترة
+            </a>
+        </li>
+    </ul>
+</div>
+{% endblock %}

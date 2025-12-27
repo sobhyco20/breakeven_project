@@ -1,0 +1,10 @@
+{% extends "admin/change_list.html" %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+    <li>
+        <a href="{% url 'admin:costing_rawmaterial_import_excel' %}" class="addlink">
+            استيراد من إكسل
+        </a>
+    </li>
+{% endblock %}

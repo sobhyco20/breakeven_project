@@ -1,0 +1,345 @@
+{% load static %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>تسعير منتج واحد</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body { background:#f5f7fb; }
+    .card { border-radius: 14px; }
+    .badge-dot { width:10px; height:10px; border-radius:50%; display:inline-block; }
+    .muted { color:#6c757d; font-size:.9rem; }
+    .kpi { font-size: 1.1rem; font-weight: 700; }
+    .kpi small { font-weight: 500; color:#6c757d; display:block; margin-bottom:4px; }
+  </style>
+</head>
+<body>
+
+<div class="container-fluid p-3">
+  <div class="row g-3">
+
+    <!-- ✅ اختيار المنتج والفترة -->
+    <div class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="row g-2 align-items-end">
+            <div class="col-md-4">
+              <label class="form-label">المنتج</label>
+              <select id="product" class="form-select">
+                <option value="">— اختر منتج —</option>
+                {% for p in products %}
+                  <option value="{{ p.id }}">{{ p.code }} — {{ p.name }}</option>
+                {% endfor %}
+              </select>
+              <div class="muted mt-1">اختر منتجًا نهائيًا (SELL) لحساب التكلفة والتسعير والمساهمة.</div>
+            </div>
+
+            <div class="col-md-3">
+              <label class="form-label">الفترة</label>
+              <select id="period" class="form-select">
+                {% for pe in periods %}
+                  <option value="{{ pe.id }}" {% if period and pe.id == period.id %}selected{% endif %}>{{ pe }}</option>
+                {% endfor %}
+              </select>
+              <div class="muted mt-1">تُستخدم الفترة لاختيار التكلفة الصحيحة عند الحساب.</div>
+            </div>
+
+            <div class="col-md-2">
+              <button id="applyBtn" class="btn btn-primary w-100">تطبيق</button>
+              <div class="muted mt-1">إعادة حساب النتائج فورًا.</div>
+            </div>
+
+            <div class="col-md-3 text-start">
+              <div class="alert alert-light mb-0">
+                <div class="fw-bold">ملاحظة</div>
+                <div class="muted">النتائج هنا للمحاكاة داخل iframe، ولا يتم حفظ أي شيء إلا عند تفعيل حفظ سيناريو لاحقًا.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ المؤثرات -->
+    <div class="col-lg-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-white fw-bold">
+          📌 السياسة / المؤثرات
+        </div>
+        <div class="card-body">
+
+          <div class="row g-2">
+            <div class="col-6">
+              <label class="form-label">
+                نسبة هامش الربح (منتجات البيع) %
+                <span class="text-primary" data-bs-toggle="tooltip" title="زيادة على التكلفة للوصول لسعر مقترح للمنتج النهائي.">ℹ️</span>
+              </label>
+              <input id="markup_sell" type="number" class="form-control" value="60" step="0.01" placeholder="مثال: 60">
+              <div class="muted mt-1">Markup على تكلفة المنتج النهائي (SELL).</div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">
+                نسبة الربح المستهدفة %
+                <span class="text-primary" data-bs-toggle="tooltip" title="يحسِب سعرًا يحقق هامش ربح محدد: السعر = التكلفة / (1 - الهامش).">ℹ️</span>
+              </label>
+              <input id="target_margin" type="number" class="form-control" value="0" step="0.01" placeholder="مثال: 30">
+              <div class="muted mt-1">إذا أدخلت قيمة &gt; 0 سيُعاد حساب السعر وفق الهامش.</div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">
+                سعر يدوي (تجاوز الحساب)
+                <span class="text-primary" data-bs-toggle="tooltip" title="عند إدخال سعر هنا يتم تجاهل معادلات التسعير الأخرى.">ℹ️</span>
+              </label>
+              <input id="custom_price" type="number" class="form-control" value="0" step="0.01" placeholder="اتركه 0">
+              <div class="muted mt-1">اختياري: يفرض سعرًا ثابتًا للمحاكاة.</div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">
+                الحد الأدنى للسعر
+                <span class="text-primary" data-bs-toggle="tooltip" title="لا يسمح بأن يكون السعر المقترح أقل من هذا الرقم.">ℹ️</span>
+              </label>
+              <input id="min_price" type="number" class="form-control" value="0" step="0.01" placeholder="0 = بدون حد">
+              <div class="muted mt-1">حماية من تسعير أقل من المقبول.</div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">
+                نسبة تحميل المصروفات التشغيلية %
+                <span class="text-primary" data-bs-toggle="tooltip" title="تحميل نسبة من السعر لتغطية المصروفات التشغيلية (إيجار/رواتب/كهرباء…).">ℹ️</span>
+              </label>
+              <input id="opex_percent" type="number" class="form-control" value="0" step="0.01" placeholder="مثال: 10">
+              <div class="muted mt-1">OPEX% من السعر المقترح.</div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">
+                مصروفات تشغيلية ثابتة / للوحدة
+                <span class="text-primary" data-bs-toggle="tooltip" title="قيمة ثابتة تُخصم من مساهمة المنتج لكل وحدة بغض النظر عن السعر.">ℹ️</span>
+              </label>
+              <input id="opex_unit" type="number" class="form-control" value="0" step="0.01" placeholder="مثال: 0.50">
+              <div class="muted mt-1">OPEX ثابت لكل وحدة.</div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">
+                نسبة الخصم %
+                <span class="text-primary" data-bs-toggle="tooltip" title="خصم على السعر المقترح لمحاكاة عروض وخصومات.">ℹ️</span>
+              </label>
+              <input id="discount_percent" type="number" class="form-control" value="0" step="0.01" placeholder="مثال: 5">
+              <div class="muted mt-1">يطبق بعد التسعير وقبل الضريبة.</div>
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">
+                ضريبة القيمة المضافة %
+                <span class="text-primary" data-bs-toggle="tooltip" title="للإظهار فقط: السعر شامل الضريبة.">ℹ️</span>
+              </label>
+              <input id="vat_percent" type="number" class="form-control" value="0" step="0.01" placeholder="مثال: 15">
+              <div class="muted mt-1">لا تؤثر على الربح (عرض فقط).</div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">
+                إجمالي التكاليف الثابتة
+                <span class="text-primary" data-bs-toggle="tooltip" title="يستخدم لحساب نقطة التعادل: عدد الوحدات اللازمة لتغطية التكاليف الثابتة.">ℹ️</span>
+              </label>
+              <input id="fixed_cost_total" type="number" class="form-control" value="0" step="0.01" placeholder="اختياري">
+              <div class="muted mt-1">سيُستخدم في Break-even Units إذا كانت مساهمة الوحدة موجبة.</div>
+            </div>
+          </div>
+
+          <hr class="my-3">
+          <div class="alert alert-info mb-0">
+            ✅ يعتمد الحساب على تكلفة الوصفة (BOM) المحفوظة <code>unit_cost_final</code>، وفي حال عدم توفرها يتم احتساب التكلفة تلقائيًا.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ النتائج -->
+    <div class="col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-white fw-bold">📊 نتائج تسعير المنتج</div>
+        <div class="card-body">
+
+          <div class="row g-2 mb-3">
+            <div class="col-md-3">
+              <div class="border rounded p-3">
+                <div class="kpi"><small>التكلفة (وحدة)</small><span id="k_cost">—</span></div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="border rounded p-3">
+                <div class="kpi"><small>السعر الحالي</small><span id="k_current">—</span></div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="border rounded p-3">
+                <div class="kpi"><small>السعر المقترح</small><span id="k_suggested">—</span></div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="border rounded p-3">
+                <div class="kpi"><small>المقترح شامل الضريبة</small><span id="k_suggested_vat">—</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-2">
+            <div class="col-md-4">
+              <div class="border rounded p-3">
+                <div class="kpi"><small>تحميل OPEX (من السعر)</small><span id="k_opex_percent">—</span></div>
+                <div class="muted">قيمة OPEX% المحسوبة على السعر المقترح.</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="border rounded p-3">
+                <div class="kpi"><small>مساهمة الوحدة (Contribution)</small><span id="k_contribution">—</span></div>
+                <div class="muted">السعر − التكلفة − OPEX ثابت − OPEX%.</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="border rounded p-3">
+                <div class="kpi"><small>نقطة التعادل (وحدات)</small><span id="k_breakeven">—</span></div>
+                <div class="muted">التكاليف الثابتة ÷ مساهمة الوحدة.</div>
+              </div>
+            </div>
+          </div>
+
+          <hr class="my-3">
+          <div class="muted" id="k_notes">—</div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // tooltips
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+
+  function val(id){ return document.getElementById(id).value; }
+  function setText(id, v){ document.getElementById(id).innerText = v; }
+
+  async function calc(){
+    const product = val("product");
+    if(!product){
+      setText("k_notes","اختر منتجًا أولاً.");
+      return;
+    }
+
+    const params = new URLSearchParams({
+      product,
+      period: val("period"),
+      markup_sell: val("markup_sell"),
+      target_margin: val("target_margin"),
+      custom_price: val("custom_price"),
+      opex_percent: val("opex_percent"),
+      opex_unit: val("opex_unit"),
+      discount_percent: val("discount_percent"),
+      vat_percent: val("vat_percent"),
+      min_price: val("min_price"),
+      fixed_cost_total: val("fixed_cost_total"),
+    });
+
+    const res = await fetch(`/pricing/api/product-calc/?${params.toString()}`);
+    const data = await res.json();
+
+    if(!data.ok){
+      setText("k_notes", data.error || "حدث خطأ");
+      return;
+    }
+
+    setText("k_cost", data.cost.toFixed(2));
+    setText("k_current", data.current_price.toFixed(2));
+    setText("k_suggested", data.suggested_price.toFixed(2));
+    setText("k_suggested_vat", data.suggested_price_vat.toFixed(2));
+    setText("k_opex_percent", data.opex_amount_percent.toFixed(2));
+    setText("k_contribution", data.contribution_per_unit.toFixed(2));
+    setText("k_breakeven", data.breakeven_units.toFixed(2));
+    setText("k_notes", data.notes || "");
+  }
+
+
+  // tooltips
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+
+  function val(id){ return document.getElementById(id).value; }
+  function setText(id, v){ document.getElementById(id).innerText = v; }
+
+  let t = null;
+  function debounceCalc(){
+    clearTimeout(t);
+    t = setTimeout(calc, 250); // 250ms كفاية وسلسة
+  }
+
+  async function calc(){
+    const product = val("product");
+    if(!product){
+      setText("k_notes","اختر منتجًا أولاً.");
+      return;
+    }
+
+    const params = new URLSearchParams({
+      product,
+      period: val("period"),
+      markup_sell: val("markup_sell"),
+      target_margin: val("target_margin"),
+      custom_price: val("custom_price"),
+      opex_percent: val("opex_percent"),
+      opex_unit: val("opex_unit"),
+      discount_percent: val("discount_percent"),
+      vat_percent: val("vat_percent"),
+      min_price: val("min_price"),
+      fixed_cost_total: val("fixed_cost_total"),
+    });
+
+    const res = await fetch(`/pricing/api/product-calc/?${params.toString()}`);
+    const data = await res.json();
+
+    if(!data.ok){
+      setText("k_notes", data.error || "حدث خطأ");
+      return;
+    }
+
+    setText("k_cost", data.cost.toFixed(2));
+    setText("k_current", data.current_price.toFixed(2));
+    setText("k_suggested", data.suggested_price.toFixed(2));
+    setText("k_suggested_vat", data.suggested_price_vat.toFixed(2));
+    setText("k_opex_percent", data.opex_amount_percent.toFixed(2));
+    setText("k_contribution", data.contribution_per_unit.toFixed(2));
+    setText("k_breakeven", data.breakeven_units.toFixed(2));
+    setText("k_notes", data.notes || "");
+  }
+
+  // زر تطبيق يصبح اختياري (خليه موجود كـ Refresh)
+  document.getElementById("applyBtn").addEventListener("click", calc);
+
+  // ✅ تحديث تلقائي أثناء الكتابة + التغيير
+  const ids = ["product","period","markup_sell","target_margin","custom_price","opex_percent","opex_unit","discount_percent","vat_percent","min_price","fixed_cost_total"];
+
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener("change", calc);
+    el.addEventListener("input", debounceCalc);  // ✅ أهم سطر
+  });
+
+  // ✅ أول تحميل (لو المنتج مختار)
+  window.addEventListener("load", () => { if (val("product")) calc(); });
+
+
+</script>
+
+</body>
+</html>

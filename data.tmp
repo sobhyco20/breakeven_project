@@ -1,0 +1,7458 @@
+
+-----
+
+WeasyPrint could not import some external libraries. Please carefully follow the installation steps before reporting an issue:
+https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation
+https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#troubleshooting 
+
+-----
+
+[
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$hJtXWA4f53NGVMDRluouU8$VyfMRM3pZRi790AJ+E+AhShV6Gu8cfAqYpBuOyD6D+s=",
+    "last_login": "2025-12-22T16:23:58.812Z",
+    "is_superuser": true,
+    "username": "1",
+    "first_name": "",
+    "last_name": "",
+    "email": "sobhyco20@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-12-05T03:07:16.789Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "gttdw0pjfkvbmhbgirtfe208wpl20j9o",
+  "fields": {
+    "session_data": ".eJxVjMEOwiAQRP-FsyELCyIevfcbyG4BqRpISnsy_rtt0oPOcd6beYtA61LC2tMcpiiuQonTb8c0PlPdQXxQvTc5trrME8tdkQftcmgxvW6H-3dQqJdt7cHwFpeYgZVS2jBq6w0lr3S0pB1mezacAS4RWUNSHihnx4jAFsXnC-HLN6M:1vTNVB:ztlEey7HnRFo3b_2EY6DJ0s5-9YmTz13RLl2SNCw8wU",
+    "expire_date": "2025-12-24T16:57:21.522Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "i827t5jnuqupu4edbg26rvodd71bfqy3",
+  "fields": {
+    "session_data": ".eJxVjMEOwiAQRP-FsyELCyIevfcbyG4BqRpISnsy_rtt0oPOcd6beYtA61LC2tMcpiiuQonTb8c0PlPdQXxQvTc5trrME8tdkQftcmgxvW6H-3dQqJdt7cHwFpeYgZVS2jBq6w0lr3S0pB1mezacAS4RWUNSHihnx4jAFsXnC-HLN6M:1vSv1c:gmM_CJSuI0SwpHFOPo6bCdXWz-AVKJNQyLDXNTuHd3Q",
+    "expire_date": "2025-12-23T10:32:56.398Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "nsq3y5fxj8ok3gi0a0v81e657q143vwa",
+  "fields": {
+    "session_data": ".eJxVjMEOwiAQRP-FsyELCyIevfcbyG4BqRpISnsy_rtt0oPOcd6beYtA61LC2tMcpiiuQonTb8c0PlPdQXxQvTc5trrME8tdkQftcmgxvW6H-3dQqJdt7cHwFpeYgZVS2jBq6w0lr3S0pB1mezacAS4RWUNSHihnx4jAFsXnC-HLN6M:1vSYAQ:XnwQJ-CST1g9RbQim1ooFLcN7Q_lHvMCy2pnGQh0050",
+    "expire_date": "2025-12-22T10:08:30.636Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "x0grjh3s2n1nzzvsrtkeq1gcbcxnnvwm",
+  "fields": {
+    "session_data": ".eJxVjMEOwiAQRP-FsyELCyIevfcbyG4BqRpISnsy_rtt0oPOcd6beYtA61LC2tMcpiiuQonTb8c0PlPdQXxQvTc5trrME8tdkQftcmgxvW6H-3dQqJdt7cHwFpeYgZVS2jBq6w0lr3S0pB1mezacAS4RWUNSHihnx4jAFsXnC-HLN6M:1vXihS:XfvUOIO9zSDZWK196D7_but9T7tXB9gU7qBKgfACyyU",
+    "expire_date": "2026-01-05T16:23:58.821Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "yk5q21f1bp19brkjfozvye428crhm3di",
+  "fields": {
+    "session_data": ".eJxVjMEOwiAQRP-FsyELCyIevfcbyG4BqRpISnsy_rtt0oPOcd6beYtA61LC2tMcpiiuQonTb8c0PlPdQXxQvTc5trrME8tdkQftcmgxvW6H-3dQqJdt7cHwFpeYgZVS2jBq6w0lr3S0pB1mezacAS4RWUNSHihnx4jAFsXnC-HLN6M:1vXZ8z:sAnOduVlAaWKVqwLMISHhFHELkNQk7ITLVkNrifHnY4",
+    "expire_date": "2026-01-05T06:11:45.298Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "ywpxxuzfkpgoegtw762dv06r0vh1mwz3",
+  "fields": {
+    "session_data": ".eJxVjMEOwiAQRP-FsyELCyIevfcbyG4BqRpISnsy_rtt0oPOcd6beYtA61LC2tMcpiiuQonTb8c0PlPdQXxQvTc5trrME8tdkQftcmgxvW6H-3dQqJdt7cHwFpeYgZVS2jBq6w0lr3S0pB1mezacAS4RWUNSHihnx4jAFsXnC-HLN6M:1vRMAc:2tGkoWVryqXic4ds1S2Bjn9jFtzPEgJn3xrplqzB4GU",
+    "expire_date": "2025-12-19T03:07:46.046Z"
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-12-05T03:38:14.046Z",
+    "updated_at": "2025-12-05T03:38:14.046Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-12-05T03:38:14.046Z",
+    "updated_at": "2025-12-05T03:38:14.046Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-12-05T03:38:14.085Z",
+    "updated_at": "2025-12-05T03:38:14.085Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-12-05T03:38:14.097Z",
+    "updated_at": "2025-12-05T03:38:14.097Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 5,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.833Z",
+    "updated_at": "2025-12-23T17:08:15.968Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 6,
+  "fields": {
+    "created_at": "2025-12-05T04:24:39.919Z",
+    "updated_at": "2025-12-05T04:24:39.919Z",
+    "name": "1",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 7,
+  "fields": {
+    "created_at": "2025-12-05T04:24:39.925Z",
+    "updated_at": "2025-12-05T04:24:39.925Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 8,
+  "fields": {
+    "created_at": "2025-12-05T04:24:39.954Z",
+    "updated_at": "2025-12-23T11:40:34.366Z",
+    "name": "1",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 9,
+  "fields": {
+    "created_at": "2025-12-05T04:24:39.973Z",
+    "updated_at": "2025-12-05T04:24:39.973Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 10,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.018Z",
+    "updated_at": "2025-12-05T04:24:40.018Z",
+    "name": " 2880 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 11,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.075Z",
+    "updated_at": "2025-12-05T04:24:40.075Z",
+    "name": "24",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 12,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.083Z",
+    "updated_at": "2025-12-05T04:24:40.083Z",
+    "name": "432 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 13,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.114Z",
+    "updated_at": "2025-12-05T04:24:40.114Z",
+    "name": " 1 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 14,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.130Z",
+    "updated_at": "2025-12-05T04:24:40.130Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 15,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.140Z",
+    "updated_at": "2025-12-05T04:24:40.140Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 16,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.175Z",
+    "updated_at": "2025-12-05T04:24:40.175Z",
+    "name": " 6 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 17,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.218Z",
+    "updated_at": "2025-12-05T04:24:40.218Z",
+    "name": " 6*20*24",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 18,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.272Z",
+    "updated_at": "2025-12-05T04:24:40.272Z",
+    "name": "50",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 19,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.288Z",
+    "updated_at": "2025-12-05T04:24:40.288Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 20,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.305Z",
+    "updated_at": "2025-12-05T04:24:40.305Z",
+    "name": " 1.5 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 21,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.322Z",
+    "updated_at": "2025-12-05T04:24:40.322Z",
+    "name": " 1.5  ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 22,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.341Z",
+    "updated_at": "2025-12-05T04:24:40.341Z",
+    "name": " 24 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 23,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.366Z",
+    "updated_at": "2025-12-05T04:24:40.366Z",
+    "name": " - 475",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 24,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.373Z",
+    "updated_at": "2025-12-05T04:24:40.373Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 25,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.420Z",
+    "updated_at": "2025-12-05T04:24:40.420Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 26,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.564Z",
+    "updated_at": "2025-12-05T04:24:40.564Z",
+    "name": " 1000 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 27,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.585Z",
+    "updated_at": "2025-12-05T04:24:40.585Z",
+    "name": " 1 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 28,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.667Z",
+    "updated_at": "2025-12-05T04:24:40.667Z",
+    "name": " 1.790 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 29,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.695Z",
+    "updated_at": "2025-12-05T04:24:40.695Z",
+    "name": " 2.6 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 30,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.695Z",
+    "updated_at": "2025-12-05T04:24:40.695Z",
+    "name": "2.6 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 31,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.749Z",
+    "updated_at": "2025-12-05T04:24:40.749Z",
+    "name": "10*50",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 32,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.763Z",
+    "updated_at": "2025-12-05T04:24:40.763Z",
+    "name": "4*50",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 33,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.780Z",
+    "updated_at": "2025-12-05T04:24:40.780Z",
+    "name": " 65 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 34,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.799Z",
+    "updated_at": "2025-12-05T04:24:40.799Z",
+    "name": "6*3.5 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 35,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.869Z",
+    "updated_at": "2025-12-05T04:24:40.869Z",
+    "name": " 25",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 36,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.899Z",
+    "updated_at": "2025-12-05T04:24:40.899Z",
+    "name": " 50",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 37,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.943Z",
+    "updated_at": "2025-12-05T04:24:40.943Z",
+    "name": "2*10",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 38,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.966Z",
+    "updated_at": "2025-12-05T04:24:40.966Z",
+    "name": "4*3",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 39,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.035Z",
+    "updated_at": "2025-12-05T04:24:41.035Z",
+    "name": " 5 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 40,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.064Z",
+    "updated_at": "2025-12-05T04:24:41.064Z",
+    "name": " 100",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 41,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.078Z",
+    "updated_at": "2025-12-05T04:24:41.078Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 42,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.121Z",
+    "updated_at": "2025-12-05T04:24:41.121Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 43,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.148Z",
+    "updated_at": "2025-12-05T04:24:41.148Z",
+    "name": " 200 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 44,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.154Z",
+    "updated_at": "2025-12-05T04:24:41.154Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 45,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.170Z",
+    "updated_at": "2025-12-05T04:24:41.171Z",
+    "name": " 250- ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 46,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.195Z",
+    "updated_at": "2025-12-05T04:24:41.195Z",
+    "name": " 170 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 47,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.251Z",
+    "updated_at": "2025-12-05T04:24:41.251Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 48,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.295Z",
+    "updated_at": "2025-12-05T04:24:41.295Z",
+    "name": " ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 49,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.306Z",
+    "updated_at": "2025-12-05T04:24:41.306Z",
+    "name": " 20 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 50,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.327Z",
+    "updated_at": "2025-12-05T04:24:41.327Z",
+    "name": "12",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 51,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.353Z",
+    "updated_at": "2025-12-05T04:24:41.353Z",
+    "name": "1000 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 52,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.570Z",
+    "updated_at": "2025-12-05T04:24:41.570Z",
+    "name": " 5 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 53,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.585Z",
+    "updated_at": "2025-12-05T04:24:41.585Z",
+    "name": " 3 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 54,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.635Z",
+    "updated_at": "2025-12-05T04:24:41.635Z",
+    "name": " 500 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 55,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.662Z",
+    "updated_at": "2025-12-05T04:24:41.662Z",
+    "name": "1000  - 100*10",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 56,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.675Z",
+    "updated_at": "2025-12-05T04:24:41.675Z",
+    "name": " -500- ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 57,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.706Z",
+    "updated_at": "2025-12-05T04:24:41.706Z",
+    "name": " 15 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 58,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.733Z",
+    "updated_at": "2025-12-05T04:24:41.733Z",
+    "name": "3 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 59,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.829Z",
+    "updated_at": "2025-12-05T04:24:41.829Z",
+    "name": " 16.8 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 60,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.910Z",
+    "updated_at": "2025-12-05T04:24:41.910Z",
+    "name": " 9 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 61,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.945Z",
+    "updated_at": "2025-12-05T04:24:41.945Z",
+    "name": " 24 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 62,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.966Z",
+    "updated_at": "2025-12-05T04:24:41.966Z",
+    "name": " 25 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 63,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.164Z",
+    "updated_at": "2025-12-05T04:24:42.164Z",
+    "name": " 400 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 64,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.180Z",
+    "updated_at": "2025-12-05T04:24:42.180Z",
+    "name": " 100 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 65,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.202Z",
+    "updated_at": "2025-12-05T04:24:42.202Z",
+    "name": " 1.5 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 66,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.285Z",
+    "updated_at": "2025-12-05T04:24:42.285Z",
+    "name": " 250  - 5*50",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 67,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.304Z",
+    "updated_at": "2025-12-05T04:24:42.304Z",
+    "name": " 50 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 68,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.328Z",
+    "updated_at": "2025-12-05T04:24:42.328Z",
+    "name": " 150 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 69,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.386Z",
+    "updated_at": "2025-12-05T04:24:42.386Z",
+    "name": " 400 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 70,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.584Z",
+    "updated_at": "2025-12-05T04:24:42.584Z",
+    "name": " 20 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 71,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.673Z",
+    "updated_at": "2025-12-05T04:24:42.673Z",
+    "name": " 40 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 72,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.724Z",
+    "updated_at": "2025-12-05T04:24:42.724Z",
+    "name": " 567",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 73,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.796Z",
+    "updated_at": "2025-12-05T04:24:42.796Z",
+    "name": " 10 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 74,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.875Z",
+    "updated_at": "2025-12-05T04:24:42.875Z",
+    "name": "12  * 30 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 75,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.915Z",
+    "updated_at": "2025-12-05T04:24:42.915Z",
+    "name": " 7.68 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 76,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.965Z",
+    "updated_at": "2025-12-05T04:24:42.965Z",
+    "name": " 5.4 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 77,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.985Z",
+    "updated_at": "2025-12-05T04:24:42.985Z",
+    "name": " 1800  * 6",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 78,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.001Z",
+    "updated_at": "2025-12-05T04:24:43.001Z",
+    "name": " 1.65  * 4",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 79,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.021Z",
+    "updated_at": "2025-12-05T04:24:43.021Z",
+    "name": " 2.3 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 80,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.056Z",
+    "updated_at": "2025-12-05T04:24:43.056Z",
+    "name": "",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 81,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.115Z",
+    "updated_at": "2025-12-05T04:24:43.115Z",
+    "name": " 7 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 82,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.278Z",
+    "updated_at": "2025-12-05T04:24:43.278Z",
+    "name": " 14.96 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 83,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.336Z",
+    "updated_at": "2025-12-05T04:24:43.336Z",
+    "name": " 425 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 84,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.392Z",
+    "updated_at": "2025-12-05T04:24:43.392Z",
+    "name": " 45 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 85,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.453Z",
+    "updated_at": "2025-12-05T04:24:43.453Z",
+    "name": " 17 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 86,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.550Z",
+    "updated_at": "2025-12-05T04:24:43.550Z",
+    "name": " 9.36 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 87,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.675Z",
+    "updated_at": "2025-12-05T04:24:43.675Z",
+    "name": " ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 88,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.756Z",
+    "updated_at": "2025-12-05T04:24:43.756Z",
+    "name": " 135 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 89,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.960Z",
+    "updated_at": "2025-12-05T04:24:43.960Z",
+    "name": " 18 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 90,
+  "fields": {
+    "created_at": "2025-12-05T04:24:44.077Z",
+    "updated_at": "2025-12-05T04:24:44.077Z",
+    "name": " 12 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.unit",
+  "pk": 91,
+  "fields": {
+    "created_at": "2025-12-05T04:24:44.113Z",
+    "updated_at": "2025-12-05T04:24:44.113Z",
+    "name": " 1 ",
+    "abbreviation": ""
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-12-05T04:24:39.942Z",
+    "updated_at": "2025-12-06T17:27:02.160Z",
+    "sku": "PA-0314",
+    "name": " ",
+    "storage_unit": 6,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.1670",
+    "cost_per_ingredient_unit": "0.167000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 5,
+  "fields": {
+    "created_at": "2025-12-05T04:24:39.954Z",
+    "updated_at": "2025-12-06T17:27:00.970Z",
+    "sku": "sk-0197",
+    "name": "",
+    "storage_unit": 7,
+    "ingredient_unit": 8,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.9167",
+    "cost_per_ingredient_unit": "0.917000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 6,
+  "fields": {
+    "created_at": "2025-12-05T04:24:39.982Z",
+    "updated_at": "2025-12-08T07:07:24.377Z",
+    "sku": "sk-0292",
+    "name": " -  - 1.5 ",
+    "storage_unit": 9,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "12.0000",
+    "purchase_price_per_storage_unit": "8.9000",
+    "cost_per_ingredient_unit": "0.742000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 7,
+  "fields": {
+    "created_at": "2025-12-05T04:24:39.986Z",
+    "updated_at": "2025-12-08T07:07:33.098Z",
+    "sku": "sk-0293",
+    "name": " -  - 330 ",
+    "storage_unit": 9,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "24.0000",
+    "purchase_price_per_storage_unit": "10.0000",
+    "cost_per_ingredient_unit": "0.417000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 8,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.010Z",
+    "updated_at": "2025-12-06T17:27:00.995Z",
+    "sku": "PA-0298",
+    "name": " ",
+    "storage_unit": 7,
+    "ingredient_unit": 8,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.3667",
+    "cost_per_ingredient_unit": "0.367000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 9,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.027Z",
+    "updated_at": "2025-12-06T17:27:00.918Z",
+    "sku": "sk-0285",
+    "name": "-60-",
+    "storage_unit": 10,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "2880.0000",
+    "purchase_price_per_storage_unit": "123.0000",
+    "cost_per_ingredient_unit": "0.043000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 10,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.032Z",
+    "updated_at": "2025-12-06T17:27:00.057Z",
+    "sku": "Cl-0317",
+    "name": "  ( /   / ....)",
+    "storage_unit": 8,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "18.8312",
+    "cost_per_ingredient_unit": "18.831000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 11,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.057Z",
+    "updated_at": "2025-12-06T17:27:02.477Z",
+    "sku": "OF-0301",
+    "name": " ",
+    "storage_unit": 8,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "33.7344",
+    "cost_per_ingredient_unit": "33.734000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 12,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.064Z",
+    "updated_at": "2025-12-05T04:24:40.064Z",
+    "sku": "sk-0203",
+    "name": " ",
+    "storage_unit": 8,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 13,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.091Z",
+    "updated_at": "2025-12-11T12:22:39.702Z",
+    "sku": "sk-0299",
+    "name": " ",
+    "storage_unit": 11,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "24.0000",
+    "purchase_price_per_storage_unit": "22.0500",
+    "cost_per_ingredient_unit": "0.919000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 14,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.138Z",
+    "updated_at": "2025-12-11T08:55:31.302Z",
+    "sku": "sk-0346",
+    "name": "  ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "40.0000",
+    "cost_per_ingredient_unit": "0.040000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 15,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.140Z",
+    "updated_at": "2025-12-06T17:26:58.921Z",
+    "sku": "sk-0334",
+    "name": " ",
+    "storage_unit": 15,
+    "ingredient_unit": 15,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.1650",
+    "cost_per_ingredient_unit": "0.165000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 16,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.175Z",
+    "updated_at": "2025-12-06T17:26:58.489Z",
+    "sku": "sk-0302",
+    "name": "  ",
+    "storage_unit": 16,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "90.0000",
+    "cost_per_ingredient_unit": "0.090000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 17,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.201Z",
+    "updated_at": "2025-12-06T17:26:58.544Z",
+    "sku": "sk-0280",
+    "name": "  ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.8472",
+    "cost_per_ingredient_unit": "0.847000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 18,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.210Z",
+    "updated_at": "2025-12-05T04:24:40.210Z",
+    "sku": "sk-0206",
+    "name": "",
+    "storage_unit": 8,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 19,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.235Z",
+    "updated_at": "2025-12-08T07:08:47.733Z",
+    "sku": "sk-0303",
+    "name": "",
+    "storage_unit": 17,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "20.0000",
+    "purchase_price_per_storage_unit": "15.0000",
+    "cost_per_ingredient_unit": "0.750000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 20,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.245Z",
+    "updated_at": "2025-12-06T17:27:02.735Z",
+    "sku": "sk-0333",
+    "name": "  500 ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "15.4917",
+    "cost_per_ingredient_unit": "15.492000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 21,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.256Z",
+    "updated_at": "2025-12-06T17:26:58.788Z",
+    "sku": "PA-0321",
+    "name": " 40*50",
+    "storage_unit": 9,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "50.0000",
+    "purchase_price_per_storage_unit": "130.4300",
+    "cost_per_ingredient_unit": "2.609000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 22,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.265Z",
+    "updated_at": "2025-12-05T04:24:40.265Z",
+    "sku": "sk-0205",
+    "name": " ",
+    "storage_unit": 8,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 23,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.297Z",
+    "updated_at": "2025-12-06T17:26:59.495Z",
+    "sku": "sk-0344",
+    "name": " ",
+    "storage_unit": 18,
+    "ingredient_unit": 19,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "3.5000",
+    "cost_per_ingredient_unit": "3.500000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 24,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.306Z",
+    "updated_at": "2025-12-06T17:27:01.378Z",
+    "sku": "sk-0342",
+    "name": "    14 * 1.5 ",
+    "storage_unit": 20,
+    "ingredient_unit": 9,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "23.1500",
+    "cost_per_ingredient_unit": "23.150000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 25,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.340Z",
+    "updated_at": "2025-12-06T17:27:02.862Z",
+    "sku": "sk-0343",
+    "name": "    6 * 1.5 ",
+    "storage_unit": 21,
+    "ingredient_unit": 9,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "13.0400",
+    "cost_per_ingredient_unit": "13.040000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 26,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.357Z",
+    "updated_at": "2025-12-06T17:26:59.330Z",
+    "sku": "sk-0324",
+    "name": " ",
+    "storage_unit": 22,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "32.4700",
+    "cost_per_ingredient_unit": "32.470000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 27,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.375Z",
+    "updated_at": "2025-12-06T17:26:59.649Z",
+    "sku": "CL-0316",
+    "name": "   -475",
+    "storage_unit": 23,
+    "ingredient_unit": 24,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "107.2467",
+    "cost_per_ingredient_unit": "107.247000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 28,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.403Z",
+    "updated_at": "2025-12-06T17:27:01.762Z",
+    "sku": "CL-0300",
+    "name": " ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "7.0000",
+    "cost_per_ingredient_unit": "6.021000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 29,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.410Z",
+    "updated_at": "2025-12-11T13:35:32.760Z",
+    "sku": "sk-0345",
+    "name": "  ",
+    "storage_unit": 2,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "13.6667",
+    "cost_per_ingredient_unit": "0.014000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 30,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.428Z",
+    "updated_at": "2025-12-11T08:47:03.670Z",
+    "sku": "sk-0341",
+    "name": "    -35*25 - 500*6",
+    "storage_unit": 25,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "3000.0000",
+    "purchase_price_per_storage_unit": "340.9955",
+    "cost_per_ingredient_unit": "0.114000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 31,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.446Z",
+    "updated_at": "2025-12-06T17:27:01.412Z",
+    "sku": "sk-0349",
+    "name": "  ",
+    "storage_unit": 7,
+    "ingredient_unit": 15,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "10.0000",
+    "cost_per_ingredient_unit": "10.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 32,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.542Z",
+    "updated_at": "2025-12-06T17:26:59.562Z",
+    "sku": "sk-0348",
+    "name": " ",
+    "storage_unit": 7,
+    "ingredient_unit": 15,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "140.0900",
+    "cost_per_ingredient_unit": "140.090000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 33,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.555Z",
+    "updated_at": "2025-12-06T17:26:59.471Z",
+    "sku": "sk-0347",
+    "name": "",
+    "storage_unit": 7,
+    "ingredient_unit": 8,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "54.0880",
+    "cost_per_ingredient_unit": "54.088000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 34,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.580Z",
+    "updated_at": "2025-12-06T17:27:00.403Z",
+    "sku": "sk-0340",
+    "name": "",
+    "storage_unit": 26,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "10.0000",
+    "cost_per_ingredient_unit": "10.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 35,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.585Z",
+    "updated_at": "2025-12-06T17:27:02.754Z",
+    "sku": "sk-0339",
+    "name": "",
+    "storage_unit": 27,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.1538",
+    "cost_per_ingredient_unit": "0.154000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 36,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.609Z",
+    "updated_at": "2025-12-06T17:27:00.429Z",
+    "sku": "sk-0338",
+    "name": " ",
+    "storage_unit": 27,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.0322",
+    "cost_per_ingredient_unit": "0.032000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 37,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.619Z",
+    "updated_at": "2025-12-06T17:26:59.876Z",
+    "sku": "sk-0337",
+    "name": "",
+    "storage_unit": 27,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.0239",
+    "cost_per_ingredient_unit": "0.024000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 38,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.636Z",
+    "updated_at": "2025-12-06T17:26:59.850Z",
+    "sku": "sk-0336",
+    "name": " ",
+    "storage_unit": 27,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.0322",
+    "cost_per_ingredient_unit": "0.032000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 39,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.650Z",
+    "updated_at": "2025-12-06T17:26:59.425Z",
+    "sku": "sk-0335",
+    "name": "",
+    "storage_unit": 26,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "12.5593",
+    "cost_per_ingredient_unit": "0.013000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 40,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.653Z",
+    "updated_at": "2025-12-06T17:27:02.709Z",
+    "sku": "sk-0332",
+    "name": "  ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "130.0000",
+    "cost_per_ingredient_unit": "130.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 41,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.680Z",
+    "updated_at": "2025-12-06T17:26:59.829Z",
+    "sku": "sk-0331",
+    "name": " ",
+    "storage_unit": 28,
+    "ingredient_unit": 15,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "21.7143",
+    "cost_per_ingredient_unit": "21.714000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 42,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.711Z",
+    "updated_at": "2025-12-06T17:26:59.447Z",
+    "sku": "sk-0330",
+    "name": "   2.6",
+    "storage_unit": 29,
+    "ingredient_unit": 30,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "33.0000",
+    "cost_per_ingredient_unit": "33.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 43,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.722Z",
+    "updated_at": "2025-12-06T17:27:00.897Z",
+    "sku": "CL-0329",
+    "name": "  ",
+    "storage_unit": 7,
+    "ingredient_unit": 15,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "12.7156",
+    "cost_per_ingredient_unit": "12.716000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 44,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.730Z",
+    "updated_at": "2025-12-06T17:26:58.947Z",
+    "sku": "AS-0328",
+    "name": "  15 ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "167.8300",
+    "cost_per_ingredient_unit": "167.830000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 45,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.757Z",
+    "updated_at": "2025-12-06T17:27:01.300Z",
+    "sku": "PA-0327",
+    "name": "   02 10*50",
+    "storage_unit": 31,
+    "ingredient_unit": 15,
+    "storage_to_ingredient_factor": "50.0000",
+    "purchase_price_per_storage_unit": "153.0400",
+    "cost_per_ingredient_unit": "3.061000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 46,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.770Z",
+    "updated_at": "2025-12-06T17:27:01.946Z",
+    "sku": "PA-0326",
+    "name": "   011 4*50",
+    "storage_unit": 32,
+    "ingredient_unit": 15,
+    "storage_to_ingredient_factor": "50.0000",
+    "purchase_price_per_storage_unit": "153.0400",
+    "cost_per_ingredient_unit": "3.061000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 47,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.797Z",
+    "updated_at": "2025-12-06T17:27:02.647Z",
+    "sku": "PA-0325",
+    "name": "     CH004  65 *4 ",
+    "storage_unit": 33,
+    "ingredient_unit": 19,
+    "storage_to_ingredient_factor": "65.0000",
+    "purchase_price_per_storage_unit": "43.4800",
+    "cost_per_ingredient_unit": "0.669000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 48,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.821Z",
+    "updated_at": "2025-12-06T17:26:59.355Z",
+    "sku": "sk-0323",
+    "name": "   /    6*3.5 ",
+    "storage_unit": 34,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "21000.0000",
+    "purchase_price_per_storage_unit": "512.1337",
+    "cost_per_ingredient_unit": "0.024000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 49,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.833Z",
+    "updated_at": "2025-12-06T17:27:01.474Z",
+    "sku": "sk-0322",
+    "name": " ",
+    "storage_unit": 7,
+    "ingredient_unit": 15,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "1.2000",
+    "cost_per_ingredient_unit": "1.200000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 50,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.844Z",
+    "updated_at": "2025-12-06T17:26:58.760Z",
+    "sku": "sk-0320",
+    "name": "    60",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "47.6100",
+    "cost_per_ingredient_unit": "47.610000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 51,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.863Z",
+    "updated_at": "2025-12-06T17:27:02.671Z",
+    "sku": "sk-0319",
+    "name": "   500 ",
+    "storage_unit": 9,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "12.0000",
+    "purchase_price_per_storage_unit": "83.8245",
+    "cost_per_ingredient_unit": "6.985000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 52,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.869Z",
+    "updated_at": "2025-12-06T17:27:01.918Z",
+    "sku": "sk-0318",
+    "name": "  ",
+    "storage_unit": 7,
+    "ingredient_unit": 8,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "20.4000",
+    "cost_per_ingredient_unit": "20.400000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 53,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.891Z",
+    "updated_at": "2025-12-05T04:24:40.891Z",
+    "sku": "PA-0315",
+    "name": "    25",
+    "storage_unit": 35,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 54,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.916Z",
+    "updated_at": "2025-12-05T04:24:40.916Z",
+    "sku": "PA-0313",
+    "name": "drinking straws 6 m",
+    "storage_unit": 36,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "50.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 55,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.925Z",
+    "updated_at": "2025-12-05T04:24:40.925Z",
+    "sku": "sk-0312",
+    "name": "   312.5 ",
+    "storage_unit": 36,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "50.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 56,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.935Z",
+    "updated_at": "2025-12-06T17:27:00.804Z",
+    "sku": "PA-0311",
+    "name": "  8/9 ",
+    "storage_unit": 36,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "50.0000",
+    "purchase_price_per_storage_unit": "2.8260",
+    "cost_per_ingredient_unit": "0.057000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 57,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.951Z",
+    "updated_at": "2025-12-06T17:27:02.912Z",
+    "sku": "PA-0310",
+    "name": "  ",
+    "storage_unit": 37,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "10.0000",
+    "purchase_price_per_storage_unit": "2.1746",
+    "cost_per_ingredient_unit": "0.217000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 58,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.966Z",
+    "updated_at": "2025-12-05T04:24:40.966Z",
+    "sku": "PA-0309",
+    "name": "   ",
+    "storage_unit": 38,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "4.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 59,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.987Z",
+    "updated_at": "2025-12-06T17:27:00.946Z",
+    "sku": "sk-0308",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "34.1818",
+    "cost_per_ingredient_unit": "34.182000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 60,
+  "fields": {
+    "created_at": "2025-12-05T04:24:40.997Z",
+    "updated_at": "2025-12-06T17:27:02.399Z",
+    "sku": "sk-0307",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "30.4388",
+    "cost_per_ingredient_unit": "30.439000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 61,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.001Z",
+    "updated_at": "2025-12-06T17:27:01.343Z",
+    "sku": "sk-0306",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "35.8614",
+    "cost_per_ingredient_unit": "35.861000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 62,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.027Z",
+    "updated_at": "2025-12-08T07:09:01.783Z",
+    "sku": "sk-0305",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "10.0000",
+    "cost_per_ingredient_unit": "10.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 63,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.035Z",
+    "updated_at": "2025-12-08T07:08:21.244Z",
+    "sku": "sk-0304",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "20.0000",
+    "cost_per_ingredient_unit": "20.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 64,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.055Z",
+    "updated_at": "2025-12-08T07:08:35.911Z",
+    "sku": "sk-0297",
+    "name": "   5 ",
+    "storage_unit": 39,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "65.0000",
+    "cost_per_ingredient_unit": "0.065000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 65,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.084Z",
+    "updated_at": "2025-12-06T17:27:02.446Z",
+    "sku": "sk-0296",
+    "name": "   (L)",
+    "storage_unit": 40,
+    "ingredient_unit": 41,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "26.0900",
+    "cost_per_ingredient_unit": "26.090000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 66,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.099Z",
+    "updated_at": "2025-12-06T17:26:59.042Z",
+    "sku": "sk-0295",
+    "name": "   (M)",
+    "storage_unit": 40,
+    "ingredient_unit": 41,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "22.2613",
+    "cost_per_ingredient_unit": "22.261000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 67,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.105Z",
+    "updated_at": "2025-12-06T17:27:00.294Z",
+    "sku": "sk-0294",
+    "name": "   (S)",
+    "storage_unit": 40,
+    "ingredient_unit": 41,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "13.9100",
+    "cost_per_ingredient_unit": "13.910000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 68,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.139Z",
+    "updated_at": "2025-12-06T17:27:01.736Z",
+    "sku": "sk-0291",
+    "name": "-30-",
+    "storage_unit": 42,
+    "ingredient_unit": 42,
+    "storage_to_ingredient_factor": "30.0000",
+    "purchase_price_per_storage_unit": "2.0938",
+    "cost_per_ingredient_unit": "0.070000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 69,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.162Z",
+    "updated_at": "2025-12-06T17:27:02.581Z",
+    "sku": "sk-0290",
+    "name": " ",
+    "storage_unit": 43,
+    "ingredient_unit": 44,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "12.3209",
+    "cost_per_ingredient_unit": "12.321000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 70,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.187Z",
+    "updated_at": "2025-12-06T17:26:58.936Z",
+    "sku": "sk-0289",
+    "name": "",
+    "storage_unit": 45,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "250.0000",
+    "purchase_price_per_storage_unit": "44.3738",
+    "cost_per_ingredient_unit": "0.177000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 71,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.202Z",
+    "updated_at": "2025-12-08T07:07:01.960Z",
+    "sku": "sk-0288",
+    "name": "",
+    "storage_unit": 46,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "170.0000",
+    "purchase_price_per_storage_unit": "2.0000",
+    "cost_per_ingredient_unit": "0.012000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 72,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.237Z",
+    "updated_at": "2025-12-05T04:24:41.237Z",
+    "sku": "sk-0287",
+    "name": " ",
+    "storage_unit": 15,
+    "ingredient_unit": 15,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 73,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.265Z",
+    "updated_at": "2025-12-06T17:27:00.621Z",
+    "sku": "sk-0286",
+    "name": " (- )",
+    "storage_unit": 47,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "5.0000",
+    "cost_per_ingredient_unit": "5.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 74,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.272Z",
+    "updated_at": "2025-12-06T17:26:58.829Z",
+    "sku": "sk-0283",
+    "name": "",
+    "storage_unit": 7,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "14.7575",
+    "cost_per_ingredient_unit": "14.757000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 75,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.299Z",
+    "updated_at": "2025-12-06T17:27:02.972Z",
+    "sku": "Pa-0282",
+    "name": "  10-100",
+    "storage_unit": 13,
+    "ingredient_unit": 48,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "11.3033",
+    "cost_per_ingredient_unit": "11.303000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 76,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.319Z",
+    "updated_at": "2025-12-05T04:24:41.319Z",
+    "sku": "sk-0281",
+    "name": "   20",
+    "storage_unit": 49,
+    "ingredient_unit": 48,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 77,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.344Z",
+    "updated_at": "2025-12-06T17:26:59.766Z",
+    "sku": "sk-0278",
+    "name": "  9 12*100",
+    "storage_unit": 50,
+    "ingredient_unit": 41,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "55.6500",
+    "cost_per_ingredient_unit": "0.557000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 78,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.362Z",
+    "updated_at": "2025-12-06T17:26:58.899Z",
+    "sku": "sk-0277",
+    "name": "    28*36",
+    "storage_unit": 51,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "43.4800",
+    "cost_per_ingredient_unit": "43.480000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 79,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.369Z",
+    "updated_at": "2025-12-06T17:26:58.819Z",
+    "sku": "sk-0276",
+    "name": "  ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "1.3900",
+    "cost_per_ingredient_unit": "1.390000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 80,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.382Z",
+    "updated_at": "2025-12-06T17:27:02.411Z",
+    "sku": "sk-0275",
+    "name": " ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "1.3338",
+    "cost_per_ingredient_unit": "1.334000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 81,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.400Z",
+    "updated_at": "2025-12-06T17:26:59.378Z",
+    "sku": "sk-0274",
+    "name": "  ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "1.3776",
+    "cost_per_ingredient_unit": "1.378000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 82,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.407Z",
+    "updated_at": "2025-12-06T17:27:00.211Z",
+    "sku": "sk-0273",
+    "name": " ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "1.3776",
+    "cost_per_ingredient_unit": "1.378000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 83,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.419Z",
+    "updated_at": "2025-12-06T17:27:02.371Z",
+    "sku": "sk-0272",
+    "name": " ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "1.3529",
+    "cost_per_ingredient_unit": "1.353000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 84,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.429Z",
+    "updated_at": "2025-12-06T17:27:00.874Z",
+    "sku": "sk-0271",
+    "name": " ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "1.3900",
+    "cost_per_ingredient_unit": "1.390000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 85,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.432Z",
+    "updated_at": "2025-12-06T17:27:02.628Z",
+    "sku": "Pa-35",
+    "name": "      (10)  (M) 16*32*33",
+    "storage_unit": 13,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "10.0000",
+    "cost_per_ingredient_unit": "0.001000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 86,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.455Z",
+    "updated_at": "2025-12-05T04:24:41.455Z",
+    "sku": "sk-0269",
+    "name": "  ",
+    "storage_unit": 2,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 87,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.464Z",
+    "updated_at": "2025-12-05T04:24:41.464Z",
+    "sku": "sk-0268",
+    "name": " ",
+    "storage_unit": 2,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 88,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.473Z",
+    "updated_at": "2025-12-05T04:24:41.473Z",
+    "sku": "sk-0267",
+    "name": "  ",
+    "storage_unit": 2,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 89,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.480Z",
+    "updated_at": "2025-12-05T04:24:41.480Z",
+    "sku": "sk-0266",
+    "name": " ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 90,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.495Z",
+    "updated_at": "2025-12-05T04:24:41.495Z",
+    "sku": "sk-0265",
+    "name": "  ",
+    "storage_unit": 2,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 91,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.505Z",
+    "updated_at": "2025-12-05T04:24:41.505Z",
+    "sku": "sk-0264",
+    "name": "  ",
+    "storage_unit": 2,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 92,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.516Z",
+    "updated_at": "2025-12-05T04:24:41.516Z",
+    "sku": "sk-0263",
+    "name": "  ",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": null,
+    "cost_per_ingredient_unit": null
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 93,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.528Z",
+    "updated_at": "2025-12-06T17:27:01.072Z",
+    "sku": "Raw-133",
+    "name": " ",
+    "storage_unit": 4,
+    "ingredient_unit": 3,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "0.8292",
+    "cost_per_ingredient_unit": "0.001000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 94,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.538Z",
+    "updated_at": "2025-12-06T17:27:02.019Z",
+    "sku": "Raw-106",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "17.4250",
+    "cost_per_ingredient_unit": "0.017000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 95,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.552Z",
+    "updated_at": "2025-12-06T17:26:59.193Z",
+    "sku": "Raw-107",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "44.9328",
+    "cost_per_ingredient_unit": "0.045000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 96,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.562Z",
+    "updated_at": "2025-12-08T07:06:51.519Z",
+    "sku": "Raw-108",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "47.0000",
+    "cost_per_ingredient_unit": "0.047000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 97,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.578Z",
+    "updated_at": "2025-12-08T07:06:44.528Z",
+    "sku": "Raw-109",
+    "name": "  ",
+    "storage_unit": 52,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "5000.0000",
+    "purchase_price_per_storage_unit": "70.0000",
+    "cost_per_ingredient_unit": "0.014000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 98,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.602Z",
+    "updated_at": "2025-12-06T17:27:00.602Z",
+    "sku": "Raw-110",
+    "name": " ",
+    "storage_unit": 53,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "3000.0000",
+    "purchase_price_per_storage_unit": "95.6249",
+    "cost_per_ingredient_unit": "0.032000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 99,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.613Z",
+    "updated_at": "2025-12-06T17:26:58.959Z",
+    "sku": "Raw-111",
+    "name": "  ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "30.0000",
+    "cost_per_ingredient_unit": "0.030000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 100,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.626Z",
+    "updated_at": "2025-12-06T17:27:01.584Z",
+    "sku": "Raw-112",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "9.6833",
+    "cost_per_ingredient_unit": "0.010000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 101,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.653Z",
+    "updated_at": "2025-12-08T07:06:36.424Z",
+    "sku": "Raw-114",
+    "name": "  480 ",
+    "storage_unit": 54,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "500.0000",
+    "purchase_price_per_storage_unit": "21.0000",
+    "cost_per_ingredient_unit": "0.042000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 102,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.670Z",
+    "updated_at": "2025-12-08T07:06:26.092Z",
+    "sku": "Raw-115",
+    "name": " - ",
+    "storage_unit": 55,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "90.0000",
+    "cost_per_ingredient_unit": "0.090000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 103,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.688Z",
+    "updated_at": "2025-12-06T17:26:59.061Z",
+    "sku": "Raw-116",
+    "name": " ",
+    "storage_unit": 56,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "500.0000",
+    "purchase_price_per_storage_unit": "52.0000",
+    "cost_per_ingredient_unit": "0.104000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 104,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.715Z",
+    "updated_at": "2025-12-06T17:26:58.689Z",
+    "sku": "Raw-117",
+    "name": " ",
+    "storage_unit": 57,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "15000.0000",
+    "purchase_price_per_storage_unit": "84.6269",
+    "cost_per_ingredient_unit": "0.006000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 105,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.744Z",
+    "updated_at": "2025-12-06T17:26:59.675Z",
+    "sku": "Raw-118",
+    "name": "",
+    "storage_unit": 58,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "21.6727",
+    "cost_per_ingredient_unit": "0.022000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 106,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.770Z",
+    "updated_at": "2025-12-08T07:06:11.894Z",
+    "sku": "Raw-119",
+    "name": "",
+    "storage_unit": 2,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "20.0000",
+    "cost_per_ingredient_unit": "0.020000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 107,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.781Z",
+    "updated_at": "2025-12-08T07:05:41.049Z",
+    "sku": "Raw-120",
+    "name": "  ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "20.0000",
+    "cost_per_ingredient_unit": "0.020000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 108,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.906Z",
+    "updated_at": "2025-12-06T17:27:01.530Z",
+    "sku": "Raw-121",
+    "name": " ",
+    "storage_unit": 59,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "16800.0000",
+    "purchase_price_per_storage_unit": "52.9167",
+    "cost_per_ingredient_unit": "0.003000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 109,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.910Z",
+    "updated_at": "2025-12-06T17:27:00.107Z",
+    "sku": "Raw-122",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "7.5604",
+    "cost_per_ingredient_unit": "0.008000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 110,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.942Z",
+    "updated_at": "2025-12-06T17:26:59.261Z",
+    "sku": "Raw-123",
+    "name": "   12*750 ",
+    "storage_unit": 60,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "9000.0000",
+    "purchase_price_per_storage_unit": "78.2450",
+    "cost_per_ingredient_unit": "0.009000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 111,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.945Z",
+    "updated_at": "2025-12-06T17:27:01.047Z",
+    "sku": "Raw-124",
+    "name": "",
+    "storage_unit": 61,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "24.0000",
+    "purchase_price_per_storage_unit": "13.1252",
+    "cost_per_ingredient_unit": "0.547000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 112,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.974Z",
+    "updated_at": "2025-12-06T17:27:01.996Z",
+    "sku": "Raw-125",
+    "name": "",
+    "storage_unit": 62,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "25000.0000",
+    "purchase_price_per_storage_unit": "52.5000",
+    "cost_per_ingredient_unit": "0.002000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 113,
+  "fields": {
+    "created_at": "2025-12-05T04:24:41.991Z",
+    "updated_at": "2025-12-08T07:05:33.839Z",
+    "sku": "Raw-126",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "1.0000",
+    "cost_per_ingredient_unit": "0.001000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 114,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.001Z",
+    "updated_at": "2025-12-06T17:27:02.189Z",
+    "sku": "Raw-128",
+    "name": " ",
+    "storage_unit": 53,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "3000.0000",
+    "purchase_price_per_storage_unit": "81.7938",
+    "cost_per_ingredient_unit": "0.027000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 115,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.011Z",
+    "updated_at": "2025-12-06T17:27:00.827Z",
+    "sku": "Raw-129",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "91.8000",
+    "cost_per_ingredient_unit": "0.092000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 116,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.172Z",
+    "updated_at": "2025-12-06T17:27:02.085Z",
+    "sku": "Pa-001",
+    "name": "    10*10 - 400 ",
+    "storage_unit": 63,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "40.0000",
+    "cost_per_ingredient_unit": "0.400000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 117,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.181Z",
+    "updated_at": "2025-12-08T07:05:27.502Z",
+    "sku": "Pa-002",
+    "name": "   3",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "1.0000",
+    "cost_per_ingredient_unit": "0.010000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 118,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.210Z",
+    "updated_at": "2025-12-08T07:05:19.789Z",
+    "sku": "Pa-003",
+    "name": "   6",
+    "storage_unit": 65,
+    "ingredient_unit": 2,
+    "storage_to_ingredient_factor": "1500.0000",
+    "purchase_price_per_storage_unit": "1.0000",
+    "cost_per_ingredient_unit": "0.001000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 119,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.218Z",
+    "updated_at": "2025-12-08T07:05:11.918Z",
+    "sku": "Pa-004",
+    "name": "  ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "1.0000",
+    "cost_per_ingredient_unit": "0.001000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 120,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.218Z",
+    "updated_at": "2025-12-06T17:27:02.501Z",
+    "sku": "Pa-005",
+    "name": " - ",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "13.3661",
+    "cost_per_ingredient_unit": "13.366000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 121,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.238Z",
+    "updated_at": "2025-12-08T07:05:04.405Z",
+    "sku": "Pa-006",
+    "name": "  ",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "50.0000",
+    "cost_per_ingredient_unit": "50.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 122,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.251Z",
+    "updated_at": "2025-12-08T07:04:31.498Z",
+    "sku": "Pa-007",
+    "name": "   ",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "98.0000",
+    "cost_per_ingredient_unit": "0.980000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 123,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.251Z",
+    "updated_at": "2025-12-06T17:26:58.620Z",
+    "sku": "Pa-008",
+    "name": "   3 - 4 ",
+    "storage_unit": 13,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "7.8274",
+    "cost_per_ingredient_unit": "0.008000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 124,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.267Z",
+    "updated_at": "2025-12-06T17:27:00.183Z",
+    "sku": "Pa-009",
+    "name": "    2",
+    "storage_unit": 13,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "7.8267",
+    "cost_per_ingredient_unit": "0.008000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 125,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.277Z",
+    "updated_at": "2025-12-08T07:04:24.019Z",
+    "sku": "Pa-010",
+    "name": " ",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "25.0000",
+    "cost_per_ingredient_unit": "0.250000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 126,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.296Z",
+    "updated_at": "2025-12-06T17:26:59.530Z",
+    "sku": "Pa-011",
+    "name": "    250  - 5*50 -  - -- ",
+    "storage_unit": 66,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "250.0000",
+    "purchase_price_per_storage_unit": "100.0000",
+    "cost_per_ingredient_unit": "0.400000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 127,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.312Z",
+    "updated_at": "2025-12-06T17:26:58.968Z",
+    "sku": "Pa-012",
+    "name": "  33*33 -  50",
+    "storage_unit": 67,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "50.0000",
+    "purchase_price_per_storage_unit": "37.5936",
+    "cost_per_ingredient_unit": "0.752000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 128,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.320Z",
+    "updated_at": "2025-12-06T17:26:59.141Z",
+    "sku": "Pa-013",
+    "name": "   24*24 -  50 ",
+    "storage_unit": 67,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "50.0000",
+    "purchase_price_per_storage_unit": "23.2100",
+    "cost_per_ingredient_unit": "0.464000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 129,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.328Z",
+    "updated_at": "2025-12-06T17:27:01.773Z",
+    "sku": "Pa-014",
+    "name": "   29*29 -  50 ",
+    "storage_unit": 67,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "50.0000",
+    "purchase_price_per_storage_unit": "32.3164",
+    "cost_per_ingredient_unit": "0.646000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 130,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.347Z",
+    "updated_at": "2025-12-06T17:26:59.169Z",
+    "sku": "Pa-015",
+    "name": "     24  3*50 -  ",
+    "storage_unit": 68,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "150.0000",
+    "purchase_price_per_storage_unit": "53.3188",
+    "cost_per_ingredient_unit": "0.355000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 131,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.356Z",
+    "updated_at": "2025-12-08T07:04:15.620Z",
+    "sku": "Pa-016",
+    "name": "  1.5   10*100",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "108.5000",
+    "cost_per_ingredient_unit": "1.085000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 132,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.362Z",
+    "updated_at": "2025-12-06T17:27:01.885Z",
+    "sku": "Pa-017",
+    "name": "  2.5  50   - 20*50",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "0.3335",
+    "cost_per_ingredient_unit": "0.003000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 133,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.369Z",
+    "updated_at": "2025-12-06T17:27:00.652Z",
+    "sku": "Pa-018",
+    "name": "  4  100   - 20*50",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "1.8600",
+    "cost_per_ingredient_unit": "0.019000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 134,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.394Z",
+    "updated_at": "2025-12-08T07:09:59.518Z",
+    "sku": "Pa-019",
+    "name": "    50 * 8",
+    "storage_unit": 69,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.6750",
+    "cost_per_ingredient_unit": "0.675000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 135,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.396Z",
+    "updated_at": "2025-12-06T17:26:59.219Z",
+    "sku": "Pa-020",
+    "name": "     16  - 3*50 -   -  -",
+    "storage_unit": 68,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "150.0000",
+    "purchase_price_per_storage_unit": "39.7956",
+    "cost_per_ingredient_unit": "0.265000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 136,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.413Z",
+    "updated_at": "2025-12-08T07:04:07.515Z",
+    "sku": "Pa-021",
+    "name": "    2100 - 4*50 ML",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "1.0000",
+    "cost_per_ingredient_unit": "0.010000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 137,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.421Z",
+    "updated_at": "2025-12-08T07:03:57.164Z",
+    "sku": "Pa-022",
+    "name": "    900 - 4*50 ML",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "1.0000",
+    "cost_per_ingredient_unit": "0.010000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 138,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.434Z",
+    "updated_at": "2025-12-06T17:26:58.596Z",
+    "sku": "Pa-023",
+    "name": "  2  25*20 - cc*300",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "156.5200",
+    "cost_per_ingredient_unit": "1.565000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 139,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.443Z",
+    "updated_at": "2025-12-08T07:03:50.672Z",
+    "sku": "Pa-024",
+    "name": "  3  25*20 - cc*200",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "1.0000",
+    "cost_per_ingredient_unit": "0.010000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 140,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.451Z",
+    "updated_at": "2025-12-08T07:03:44.732Z",
+    "sku": "Pa-025",
+    "name": "  4  25*20 - cc*100",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "1.0000",
+    "cost_per_ingredient_unit": "0.010000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 141,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.460Z",
+    "updated_at": "2025-12-06T17:27:02.944Z",
+    "sku": "Pa-026",
+    "name": "",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "33.0450",
+    "cost_per_ingredient_unit": "33.045000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 142,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.469Z",
+    "updated_at": "2025-12-06T17:27:02.231Z",
+    "sku": "Pa-027",
+    "name": " ",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.0860",
+    "cost_per_ingredient_unit": "0.086000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 143,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.470Z",
+    "updated_at": "2025-12-06T17:27:02.067Z",
+    "sku": "Pa-028",
+    "name": " ",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.0435",
+    "cost_per_ingredient_unit": "0.043000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 144,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.486Z",
+    "updated_at": "2025-12-06T17:27:02.289Z",
+    "sku": "Pa-029",
+    "name": "     13*17 - 10*100",
+    "storage_unit": 55,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "113.8455",
+    "cost_per_ingredient_unit": "0.114000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 145,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.502Z",
+    "updated_at": "2025-12-08T07:03:07.464Z",
+    "sku": "Pa-030",
+    "name": "     8 BR- ",
+    "storage_unit": 13,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "1.0000",
+    "cost_per_ingredient_unit": "1.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 146,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.507Z",
+    "updated_at": "2025-12-06T17:27:00.322Z",
+    "sku": "Pa-031",
+    "name": "   L - 18*32*35 -  10 ",
+    "storage_unit": 13,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "10.0000",
+    "cost_per_ingredient_unit": "0.010000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 147,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.521Z",
+    "updated_at": "2025-12-06T17:26:59.306Z",
+    "sku": "Pa-032",
+    "name": "   S - 14*26*31 -  10 ",
+    "storage_unit": 13,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "10.0000",
+    "cost_per_ingredient_unit": "0.010000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 148,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.533Z",
+    "updated_at": "2025-12-08T07:02:08.551Z",
+    "sku": "Pa-033",
+    "name": "     14 -31*26  10 ",
+    "storage_unit": 13,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "10.0000",
+    "cost_per_ingredient_unit": "0.010000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 149,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.535Z",
+    "updated_at": "2025-12-08T07:01:53.102Z",
+    "sku": "Pa-034",
+    "name": " 6  50*100",
+    "storage_unit": 64,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "81.5000",
+    "cost_per_ingredient_unit": "0.815000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 150,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.551Z",
+    "updated_at": "2025-12-06T17:27:01.446Z",
+    "sku": "cl-001",
+    "name": " ",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "9.5660",
+    "cost_per_ingredient_unit": "9.566000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 151,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.560Z",
+    "updated_at": "2025-12-06T17:27:00.576Z",
+    "sku": "cl-002",
+    "name": " ",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "61.7817",
+    "cost_per_ingredient_unit": "61.782000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 152,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.576Z",
+    "updated_at": "2025-12-06T17:27:00.849Z",
+    "sku": "cl-003",
+    "name": " ",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "1.5652",
+    "cost_per_ingredient_unit": "1.565000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 153,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.593Z",
+    "updated_at": "2025-12-06T17:26:59.037Z",
+    "sku": "cl-004",
+    "name": "    20 ",
+    "storage_unit": 70,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "20000.0000",
+    "purchase_price_per_storage_unit": "95.0000",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 154,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.602Z",
+    "updated_at": "2025-12-08T07:01:45.642Z",
+    "sku": "cl-005",
+    "name": " ",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "7.0000",
+    "cost_per_ingredient_unit": "7.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 155,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.604Z",
+    "updated_at": "2025-12-06T17:27:01.324Z",
+    "sku": "cl-006",
+    "name": "  350 * 6",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "10.6356",
+    "cost_per_ingredient_unit": "10.636000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 156,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.628Z",
+    "updated_at": "2025-12-08T07:01:38.053Z",
+    "sku": "cl-007",
+    "name": "  100*10",
+    "storage_unit": 19,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "100.0000",
+    "purchase_price_per_storage_unit": "20.0000",
+    "cost_per_ingredient_unit": "0.200000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 157,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.637Z",
+    "updated_at": "2025-12-06T17:27:01.092Z",
+    "sku": "cl-008",
+    "name": "   ",
+    "storage_unit": 70,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "20000.0000",
+    "purchase_price_per_storage_unit": "23.3333",
+    "cost_per_ingredient_unit": "0.001000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 158,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.641Z",
+    "updated_at": "2025-12-06T17:26:59.095Z",
+    "sku": "cl-009",
+    "name": " ",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "14.7810",
+    "cost_per_ingredient_unit": "14.781000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 159,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.674Z",
+    "updated_at": "2025-12-06T17:27:01.863Z",
+    "sku": "cl-010",
+    "name": " ",
+    "storage_unit": 71,
+    "ingredient_unit": 25,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "3.9308",
+    "cost_per_ingredient_unit": "3.931000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 160,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.690Z",
+    "updated_at": "2025-12-08T07:01:18.585Z",
+    "sku": "cl-011",
+    "name": "   20 ",
+    "storage_unit": 70,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "20000.0000",
+    "purchase_price_per_storage_unit": "75.0000",
+    "cost_per_ingredient_unit": "0.004000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 161,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.699Z",
+    "updated_at": "2025-12-11T08:46:46.687Z",
+    "sku": "cl-012",
+    "name": "   35*25- 4*500",
+    "storage_unit": 7,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.2283",
+    "cost_per_ingredient_unit": "0.228000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 162,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.708Z",
+    "updated_at": "2025-12-06T17:27:01.270Z",
+    "sku": "Raw-001",
+    "name": "   450 ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "34.7577",
+    "cost_per_ingredient_unit": "0.035000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 163,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.733Z",
+    "updated_at": "2025-12-06T17:26:59.517Z",
+    "sku": "Raw-002",
+    "name": "    -567  - ",
+    "storage_unit": 72,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "567.0000",
+    "purchase_price_per_storage_unit": "7.7125",
+    "cost_per_ingredient_unit": "0.014000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 164,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.743Z",
+    "updated_at": "2025-12-06T17:26:59.001Z",
+    "sku": "Raw-003",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "4.7890",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 165,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.753Z",
+    "updated_at": "2025-12-06T17:27:00.002Z",
+    "sku": "Raw-004",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "6.9933",
+    "cost_per_ingredient_unit": "0.007000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 166,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.762Z",
+    "updated_at": "2025-12-11T12:29:06.067Z",
+    "sku": "Raw-005",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "150.0000",
+    "cost_per_ingredient_unit": "0.150000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 167,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.766Z",
+    "updated_at": "2025-12-06T17:27:01.632Z",
+    "sku": "Raw-006",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "5.2518",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 168,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.789Z",
+    "updated_at": "2025-12-08T07:01:11.334Z",
+    "sku": "Raw-007",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "21.0000",
+    "cost_per_ingredient_unit": "0.021000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 169,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.799Z",
+    "updated_at": "2025-12-06T17:27:00.030Z",
+    "sku": "Raw-008",
+    "name": " 2.5  - 4 ",
+    "storage_unit": 73,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "60.3413",
+    "cost_per_ingredient_unit": "0.006000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 170,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.814Z",
+    "updated_at": "2025-12-06T17:26:59.697Z",
+    "sku": "Raw-009",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "4.1795",
+    "cost_per_ingredient_unit": "0.004000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 171,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.833Z",
+    "updated_at": "2025-12-08T07:01:02.742Z",
+    "sku": "Raw-010",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "1.0000",
+    "cost_per_ingredient_unit": "0.001000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 172,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.834Z",
+    "updated_at": "2025-12-11T10:03:28.528Z",
+    "sku": "Raw-011",
+    "name": "  ",
+    "storage_unit": 73,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "600.0000",
+    "cost_per_ingredient_unit": "0.060000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 173,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.850Z",
+    "updated_at": "2025-12-06T19:37:38.993Z",
+    "sku": "Raw-012",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "15.0000",
+    "cost_per_ingredient_unit": "0.015000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 174,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.860Z",
+    "updated_at": "2025-12-08T07:00:10.348Z",
+    "sku": "Raw-013",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "20.0000",
+    "cost_per_ingredient_unit": "0.020000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 175,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.869Z",
+    "updated_at": "2025-12-08T07:00:03.896Z",
+    "sku": "Raw-014",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "25.0000",
+    "cost_per_ingredient_unit": "0.025000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 176,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.891Z",
+    "updated_at": "2025-12-06T17:27:01.704Z",
+    "sku": "Raw-015",
+    "name": "",
+    "storage_unit": 74,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "360.0000",
+    "purchase_price_per_storage_unit": "158.7587",
+    "cost_per_ingredient_unit": "0.441000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 177,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.899Z",
+    "updated_at": "2025-12-06T17:27:00.480Z",
+    "sku": "Raw-016",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "112.0000",
+    "cost_per_ingredient_unit": "0.112000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 178,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.909Z",
+    "updated_at": "2025-12-06T17:27:02.044Z",
+    "sku": "Raw-017",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "11.0421",
+    "cost_per_ingredient_unit": "0.011000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 179,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.931Z",
+    "updated_at": "2025-12-06T17:27:00.454Z",
+    "sku": "Raw-018",
+    "name": " - 160 ",
+    "storage_unit": 75,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "7680.0000",
+    "purchase_price_per_storage_unit": "207.0000",
+    "cost_per_ingredient_unit": "0.027000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 180,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.939Z",
+    "updated_at": "2025-12-06T17:27:00.676Z",
+    "sku": "Raw-019",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "12.1495",
+    "cost_per_ingredient_unit": "0.012000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 181,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.944Z",
+    "updated_at": "2025-12-08T06:59:56.305Z",
+    "sku": "Raw-020",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "20.0000",
+    "cost_per_ingredient_unit": "0.020000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 182,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.944Z",
+    "updated_at": "2025-12-06T17:27:00.162Z",
+    "sku": "Raw-021",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "29.1533",
+    "cost_per_ingredient_unit": "0.029000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 183,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.980Z",
+    "updated_at": "2025-12-06T17:27:01.225Z",
+    "sku": "Raw-022",
+    "name": "  - ",
+    "storage_unit": 76,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "5400.0000",
+    "purchase_price_per_storage_unit": "113.6000",
+    "cost_per_ingredient_unit": "0.021000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 184,
+  "fields": {
+    "created_at": "2025-12-05T04:24:42.985Z",
+    "updated_at": "2025-12-06T17:27:00.239Z",
+    "sku": "Raw-023",
+    "name": "   1.8 ",
+    "storage_unit": 77,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10800.0000",
+    "purchase_price_per_storage_unit": "146.3333",
+    "cost_per_ingredient_unit": "0.014000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 185,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.010Z",
+    "updated_at": "2025-12-06T17:27:01.148Z",
+    "sku": "Raw-024",
+    "name": "  1.65  4",
+    "storage_unit": 78,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "6600.0000",
+    "purchase_price_per_storage_unit": "200.2500",
+    "cost_per_ingredient_unit": "0.030000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 186,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.021Z",
+    "updated_at": "2025-12-06T17:27:01.160Z",
+    "sku": "Raw-025",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "11.6923",
+    "cost_per_ingredient_unit": "0.012000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 187,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.043Z",
+    "updated_at": "2025-12-06T17:27:01.120Z",
+    "sku": "Raw-026",
+    "name": "  3  2.3 ",
+    "storage_unit": 79,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "2300.0000",
+    "purchase_price_per_storage_unit": "59.4667",
+    "cost_per_ingredient_unit": "0.026000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 188,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.053Z",
+    "updated_at": "2025-12-06T17:27:02.316Z",
+    "sku": "Raw-027",
+    "name": "  ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "25.0722",
+    "cost_per_ingredient_unit": "0.025000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 189,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.078Z",
+    "updated_at": "2025-12-08T06:59:49.735Z",
+    "sku": "Raw-028",
+    "name": "",
+    "storage_unit": 15,
+    "ingredient_unit": 80,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "1.0000",
+    "cost_per_ingredient_unit": "1.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 190,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.089Z",
+    "updated_at": "2025-12-06T17:27:02.262Z",
+    "sku": "Raw-029",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "5.1220",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 191,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.095Z",
+    "updated_at": "2025-12-06T17:26:59.281Z",
+    "sku": "Raw-030",
+    "name": " ",
+    "storage_unit": 62,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "25000.0000",
+    "purchase_price_per_storage_unit": "57.0000",
+    "cost_per_ingredient_unit": "0.002000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 192,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.095Z",
+    "updated_at": "2025-12-08T06:59:43.605Z",
+    "sku": "Raw-031",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "80.0000",
+    "cost_per_ingredient_unit": "0.080000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 193,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.132Z",
+    "updated_at": "2025-12-06T17:26:59.744Z",
+    "sku": "Raw-032",
+    "name": "  ",
+    "storage_unit": 81,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "7000.0000",
+    "purchase_price_per_storage_unit": "99.2400",
+    "cost_per_ingredient_unit": "0.014000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 194,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.142Z",
+    "updated_at": "2025-12-08T06:59:36.056Z",
+    "sku": "Raw-033",
+    "name": "  ",
+    "storage_unit": 73,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "20.0000",
+    "cost_per_ingredient_unit": "0.002000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 195,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.151Z",
+    "updated_at": "2025-12-06T17:27:01.555Z",
+    "sku": "Raw-034",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "4.9284",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 196,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.160Z",
+    "updated_at": "2025-12-06T17:26:59.003Z",
+    "sku": "Raw-035",
+    "name": "  5 ",
+    "storage_unit": 39,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "58.0769",
+    "cost_per_ingredient_unit": "0.058000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 197,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.169Z",
+    "updated_at": "2025-12-08T06:59:30.223Z",
+    "sku": "Raw-036",
+    "name": "  2 ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "6.5000",
+    "cost_per_ingredient_unit": "0.007000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 198,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.269Z",
+    "updated_at": "2025-12-06T17:27:01.021Z",
+    "sku": "Raw-037",
+    "name": "",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.2091",
+    "cost_per_ingredient_unit": "0.209000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 199,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.278Z",
+    "updated_at": "2025-12-08T06:59:23.417Z",
+    "sku": "Raw-038",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "3.1350",
+    "cost_per_ingredient_unit": "0.003000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 200,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.298Z",
+    "updated_at": "2025-12-06T17:27:00.349Z",
+    "sku": "Raw-039",
+    "name": "  3.78   4",
+    "storage_unit": 82,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "14960.0000",
+    "purchase_price_per_storage_unit": "35.0000",
+    "cost_per_ingredient_unit": "0.002000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 201,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.313Z",
+    "updated_at": "2025-12-06T17:26:59.600Z",
+    "sku": "Raw-040",
+    "name": "  500 ",
+    "storage_unit": 54,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "500.0000",
+    "purchase_price_per_storage_unit": "9.5000",
+    "cost_per_ingredient_unit": "0.019000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 202,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.328Z",
+    "updated_at": "2025-12-08T06:59:15.341Z",
+    "sku": "Raw-041",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "15.0000",
+    "cost_per_ingredient_unit": "0.015000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 203,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.344Z",
+    "updated_at": "2025-12-06T17:26:59.585Z",
+    "sku": "Raw-042",
+    "name": "    425  - ",
+    "storage_unit": 83,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "425.0000",
+    "purchase_price_per_storage_unit": "4.9680",
+    "cost_per_ingredient_unit": "0.012000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 204,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.355Z",
+    "updated_at": "2025-12-06T17:27:00.134Z",
+    "sku": "Raw-043",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "5.3797",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 205,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.372Z",
+    "updated_at": "2025-12-06T17:27:00.266Z",
+    "sku": "Raw-044",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "12.5000",
+    "cost_per_ingredient_unit": "0.013000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 206,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.376Z",
+    "updated_at": "2025-12-06T17:27:01.972Z",
+    "sku": "Raw-045",
+    "name": "   10  *1 ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "36.1099",
+    "cost_per_ingredient_unit": "0.036000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 207,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.400Z",
+    "updated_at": "2025-12-06T17:26:59.918Z",
+    "sku": "Raw-046",
+    "name": " - ",
+    "storage_unit": 84,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "45000.0000",
+    "purchase_price_per_storage_unit": "34.5652",
+    "cost_per_ingredient_unit": "0.001000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 208,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.410Z",
+    "updated_at": "2025-12-08T06:59:07.951Z",
+    "sku": "Raw-047",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "1.5000",
+    "cost_per_ingredient_unit": "0.002000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 209,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.425Z",
+    "updated_at": "2025-12-06T17:27:01.808Z",
+    "sku": "Raw-048",
+    "name": "    1 ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "41.4737",
+    "cost_per_ingredient_unit": "0.041000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 210,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.436Z",
+    "updated_at": "2025-12-06T17:26:58.514Z",
+    "sku": "Raw-049",
+    "name": "   2  * 5",
+    "storage_unit": 73,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "105.3333",
+    "cost_per_ingredient_unit": "0.011000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 211,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.446Z",
+    "updated_at": "2025-12-06T17:26:58.885Z",
+    "sku": "Raw-050",
+    "name": "  ",
+    "storage_unit": 73,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "87.3333",
+    "cost_per_ingredient_unit": "0.009000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 212,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.461Z",
+    "updated_at": "2025-12-06T17:27:02.212Z",
+    "sku": "Raw-051",
+    "name": " - ",
+    "storage_unit": 85,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "17000.0000",
+    "purchase_price_per_storage_unit": "92.8315",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 213,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.504Z",
+    "updated_at": "2025-12-08T06:58:59.388Z",
+    "sku": "Raw-052",
+    "name": " - ",
+    "storage_unit": 85,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "17000.0000",
+    "purchase_price_per_storage_unit": "75.0000",
+    "cost_per_ingredient_unit": "0.004000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 214,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.520Z",
+    "updated_at": "2025-12-06T17:27:02.551Z",
+    "sku": "Raw-053",
+    "name": "  - ",
+    "storage_unit": 54,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "500.0000",
+    "purchase_price_per_storage_unit": "12.5694",
+    "cost_per_ingredient_unit": "0.025000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 215,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.530Z",
+    "updated_at": "2025-12-06T17:27:00.779Z",
+    "sku": "Raw-054",
+    "name": "   10 ",
+    "storage_unit": 73,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "201.8133",
+    "cost_per_ingredient_unit": "0.020000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 216,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.534Z",
+    "updated_at": "2025-12-06T17:27:00.081Z",
+    "sku": "Raw-055",
+    "name": "   1.5  *6",
+    "storage_unit": 60,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "9000.0000",
+    "purchase_price_per_storage_unit": "52.2105",
+    "cost_per_ingredient_unit": "0.006000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 217,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.557Z",
+    "updated_at": "2025-12-06T17:26:58.863Z",
+    "sku": "Raw-056",
+    "name": "  ",
+    "storage_unit": 86,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "9360.0000",
+    "purchase_price_per_storage_unit": "164.2581",
+    "cost_per_ingredient_unit": "0.018000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 218,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.572Z",
+    "updated_at": "2025-12-06T17:27:02.136Z",
+    "sku": "Raw-057",
+    "name": "  ",
+    "storage_unit": 86,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "9360.0000",
+    "purchase_price_per_storage_unit": "166.0000",
+    "cost_per_ingredient_unit": "0.018000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 219,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.578Z",
+    "updated_at": "2025-12-06T17:27:02.113Z",
+    "sku": "Raw-059",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "36.0417",
+    "cost_per_ingredient_unit": "0.036000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 220,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.578Z",
+    "updated_at": "2025-12-06T17:26:58.725Z",
+    "sku": "Raw-060",
+    "name": " ",
+    "storage_unit": 55,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "22.6100",
+    "cost_per_ingredient_unit": "0.023000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 221,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.604Z",
+    "updated_at": "2025-12-06T17:27:02.691Z",
+    "sku": "Raw-061",
+    "name": "  ",
+    "storage_unit": 73,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "25.6030",
+    "cost_per_ingredient_unit": "0.003000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 222,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.611Z",
+    "updated_at": "2025-12-06T17:27:01.504Z",
+    "sku": "Raw-062",
+    "name": " ",
+    "storage_unit": 57,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "15000.0000",
+    "purchase_price_per_storage_unit": "45.6250",
+    "cost_per_ingredient_unit": "0.003000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 223,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.628Z",
+    "updated_at": "2025-12-06T17:26:59.391Z",
+    "sku": "Raw-066",
+    "name": "   15 ",
+    "storage_unit": 73,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "156.5200",
+    "cost_per_ingredient_unit": "0.016000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 224,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.642Z",
+    "updated_at": "2025-12-06T17:26:59.983Z",
+    "sku": "Raw-067",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "43.6179",
+    "cost_per_ingredient_unit": "0.044000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 225,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.646Z",
+    "updated_at": "2025-12-06T17:27:01.659Z",
+    "sku": "Raw-068",
+    "name": "    15 ",
+    "storage_unit": 57,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "15000.0000",
+    "purchase_price_per_storage_unit": "98.7119",
+    "cost_per_ingredient_unit": "0.007000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 226,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.666Z",
+    "updated_at": "2025-12-06T17:26:58.675Z",
+    "sku": "Raw-069",
+    "name": "  -  - ",
+    "storage_unit": 15,
+    "ingredient_unit": 80,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "0.9973",
+    "cost_per_ingredient_unit": "0.997000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 227,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.681Z",
+    "updated_at": "2025-12-06T17:27:00.376Z",
+    "sku": "Raw-070",
+    "name": " ",
+    "storage_unit": 87,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "11111.0000",
+    "purchase_price_per_storage_unit": "50.9500",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 228,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.697Z",
+    "updated_at": "2025-12-06T17:27:00.527Z",
+    "sku": "Raw-071",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "20.0299",
+    "cost_per_ingredient_unit": "0.020000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 229,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.708Z",
+    "updated_at": "2025-12-06T17:27:01.842Z",
+    "sku": "Raw-072",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "17.3930",
+    "cost_per_ingredient_unit": "0.017000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 230,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.716Z",
+    "updated_at": "2025-12-08T06:58:52.080Z",
+    "sku": "Raw-073",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "35.0000",
+    "cost_per_ingredient_unit": "0.035000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 231,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.716Z",
+    "updated_at": "2025-12-06T17:26:59.787Z",
+    "sku": "Raw-074",
+    "name": "  ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "32.6475",
+    "cost_per_ingredient_unit": "0.033000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 232,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.767Z",
+    "updated_at": "2025-12-06T17:27:02.781Z",
+    "sku": "Raw-075",
+    "name": " ",
+    "storage_unit": 88,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1.0000",
+    "purchase_price_per_storage_unit": "63.0000",
+    "cost_per_ingredient_unit": "63.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 233,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.779Z",
+    "updated_at": "2025-12-08T06:58:45.224Z",
+    "sku": "Raw-076",
+    "name": " ",
+    "storage_unit": 54,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "500.0000",
+    "purchase_price_per_storage_unit": "7.0000",
+    "cost_per_ingredient_unit": "0.014000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 234,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.799Z",
+    "updated_at": "2025-12-06T17:26:59.937Z",
+    "sku": "Raw-077",
+    "name": " - ",
+    "storage_unit": 73,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "122.5517",
+    "cost_per_ingredient_unit": "0.012000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 235,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.813Z",
+    "updated_at": "2025-12-06T17:26:59.961Z",
+    "sku": "Raw-078",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "5.1217",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 236,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.823Z",
+    "updated_at": "2025-12-08T06:58:37.672Z",
+    "sku": "Raw-079",
+    "name": " ",
+    "storage_unit": 57,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "15000.0000",
+    "purchase_price_per_storage_unit": "20.0000",
+    "cost_per_ingredient_unit": "0.001000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 237,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.834Z",
+    "updated_at": "2025-12-06T17:26:58.651Z",
+    "sku": "Raw-080",
+    "name": "   750 *  12",
+    "storage_unit": 60,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "9000.0000",
+    "purchase_price_per_storage_unit": "78.0000",
+    "cost_per_ingredient_unit": "0.009000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 238,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.840Z",
+    "updated_at": "2025-12-06T17:26:59.898Z",
+    "sku": "Raw-081",
+    "name": "   1 ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "35.2842",
+    "cost_per_ingredient_unit": "0.035000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 239,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.861Z",
+    "updated_at": "2025-12-08T06:58:29.139Z",
+    "sku": "Raw-082",
+    "name": "  ",
+    "storage_unit": 73,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "190.0000",
+    "cost_per_ingredient_unit": "0.019000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 240,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.872Z",
+    "updated_at": "2025-12-08T06:58:21.147Z",
+    "sku": "Raw-084",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "35.0000",
+    "cost_per_ingredient_unit": "0.035000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 241,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.882Z",
+    "updated_at": "2025-12-06T17:27:00.754Z",
+    "sku": "Raw-085",
+    "name": " ",
+    "storage_unit": 73,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "10000.0000",
+    "purchase_price_per_storage_unit": "650.0000",
+    "cost_per_ingredient_unit": "0.065000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 242,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.892Z",
+    "updated_at": "2025-12-06T17:27:02.335Z",
+    "sku": "Raw-086",
+    "name": "   ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "19.2093",
+    "cost_per_ingredient_unit": "0.019000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 243,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.901Z",
+    "updated_at": "2025-12-06T17:26:58.975Z",
+    "sku": "Raw-087",
+    "name": "  ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "6.8946",
+    "cost_per_ingredient_unit": "0.007000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 244,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.921Z",
+    "updated_at": "2025-12-06T17:27:01.607Z",
+    "sku": "Raw-088",
+    "name": "  ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "5.0000",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 245,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.930Z",
+    "updated_at": "2025-12-06T17:27:01.197Z",
+    "sku": "Raw-089",
+    "name": "  ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "39.1600",
+    "cost_per_ingredient_unit": "0.039000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 246,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.942Z",
+    "updated_at": "2025-12-06T17:26:59.721Z",
+    "sku": "Raw-090",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "12.2581",
+    "cost_per_ingredient_unit": "0.012000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 247,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.951Z",
+    "updated_at": "2025-12-06T17:27:02.807Z",
+    "sku": "Raw-091",
+    "name": "  ",
+    "storage_unit": 70,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "20000.0000",
+    "purchase_price_per_storage_unit": "125.0000",
+    "cost_per_ingredient_unit": "0.006000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 248,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.977Z",
+    "updated_at": "2025-12-06T17:26:59.027Z",
+    "sku": "Raw-092",
+    "name": "  ",
+    "storage_unit": 89,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "18000.0000",
+    "purchase_price_per_storage_unit": "60.9690",
+    "cost_per_ingredient_unit": "0.003000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 249,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.990Z",
+    "updated_at": "2025-12-06T17:27:00.703Z",
+    "sku": "Raw-093",
+    "name": "  ",
+    "storage_unit": 57,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "15000.0000",
+    "purchase_price_per_storage_unit": "71.0000",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 250,
+  "fields": {
+    "created_at": "2025-12-05T04:24:43.999Z",
+    "updated_at": "2025-12-08T06:58:13.991Z",
+    "sku": "Raw-094",
+    "name": "  ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "36.0000",
+    "cost_per_ingredient_unit": "0.036000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 251,
+  "fields": {
+    "created_at": "2025-12-05T04:24:44.007Z",
+    "updated_at": "2025-12-06T17:26:59.809Z",
+    "sku": "Raw-095",
+    "name": "",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "75.2000",
+    "cost_per_ingredient_unit": "0.075000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 252,
+  "fields": {
+    "created_at": "2025-12-05T04:24:44.022Z",
+    "updated_at": "2025-12-06T17:27:00.729Z",
+    "sku": "Raw-096",
+    "name": "  1000 *9",
+    "storage_unit": 15,
+    "ingredient_unit": 7,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "0.0706",
+    "cost_per_ingredient_unit": "0.000000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 253,
+  "fields": {
+    "created_at": "2025-12-05T04:24:44.042Z",
+    "updated_at": "2025-12-08T06:58:05.706Z",
+    "sku": "Raw-097",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "3.7500",
+    "cost_per_ingredient_unit": "0.004000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 254,
+  "fields": {
+    "created_at": "2025-12-05T04:24:44.058Z",
+    "updated_at": "2025-12-08T06:57:57.115Z",
+    "sku": "Raw-098",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "18.0000",
+    "cost_per_ingredient_unit": "0.018000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 255,
+  "fields": {
+    "created_at": "2025-12-05T04:24:44.068Z",
+    "updated_at": "2025-12-06T17:26:59.629Z",
+    "sku": "Raw-099",
+    "name": " - ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "5.2121",
+    "cost_per_ingredient_unit": "0.005000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 256,
+  "fields": {
+    "created_at": "2025-12-05T04:24:44.077Z",
+    "updated_at": "2025-12-06T17:27:02.515Z",
+    "sku": "Raw-100",
+    "name": "  1  12  - 12 ",
+    "storage_unit": 90,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "143.0000",
+    "cost_per_ingredient_unit": "0.143000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 257,
+  "fields": {
+    "created_at": "2025-12-05T04:24:44.111Z",
+    "updated_at": "2025-12-08T06:57:19.090Z",
+    "sku": "Raw-101",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "1.2500",
+    "cost_per_ingredient_unit": "0.001000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 258,
+  "fields": {
+    "created_at": "2025-12-05T04:24:44.127Z",
+    "updated_at": "2025-12-06T17:26:58.716Z",
+    "sku": "Raw-102",
+    "name": " ",
+    "storage_unit": 91,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "11.9251",
+    "cost_per_ingredient_unit": "0.012000"
+  }
+},
+{
+  "model": "costing.rawmaterial",
+  "pk": 259,
+  "fields": {
+    "created_at": "2025-12-05T04:24:44.136Z",
+    "updated_at": "2025-12-06T17:27:02.609Z",
+    "sku": "Raw-103",
+    "name": " ",
+    "storage_unit": 13,
+    "ingredient_unit": 1,
+    "storage_to_ingredient_factor": "1000.0000",
+    "purchase_price_per_storage_unit": "30.1016",
+    "cost_per_ingredient_unit": "0.030000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 1,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.845Z",
+    "updated_at": "2025-12-05T04:09:23.845Z",
+    "code": "sku-101",
+    "name": "  ",
+    "name_en": "Foul with Egg small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "10.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.859Z",
+    "updated_at": "2025-12-05T04:09:23.859Z",
+    "code": "sku-111",
+    "name": "  - 1 ",
+    "name_en": "Ein El Katkout - 1 piece",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "3.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.873Z",
+    "updated_at": "2025-12-08T20:09:26.185Z",
+    "code": "sku-100",
+    "name": "   ",
+    "name_en": "Egyptian traditional Foul small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "9.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.882Z",
+    "updated_at": "2025-12-05T04:09:23.882Z",
+    "code": "sku-105",
+    "name": " ",
+    "name_en": "Foul large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "13.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 5,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.893Z",
+    "updated_at": "2025-12-08T20:09:14.543Z",
+    "code": "sku-107",
+    "name": "   ",
+    "name_en": "Egyptian traditional Foul Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "11.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 6,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.904Z",
+    "updated_at": "2025-12-05T04:09:23.904Z",
+    "code": "sku-103",
+    "name": "  ",
+    "name_en": "Foul Eskandarani small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "12.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 7,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.914Z",
+    "updated_at": "2025-12-05T04:09:23.914Z",
+    "code": "sku-110",
+    "name": " - 1 ",
+    "name_en": "Mahshiya - 1 piece",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "1.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 8,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.922Z",
+    "updated_at": "2025-12-05T04:09:23.923Z",
+    "code": "sku-102",
+    "name": " ",
+    "name_en": "Foul small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "10.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 9,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.932Z",
+    "updated_at": "2025-12-05T04:09:23.932Z",
+    "code": "sku-118",
+    "name": " - ",
+    "name_en": "Mix - Sandwich",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "5.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 10,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.941Z",
+    "updated_at": "2025-12-05T04:09:23.941Z",
+    "code": "sku-109",
+    "name": " - 2 ",
+    "name_en": "Plain - 2 pieces",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "1.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 11,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.951Z",
+    "updated_at": "2025-12-05T04:09:23.951Z",
+    "code": "sku-106",
+    "name": "  ",
+    "name_en": "Foul Eskandarani large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "14.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 12,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.963Z",
+    "updated_at": "2025-12-05T04:09:23.963Z",
+    "code": "sku-117",
+    "name": " - ",
+    "name_en": "Taameyah - Sandwich",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "5.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 13,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.971Z",
+    "updated_at": "2025-12-05T04:09:23.971Z",
+    "code": "sku-104",
+    "name": "  ",
+    "name_en": "Foul with Egg large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "13.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 14,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.980Z",
+    "updated_at": "2025-12-05T04:09:23.980Z",
+    "code": "sku-108",
+    "name": "  - 4 ",
+    "name_en": "Plain mini - 4 pieces",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "1.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 15,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.990Z",
+    "updated_at": "2025-12-05T04:09:23.990Z",
+    "code": "sku-116",
+    "name": " - ",
+    "name_en": "Foul - Sandwich",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "5.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 16,
+  "fields": {
+    "created_at": "2025-12-05T04:09:23.998Z",
+    "updated_at": "2025-12-05T04:09:23.998Z",
+    "code": "sku-119",
+    "name": " - ",
+    "name_en": "Egg - Sandwich",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "5.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 17,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.000Z",
+    "updated_at": "2025-12-05T04:09:24.000Z",
+    "code": "sku-121",
+    "name": " ",
+    "name_en": "Scrambled Egg",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "9.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 18,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.015Z",
+    "updated_at": "2025-12-05T04:09:24.015Z",
+    "code": "sku-120",
+    "name": " - ",
+    "name_en": "Dynamite - Sandwich",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "7.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 19,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.028Z",
+    "updated_at": "2025-12-05T04:09:24.028Z",
+    "code": "sku-122",
+    "name": " ",
+    "name_en": "Shakshoukah Egg",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "11.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 20,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.035Z",
+    "updated_at": "2025-12-05T04:09:24.035Z",
+    "code": "sku-124",
+    "name": " ",
+    "name_en": "Fried Egg",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "10.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 21,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.035Z",
+    "updated_at": "2025-12-05T04:09:24.035Z",
+    "code": "sku-131",
+    "name": "  - ",
+    "name_en": "Meshaltit Plain - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 22,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.052Z",
+    "updated_at": "2025-12-05T04:09:24.052Z",
+    "code": "sku-132",
+    "name": "  - ",
+    "name_en": "Romi Cheese - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "30.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 23,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.065Z",
+    "updated_at": "2025-12-05T04:09:24.065Z",
+    "code": "sku-135",
+    "name": "  - ",
+    "name_en": "Meshaltit Plain - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "35.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 24,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.073Z",
+    "updated_at": "2025-12-05T04:09:24.073Z",
+    "code": "sku-125",
+    "name": "   - 2 ",
+    "name_en": "Fried Boiled egg - 2 pieces",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "10.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 25,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.078Z",
+    "updated_at": "2025-12-05T04:09:24.078Z",
+    "code": "sku-133",
+    "name": "  - ",
+    "name_en": "Mix Cheese - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "35.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 26,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.084Z",
+    "updated_at": "2025-12-05T04:09:24.084Z",
+    "code": "sku-137",
+    "name": "  - ",
+    "name_en": "Mix Cheese - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "50.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 27,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.089Z",
+    "updated_at": "2025-12-05T04:09:24.089Z",
+    "code": "sku-136",
+    "name": "  - ",
+    "name_en": "Romi Cheese - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "45.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 28,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.095Z",
+    "updated_at": "2025-12-05T04:09:24.095Z",
+    "code": "sku-126",
+    "name": " ",
+    "name_en": "Pastrami egg",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "15.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 29,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.100Z",
+    "updated_at": "2025-12-05T04:09:24.100Z",
+    "code": "sku-143",
+    "name": " -  ",
+    "name_en": "Roll - Shish Taouk",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "23.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 30,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.106Z",
+    "updated_at": "2025-12-05T04:09:24.106Z",
+    "code": "sku-144",
+    "name": " - ",
+    "name_en": "Roll - Fajita",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "23.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 31,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.110Z",
+    "updated_at": "2025-12-05T04:09:24.110Z",
+    "code": "sku-147",
+    "name": "  - ",
+    "name_en": "Shish Taouk - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "48.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 32,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.116Z",
+    "updated_at": "2025-12-05T04:09:24.116Z",
+    "code": "sku-145",
+    "name": " - ",
+    "name_en": "Roll - Strips",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "23.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 33,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.123Z",
+    "updated_at": "2025-12-05T04:09:24.123Z",
+    "code": "sku-149",
+    "name": " - ",
+    "name_en": "Strips - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "48.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 34,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.132Z",
+    "updated_at": "2025-12-05T04:09:24.132Z",
+    "code": "sku-146",
+    "name": "  - ",
+    "name_en": "Mix chicken - Roll",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "23.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 35,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.148Z",
+    "updated_at": "2025-12-05T04:09:24.148Z",
+    "code": "sku-152",
+    "name": " - ",
+    "name_en": "Fajita - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "70.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 36,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.163Z",
+    "updated_at": "2025-12-05T04:09:24.163Z",
+    "code": "sku-154",
+    "name": "  - ",
+    "name_en": "Mix chicken - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "75.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 37,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.172Z",
+    "updated_at": "2025-12-05T04:09:24.172Z",
+    "code": "sku-150",
+    "name": "  - ",
+    "name_en": "Mix chicken - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "50.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 38,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.190Z",
+    "updated_at": "2025-12-05T04:09:24.190Z",
+    "code": "sku-151",
+    "name": "  - ",
+    "name_en": "Shish Taouk - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "70.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 39,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.200Z",
+    "updated_at": "2025-12-05T04:09:24.200Z",
+    "code": "sku-148",
+    "name": " - ",
+    "name_en": "Fajita - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "48.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 40,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.206Z",
+    "updated_at": "2025-12-05T04:09:24.206Z",
+    "code": "sku-153",
+    "name": " - ",
+    "name_en": "Strips - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "70.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 41,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.206Z",
+    "updated_at": "2025-12-05T04:09:24.206Z",
+    "code": "sku-159",
+    "name": " - ",
+    "name_en": "Meat - Roll",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "24.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 42,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.225Z",
+    "updated_at": "2025-12-05T04:09:24.225Z",
+    "code": "sku-160",
+    "name": " - ",
+    "name_en": "Roll - Sausage",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "24.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 43,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.233Z",
+    "updated_at": "2025-12-05T04:09:24.233Z",
+    "code": "sku-162",
+    "name": " -  ",
+    "name_en": "Roll - Mix meat",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 44,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.237Z",
+    "updated_at": "2025-12-05T04:09:24.237Z",
+    "code": "sku-163",
+    "name": " - ",
+    "name_en": "Meat - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "50.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 45,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.247Z",
+    "updated_at": "2025-12-05T04:09:24.247Z",
+    "code": "sku-161",
+    "name": " - ",
+    "name_en": "Roll - Pastrima",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 46,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.252Z",
+    "updated_at": "2025-12-05T04:09:24.252Z",
+    "code": "sku-165",
+    "name": " - ",
+    "name_en": "Pastrima - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "60.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 47,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.263Z",
+    "updated_at": "2025-12-05T04:09:24.263Z",
+    "code": "sku-167",
+    "name": " - ",
+    "name_en": "Meat - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "70.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 48,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.271Z",
+    "updated_at": "2025-12-05T04:09:24.271Z",
+    "code": "sku-164",
+    "name": " - ",
+    "name_en": "Sausage - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "50.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 49,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.271Z",
+    "updated_at": "2025-12-05T04:09:24.271Z",
+    "code": "sku-166",
+    "name": "  - ",
+    "name_en": "Mix meat - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "50.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 50,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.271Z",
+    "updated_at": "2025-12-05T04:09:24.271Z",
+    "code": "sku-168",
+    "name": " - ",
+    "name_en": "Sausage - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "70.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 51,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.287Z",
+    "updated_at": "2025-12-05T04:09:24.287Z",
+    "code": "sku-169",
+    "name": " - ",
+    "name_en": "Pastrima - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "80.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 52,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.298Z",
+    "updated_at": "2025-12-05T04:09:24.298Z",
+    "code": "sku-170",
+    "name": "  - ",
+    "name_en": "Mix meat - large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "75.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 53,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.306Z",
+    "updated_at": "2025-12-05T04:09:24.306Z",
+    "code": "sku-176",
+    "name": " - ",
+    "name_en": "Tuna - Roll",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 54,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.315Z",
+    "updated_at": "2025-12-05T04:09:24.315Z",
+    "code": "sku-178",
+    "name": " - ",
+    "name_en": "Tuna - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "50.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 55,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.323Z",
+    "updated_at": "2025-12-05T04:09:24.323Z",
+    "code": "sku-180",
+    "name": " - ",
+    "name_en": "Tuna - large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "70.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 56,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.333Z",
+    "updated_at": "2025-12-05T04:09:24.333Z",
+    "code": "sku-183",
+    "name": " -  ",
+    "name_en": "Roll - Nuts with cream",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "24.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 57,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.347Z",
+    "updated_at": "2025-12-05T04:09:24.347Z",
+    "code": "sku-185",
+    "name": " -   / ",
+    "name_en": "Roll - Nutella with Nuts / Banana",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 58,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.354Z",
+    "updated_at": "2025-12-05T04:09:24.354Z",
+    "code": "sku-184",
+    "name": " ",
+    "name_en": "Fruits Roll",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "22.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 59,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.365Z",
+    "updated_at": "2025-12-05T04:09:24.365Z",
+    "code": "sku-186",
+    "name": " - ",
+    "name_en": "Lotus - Roll",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 60,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.379Z",
+    "updated_at": "2025-12-05T04:09:24.379Z",
+    "code": "sku-187",
+    "name": "  ",
+    "name_en": "Nuts with cream Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "45.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 61,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.390Z",
+    "updated_at": "2025-12-05T04:09:24.390Z",
+    "code": "sku-190",
+    "name": " - ",
+    "name_en": "Lotus - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "50.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 62,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.401Z",
+    "updated_at": "2025-12-05T04:09:24.401Z",
+    "code": "sku-188",
+    "name": " ",
+    "name_en": "Fruits Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "40.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 63,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.408Z",
+    "updated_at": "2025-12-05T04:09:24.408Z",
+    "code": "sku-189",
+    "name": "  /  - ",
+    "name_en": "Nutella with Nuts / Banana - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "50.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 64,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.408Z",
+    "updated_at": "2025-12-05T04:09:24.408Z",
+    "code": "sku-191",
+    "name": "  ",
+    "name_en": "Nuts with cream large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "60.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 65,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.426Z",
+    "updated_at": "2025-12-05T04:09:24.426Z",
+    "code": "sku-192",
+    "name": " - ",
+    "name_en": "Fruits - large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "50.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 66,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.437Z",
+    "updated_at": "2025-12-05T04:09:24.437Z",
+    "code": "sku-194",
+    "name": " - ",
+    "name_en": "Lotus - large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "70.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 67,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.445Z",
+    "updated_at": "2025-12-05T04:09:24.445Z",
+    "code": "sku-193",
+    "name": "  /  - ",
+    "name_en": "Nutella with Nuts / Banana - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "70.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 68,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.454Z",
+    "updated_at": "2025-12-05T04:09:24.454Z",
+    "code": "sku-200",
+    "name": " ",
+    "name_en": "Original Salad",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "8.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 69,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.462Z",
+    "updated_at": "2025-12-05T04:09:24.462Z",
+    "code": "sku-201",
+    "name": " ",
+    "name_en": "Arugula Salad",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "8.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 70,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.472Z",
+    "updated_at": "2025-12-05T04:09:24.472Z",
+    "code": "sku-205",
+    "name": " ",
+    "name_en": "Tahini large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "9.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 71,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.480Z",
+    "updated_at": "2025-12-05T04:09:24.480Z",
+    "code": "sku-204",
+    "name": " ",
+    "name_en": "Tahini small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "5.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 72,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.486Z",
+    "updated_at": "2025-12-05T04:09:24.486Z",
+    "code": "sku-206",
+    "name": " ",
+    "name_en": "Mixed Pickle",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "5.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 73,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.499Z",
+    "updated_at": "2025-12-05T04:09:24.499Z",
+    "code": "sku-207",
+    "name": " ",
+    "name_en": "Baba ghanoush",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "10.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 74,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.508Z",
+    "updated_at": "2025-12-05T04:09:24.509Z",
+    "code": "sku-203",
+    "name": " ",
+    "name_en": "Zizo Toppings",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "14.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 75,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.516Z",
+    "updated_at": "2025-12-05T04:09:24.516Z",
+    "code": "sku-202",
+    "name": " ",
+    "name_en": "Hamada toppings",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "14.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 76,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.525Z",
+    "updated_at": "2025-12-05T04:09:24.525Z",
+    "code": "sku-212",
+    "name": " ",
+    "name_en": "Spiced Potato",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "10.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 77,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.534Z",
+    "updated_at": "2025-12-05T04:09:24.534Z",
+    "code": "sku-211",
+    "name": " ",
+    "name_en": "Fries",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "7.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 78,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.543Z",
+    "updated_at": "2025-12-05T04:09:24.543Z",
+    "code": "sku-208",
+    "name": " ",
+    "name_en": "Spiced Eggplants",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "9.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 79,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.550Z",
+    "updated_at": "2025-12-05T04:09:24.550Z",
+    "code": "sku-210",
+    "name": " ",
+    "name_en": "Spiced Tomato",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "9.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 80,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.557Z",
+    "updated_at": "2025-12-05T04:09:24.557Z",
+    "code": "sku-209",
+    "name": " ",
+    "name_en": "Tajin Eggplant",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "15.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 81,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.567Z",
+    "updated_at": "2025-12-05T04:09:24.567Z",
+    "code": "sku-217",
+    "name": "",
+    "name_en": "Water",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "2.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 82,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.576Z",
+    "updated_at": "2025-12-05T04:09:24.576Z",
+    "code": "sku-219",
+    "name": " ",
+    "name_en": "Tea Bot",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "8.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 83,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.585Z",
+    "updated_at": "2025-12-05T04:09:24.585Z",
+    "code": "sku-218",
+    "name": " ",
+    "name_en": "Tea cup",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "3.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 84,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.593Z",
+    "updated_at": "2025-12-05T04:09:24.593Z",
+    "code": "sku-220",
+    "name": " ",
+    "name_en": "Turkish Coffee",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "8.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 85,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.602Z",
+    "updated_at": "2025-12-05T04:09:24.602Z",
+    "code": "sk-0153",
+    "name": " - ",
+    "name_en": "Potato - Sandwich",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "5.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 86,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.610Z",
+    "updated_at": "2025-12-05T04:09:24.610Z",
+    "code": "sk-0154",
+    "name": " -   ",
+    "name_en": "Roll - Romi Cheese plain",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "18.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 87,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.618Z",
+    "updated_at": "2025-12-05T04:09:24.618Z",
+    "code": "sk-0155",
+    "name": " -  ",
+    "name_en": "Roll - Mix Cheese",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "20.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 88,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.625Z",
+    "updated_at": "2025-12-05T04:09:24.625Z",
+    "code": "sk-0186",
+    "name": " -  ",
+    "name_en": "Roll - Four seasons",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 89,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.633Z",
+    "updated_at": "2025-12-05T04:09:24.633Z",
+    "code": "sk-0187",
+    "name": "  - ",
+    "name_en": "Four seasons - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "55.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 90,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.642Z",
+    "updated_at": "2025-12-05T04:09:24.642Z",
+    "code": "sk-0188",
+    "name": "  - ",
+    "name_en": "Four seasons - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "65.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 91,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.650Z",
+    "updated_at": "2025-12-05T04:09:24.650Z",
+    "code": "sk-0191",
+    "name": " ",
+    "name_en": "Taamia dough",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "5.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 92,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.657Z",
+    "updated_at": "2025-12-08T12:13:53.306Z",
+    "code": "sk-0192",
+    "name": "",
+    "name_en": "Bread",
+    "base_unit": 5,
+    "is_sellable": false,
+    "is_semi_finished": true,
+    "selling_price_per_unit": "1.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 93,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.672Z",
+    "updated_at": "2025-12-05T04:09:24.672Z",
+    "code": "sk-0195",
+    "name": " ",
+    "name_en": "Cheese w/ Tomato",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "9.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 94,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.672Z",
+    "updated_at": "2025-12-05T04:09:24.672Z",
+    "code": "sk-0197",
+    "name": "",
+    "name_en": "Juice",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "4.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 95,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.694Z",
+    "updated_at": "2025-12-05T04:09:24.694Z",
+    "code": "sk-0198",
+    "name": " - ",
+    "name_en": "Boghashah - Small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "15.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 96,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.702Z",
+    "updated_at": "2025-12-05T04:09:24.702Z",
+    "code": "sk-0199",
+    "name": " - ",
+    "name_en": "Boghashah - Medium",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 97,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.708Z",
+    "updated_at": "2025-12-05T04:09:24.708Z",
+    "code": "sk-0200",
+    "name": " - ",
+    "name_en": "Boghashah - Large",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "40.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 98,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.708Z",
+    "updated_at": "2025-12-05T04:09:24.708Z",
+    "code": "sk-0201",
+    "name": "  ()",
+    "name_en": "Catering",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "100.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 99,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.725Z",
+    "updated_at": "2025-12-05T04:09:24.725Z",
+    "code": "sk-0203",
+    "name": " ",
+    "name_en": "Balh Elsham",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "38.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 100,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.734Z",
+    "updated_at": "2025-12-05T04:09:24.734Z",
+    "code": "sk-0205",
+    "name": "",
+    "name_en": "Konafah",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "45.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 101,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.736Z",
+    "updated_at": "2025-12-05T04:09:24.736Z",
+    "code": "sk-0206",
+    "name": "",
+    "name_en": "Azyzyiah",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "40.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 102,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.736Z",
+    "updated_at": "2025-12-05T04:09:24.736Z",
+    "code": "sk-0207",
+    "name": " (7 )",
+    "name_en": "Sambosah (7 PCS)",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "11.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 103,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.761Z",
+    "updated_at": "2025-12-05T04:09:24.761Z",
+    "code": "sk-0208",
+    "name": " ",
+    "name_en": "Kenza Lemon",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "4.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 104,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.769Z",
+    "updated_at": "2025-12-05T04:09:24.769Z",
+    "code": "sk-0209",
+    "name": " ",
+    "name_en": "Kenza Orange",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "4.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 105,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.771Z",
+    "updated_at": "2025-12-05T04:09:24.771Z",
+    "code": "sk-0210",
+    "name": "  ",
+    "name_en": "Kenza Cola Diet",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "4.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 106,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.787Z",
+    "updated_at": "2025-12-05T04:09:24.787Z",
+    "code": "sk-0211",
+    "name": " ",
+    "name_en": "Kenza Cola",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "4.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 107,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.797Z",
+    "updated_at": "2025-12-05T04:09:24.797Z",
+    "code": "sk-0212",
+    "name": " ",
+    "name_en": "Citrus Kenza",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "4.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 108,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.806Z",
+    "updated_at": "2025-12-05T04:09:24.806Z",
+    "code": "sk-0213",
+    "name": "  ",
+    "name_en": "Kenza Lemon Diet",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "4.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 109,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.806Z",
+    "updated_at": "2025-12-05T04:09:24.806Z",
+    "code": "sk-0215",
+    "name": "",
+    "name_en": "Chips",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "7.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 110,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.825Z",
+    "updated_at": "2025-12-05T04:09:24.825Z",
+    "code": "sk-0216",
+    "name": "",
+    "name_en": "Eggplants",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "9.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 111,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.864Z",
+    "updated_at": "2025-12-05T04:09:24.864Z",
+    "code": "sk-0217",
+    "name": "",
+    "name_en": "Delivery",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "18.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 112,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.875Z",
+    "updated_at": "2025-12-05T04:09:24.875Z",
+    "code": "sk-0221",
+    "name": "  - ",
+    "name_en": "Meshaltit Plain -Small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "15.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 113,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.883Z",
+    "updated_at": "2025-12-05T04:09:24.883Z",
+    "code": "sk-0228",
+    "name": "",
+    "name_en": "Moussaka",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "9.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 114,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.891Z",
+    "updated_at": "2025-12-05T04:09:24.891Z",
+    "code": "sk-0253",
+    "name": " (3 )",
+    "name_en": "Sambousek (3 pieces)",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "6.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 115,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.899Z",
+    "updated_at": "2025-12-05T04:09:24.899Z",
+    "code": "sk-0258",
+    "name": " ",
+    "name_en": "Kinza Pomegranate",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "4.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 116,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.908Z",
+    "updated_at": "2025-12-05T04:09:24.908Z",
+    "code": "sk-0259",
+    "name": " ",
+    "name_en": "Pastrami small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 117,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.920Z",
+    "updated_at": "2025-12-05T04:09:24.920Z",
+    "code": "sk-0260",
+    "name": " ",
+    "name_en": "Small sausage",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 118,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.929Z",
+    "updated_at": "2025-12-05T04:09:24.929Z",
+    "code": "sk-0261",
+    "name": " ",
+    "name_en": "Small Meat",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "26.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 119,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.936Z",
+    "updated_at": "2025-12-05T04:09:24.936Z",
+    "code": "sk-0262",
+    "name": "  ",
+    "name_en": "shish tawook",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 120,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.943Z",
+    "updated_at": "2025-12-05T04:09:24.944Z",
+    "code": "sk-0263",
+    "name": " ",
+    "name_en": "Fajita small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 121,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.954Z",
+    "updated_at": "2025-12-05T04:09:24.954Z",
+    "code": "sk-0264",
+    "name": " ",
+    "name_en": "Strips small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 122,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.963Z",
+    "updated_at": "2025-12-05T04:09:24.963Z",
+    "code": "sk-0265",
+    "name": "  ",
+    "name_en": "Mix chicken small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 123,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.971Z",
+    "updated_at": "2025-12-05T04:09:24.971Z",
+    "code": "sk-0266",
+    "name": "   ",
+    "name_en": "Plain Romi cheese small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "20.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 124,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.984Z",
+    "updated_at": "2025-12-05T04:09:24.984Z",
+    "code": "sk-0267",
+    "name": "   ",
+    "name_en": "Mix cheese with vegetables small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "20.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 125,
+  "fields": {
+    "created_at": "2025-12-05T04:09:24.993Z",
+    "updated_at": "2025-12-05T04:09:24.993Z",
+    "code": "sk-0268",
+    "name": "  ",
+    "name_en": "Mix meat small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 126,
+  "fields": {
+    "created_at": "2025-12-05T04:09:25.005Z",
+    "updated_at": "2025-12-05T04:09:25.005Z",
+    "code": "sk-0269",
+    "name": " ",
+    "name_en": "Tuna small",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "25.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 127,
+  "fields": {
+    "created_at": "2025-12-05T04:09:25.014Z",
+    "updated_at": "2025-12-05T04:09:25.014Z",
+    "code": "sk-0274",
+    "name": "  ",
+    "name_en": "Cheese with tomato sandwich",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "5.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 128,
+  "fields": {
+    "created_at": "2025-12-05T04:09:25.022Z",
+    "updated_at": "2025-12-05T04:09:25.022Z",
+    "code": "sk-0276",
+    "name": " ",
+    "name_en": "Breakfast tray",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "19.5000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 129,
+  "fields": {
+    "created_at": "2025-12-05T09:51:01.599Z",
+    "updated_at": "2025-12-23T10:48:35.031Z",
+    "code": "SF-00001",
+    "name": "  ",
+    "name_en": "",
+    "base_unit": 1,
+    "is_sellable": false,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 130,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.171Z",
+    "updated_at": "2025-12-05T20:52:28.613Z",
+    "code": "SF-00002",
+    "name": "  - ",
+    "name_en": null,
+    "base_unit": 5,
+    "is_sellable": false,
+    "is_semi_finished": true,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 131,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.240Z",
+    "updated_at": "2025-12-05T20:52:36.158Z",
+    "code": "SF-00003",
+    "name": "  - ",
+    "name_en": null,
+    "base_unit": 5,
+    "is_sellable": false,
+    "is_semi_finished": true,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 132,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.316Z",
+    "updated_at": "2025-12-05T20:53:38.276Z",
+    "code": "SF-00004",
+    "name": " - ",
+    "name_en": null,
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 133,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.361Z",
+    "updated_at": "2025-12-05T20:52:45.884Z",
+    "code": "SF-00005",
+    "name": "  - ",
+    "name_en": null,
+    "base_unit": 5,
+    "is_sellable": false,
+    "is_semi_finished": true,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 134,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.423Z",
+    "updated_at": "2025-12-05T20:52:52.588Z",
+    "code": "SF-00006",
+    "name": "  - ",
+    "name_en": null,
+    "base_unit": 5,
+    "is_sellable": false,
+    "is_semi_finished": true,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 135,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.501Z",
+    "updated_at": "2025-12-05T20:52:57.819Z",
+    "code": "SF-00007",
+    "name": "  - ",
+    "name_en": null,
+    "base_unit": 5,
+    "is_sellable": false,
+    "is_semi_finished": true,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 136,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.563Z",
+    "updated_at": "2025-12-05T20:53:02.895Z",
+    "code": "SF-00008",
+    "name": "  - ",
+    "name_en": null,
+    "base_unit": 5,
+    "is_sellable": false,
+    "is_semi_finished": true,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 137,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.673Z",
+    "updated_at": "2025-12-05T20:53:07.563Z",
+    "code": "SF-00009",
+    "name": "  - ",
+    "name_en": null,
+    "base_unit": 5,
+    "is_sellable": false,
+    "is_semi_finished": true,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 139,
+  "fields": {
+    "created_at": "2025-12-07T17:08:52.037Z",
+    "updated_at": "2025-12-08T20:11:14.639Z",
+    "code": "sku-112",
+    "name": "  - 5 ",
+    "name_en": "Taameyah Plate - 5 pieces",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 140,
+  "fields": {
+    "created_at": "2025-12-07T17:08:52.255Z",
+    "updated_at": "2025-12-08T20:11:47.588Z",
+    "code": "sku-115",
+    "name": "  - 10 ",
+    "name_en": "Taameyah Mahshiya Plate - 10 pieces",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 141,
+  "fields": {
+    "created_at": "2025-12-07T17:08:52.279Z",
+    "updated_at": "2025-12-08T20:12:05.212Z",
+    "code": "sku-113",
+    "name": "  - 5 ",
+    "name_en": "Taameyah Mahshiya Plate - 5 pieces",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 142,
+  "fields": {
+    "created_at": "2025-12-07T17:08:52.304Z",
+    "updated_at": "2025-12-08T20:12:45.230Z",
+    "code": "sku-114",
+    "name": "  - 10 ",
+    "name_en": "Taameyah Plate - 10 pieces",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 144,
+  "fields": {
+    "created_at": "2025-12-07T17:32:22.570Z",
+    "updated_at": "2025-12-07T17:32:22.570Z",
+    "code": "SF-00020",
+    "name": "  ",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 145,
+  "fields": {
+    "created_at": "2025-12-07T17:32:22.660Z",
+    "updated_at": "2025-12-07T17:32:22.660Z",
+    "code": "SF-00021",
+    "name": "  ",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 146,
+  "fields": {
+    "created_at": "2025-12-07T17:32:22.708Z",
+    "updated_at": "2025-12-07T17:32:22.708Z",
+    "code": "SF-00022",
+    "name": "  ",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 147,
+  "fields": {
+    "created_at": "2025-12-07T17:32:22.763Z",
+    "updated_at": "2025-12-07T17:32:22.763Z",
+    "code": "SF-00023",
+    "name": " ",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 148,
+  "fields": {
+    "created_at": "2025-12-07T17:32:22.847Z",
+    "updated_at": "2025-12-07T17:32:22.847Z",
+    "code": "SF-00024",
+    "name": "  ",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 149,
+  "fields": {
+    "created_at": "2025-12-07T17:32:22.884Z",
+    "updated_at": "2025-12-07T17:32:22.884Z",
+    "code": "SF-00025",
+    "name": " ",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 150,
+  "fields": {
+    "created_at": "2025-12-07T17:32:22.926Z",
+    "updated_at": "2025-12-07T17:32:22.926Z",
+    "code": "SF-00026",
+    "name": "  ",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 151,
+  "fields": {
+    "created_at": "2025-12-07T17:41:42.771Z",
+    "updated_at": "2025-12-07T17:41:42.771Z",
+    "code": "sku-130",
+    "name": " -  ",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 152,
+  "fields": {
+    "created_at": "2025-12-07T17:41:43.204Z",
+    "updated_at": "2025-12-07T17:41:43.204Z",
+    "code": "sku-134",
+    "name": "   - ",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 153,
+  "fields": {
+    "created_at": "2025-12-07T17:41:43.916Z",
+    "updated_at": "2025-12-07T17:41:43.916Z",
+    "code": "sku-138",
+    "name": "   - ",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 154,
+  "fields": {
+    "created_at": "2025-12-07T17:41:49.613Z",
+    "updated_at": "2025-12-07T17:41:49.613Z",
+    "code": "sku-199",
+    "name": " ",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 155,
+  "fields": {
+    "created_at": "2025-12-07T17:41:50.374Z",
+    "updated_at": "2025-12-07T17:41:50.374Z",
+    "code": "sku-215",
+    "name": "Fanta",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 156,
+  "fields": {
+    "created_at": "2025-12-07T17:41:50.396Z",
+    "updated_at": "2025-12-07T17:41:50.396Z",
+    "code": "sk-0270",
+    "name": "Sprit",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 157,
+  "fields": {
+    "created_at": "2025-12-07T17:41:50.417Z",
+    "updated_at": "2025-12-07T17:41:50.417Z",
+    "code": "sku-216",
+    "name": "Light",
+    "name_en": "",
+    "base_unit": 5,
+    "is_sellable": true,
+    "is_semi_finished": false,
+    "selling_price_per_unit": "0.0000"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 158,
+  "fields": {
+    "created_at": "2025-12-11T11:14:30.198Z",
+    "updated_at": "2025-12-11T11:14:30.198Z",
+    "code": "SF-00027",
+    "name": "   - ",
+    "name_en": "medium",
+    "base_unit": 7,
+    "is_sellable": false,
+    "is_semi_finished": true,
+    "selling_price_per_unit": "7.5300"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 159,
+  "fields": {
+    "created_at": "2025-12-11T11:15:39.772Z",
+    "updated_at": "2025-12-11T11:15:39.772Z",
+    "code": "SF-00028",
+    "name": "   - ",
+    "name_en": "big",
+    "base_unit": 7,
+    "is_sellable": false,
+    "is_semi_finished": true,
+    "selling_price_per_unit": "10.0900"
+  }
+},
+{
+  "model": "costing.product",
+  "pk": 160,
+  "fields": {
+    "created_at": "2025-12-11T11:16:36.629Z",
+    "updated_at": "2025-12-11T11:16:36.629Z",
+    "code": "SF-00029",
+    "name": "  ",
+    "name_en": "Rolle",
+    "base_unit": 7,
+    "is_sellable": false,
+    "is_semi_finished": true,
+    "selling_price_per_unit": "3.0900"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 29,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.108Z",
+    "updated_at": "2025-12-24T08:42:47.961Z",
+    "product": 129,
+    "name": " ",
+    "is_active": true,
+    "batch_output_quantity": "26000.0000",
+    "batch_output_unit": 48,
+    "unit_cost": "0.002000",
+    "unit_cost_final": "0.002000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 30,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.171Z",
+    "updated_at": "2025-12-09T10:54:22.167Z",
+    "product": 130,
+    "name": "  - ",
+    "is_active": true,
+    "batch_output_quantity": "3400.0000",
+    "batch_output_unit": 1,
+    "unit_cost": "0.003000",
+    "unit_cost_final": "0.003000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 31,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.240Z",
+    "updated_at": "2025-12-09T10:54:22.177Z",
+    "product": 131,
+    "name": "  - ",
+    "is_active": true,
+    "batch_output_quantity": "1110.0000",
+    "batch_output_unit": 1,
+    "unit_cost": "0.008000",
+    "unit_cost_final": "0.008000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 32,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.323Z",
+    "updated_at": "2025-12-09T10:54:22.177Z",
+    "product": 132,
+    "name": " - ",
+    "is_active": true,
+    "batch_output_quantity": "2250.0000",
+    "batch_output_unit": 1,
+    "unit_cost": "0.006000",
+    "unit_cost_final": "0.006000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 33,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.367Z",
+    "updated_at": "2025-12-09T10:54:22.193Z",
+    "product": 133,
+    "name": "  - ",
+    "is_active": true,
+    "batch_output_quantity": "1250.0000",
+    "batch_output_unit": 1,
+    "unit_cost": "0.010000",
+    "unit_cost_final": "0.010000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 34,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.427Z",
+    "updated_at": "2025-12-09T10:54:22.209Z",
+    "product": 134,
+    "name": "  - ",
+    "is_active": true,
+    "batch_output_quantity": "1095.0000",
+    "batch_output_unit": 1,
+    "unit_cost": "0.007000",
+    "unit_cost_final": "0.007000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 35,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.508Z",
+    "updated_at": "2025-12-09T10:54:22.209Z",
+    "product": 135,
+    "name": "  - ",
+    "is_active": true,
+    "batch_output_quantity": "700.0000",
+    "batch_output_unit": 1,
+    "unit_cost": "0.006000",
+    "unit_cost_final": "0.006000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 36,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.568Z",
+    "updated_at": "2025-12-23T21:07:16.583Z",
+    "product": 136,
+    "name": "  - ",
+    "is_active": true,
+    "batch_output_quantity": "1250.0000",
+    "batch_output_unit": 1,
+    "unit_cost": "0.007000",
+    "unit_cost_final": "0.007000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 37,
+  "fields": {
+    "created_at": "2025-12-05T20:42:57.679Z",
+    "updated_at": "2025-12-09T10:54:22.224Z",
+    "product": 137,
+    "name": "  - ",
+    "is_active": true,
+    "batch_output_quantity": "1000.0000",
+    "batch_output_unit": 1,
+    "unit_cost": "0.006000",
+    "unit_cost_final": "0.006000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 41,
+  "fields": {
+    "created_at": "2025-12-07T17:08:51.782Z",
+    "updated_at": "2025-12-09T10:54:22.240Z",
+    "product": 1,
+    "name": "Foul with Egg small",
+    "is_active": true,
+    "batch_output_quantity": "1.0000",
+    "batch_output_unit": 7,
+    "unit_cost": "1.134000",
+    "unit_cost_final": "1.134000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 42,
+  "fields": {
+    "created_at": "2025-12-07T17:08:51.818Z",
+    "updated_at": "2025-12-11T07:42:59.831Z",
+    "product": 2,
+    "name": "Ein El Katkout - 1 piece",
+    "is_active": true,
+    "batch_output_quantity": "1.0000",
+    "batch_output_unit": 7,
+    "unit_cost": "1.056000",
+    "unit_cost_final": "1.056000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 43,
+  "fields": {
+    "created_at": "2025-12-07T17:08:51.859Z",
+    "updated_at": "2025-12-09T10:54:22.256Z",
+    "product": 3,
+    "name": "Egyptian traditional Foul small",
+    "is_active": true,
+    "batch_output_quantity": "1.0000",
+    "batch_output_unit": 7,
+    "unit_cost": "1.021000",
+    "unit_cost_final": "1.021000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 44,
+  "fields": {
+    "created_at": "2025-12-07T17:08:51.887Z",
+    "updated_at": "2025-12-09T10:54:22.256Z",
+    "product": 4,
+    "name": "Foul large",
+    "is_active": true,
+    "batch_output_quantity": "1.0000",
+    "batch_output_unit": 7,
+    "unit_cost": "2.305000",
+    "unit_cost_final": "2.305000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 45,
+  "fields": {
+    "created_at": "2025-12-07T17:08:51.914Z",
+    "updated_at": "2025-12-09T10:54:22.279Z",
+    "product": 5,
+    "name": "Egyptian traditional Foul Large",
+    "is_active": true,
+    "batch_output_quantity": "1.0000",
+    "batch_output_unit": 7,
+    "unit_cost": "1.680000",
+    "unit_cost_final": "1.680000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 46,
+  "fields": {
+    "created_at": "2025-12-07T17:08:51.942Z",
+    "updated_at": "2025-12-09T10:54:22.287Z",
+    "product": 6,
+    "name": "Foul Eskandarani small",
+    "is_active": true,
+    "batch_output_quantity": "1.0000",
+    "batch_output_unit": 7,
+    "unit_cost": "1.108000",
+    "unit_cost_final": "1.108000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 47,
+  "fields": {
+    "created_at": "2025-12-07T17:08:51.996Z",
+    "updated_at": "2025-12-11T07:44:08.782Z",
+    "product": 7,
+    "name": "Mahshiya - 1 piece",
+    "is_active": true,
+    "batch_output_quantity": "1.0000",
+    "batch_output_unit": 7,
+    "unit_cost": "0.286000",
+    "unit_cost_final": "0.286000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 48,
+  "fields": {
+    "created_at": "2025-12-07T17:08:52.012Z",
+    "updated_at": "2025-12-09T10:54:22.305Z",
+    "product": 8,
+    "name": "Foul small",
+    "is_active": true,
+    "batch_output_quantity": "1.0000",
+    "batch_output_unit": 7,
+    "unit_cost": "1.681000",
+    "unit_cost_final": "1.681000"
+  }
+},
+{
+  "model": "costing.billofmaterial",
+  "pk": 49,
+  "fields": {
+    "created_at": "2025-12-07T17:08:52.045Z",
+    "updated_at": "2025-12-09T10:54:22.307Z",
+    "product": 139,
+    "name": 

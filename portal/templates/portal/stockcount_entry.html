@@ -1,0 +1,449 @@
+{% load static %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>{{ page_title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f4f6f9;
+      --card:#fff;
+      --muted:#6c757d;
+      --border:#e6e8ee;
+      --shadow:0 10px 24px rgba(0,0,0,.06);
+      --radius:16px;
+      --opening:#f59e0b;
+      --closing:#16a34a;
+      --danger:#ef4444;
+      --info:#0ea5e9;
+    }
+    body{background:var(--bg)}
+    .card-soft{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .chip{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem .65rem;border-radius:999px;background:#f1f3f5;font-size:.85rem;border:1px solid var(--border)}
+    .chip.success{background:#eaf7ee}
+    .chip.warn{background:#fff7e6}
+    .chip.danger{background:#fff1f2}
+    .title{font-weight:900}
+    .sub{color:var(--muted);font-size:.9rem}
+    .topbar{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:12px;box-shadow:0 6px 18px rgba(0,0,0,.04)}
+    .type-strip{height:6px;border-radius:999px;width:100%;background:linear-gradient(90deg,var(--opening),#fde68a)}
+    .type-strip.closing{background:linear-gradient(90deg,var(--closing),#bbf7d0)}
+    .table thead th{background:#f8fafc}
+    .muted{color:var(--muted)}
+    .unit-cell{min-width:140px}
+    .sticky-foot{position:sticky;bottom:12px;z-index:5}
+    .opening-cost{
+      background:#fff7e6;
+      border-color:#f59e0b !important;
+    }
+    .row-muted{background:#fbfdff}
+    .btn-compact{white-space:nowrap}
+    .badge-note{
+      display:inline-flex;align-items:center;gap:.35rem;
+      padding:.25rem .55rem;border-radius:999px;
+      border:1px solid var(--border);
+      background:#f8fafc;
+      font-size:.82rem;
+      color:#334155;
+    }
+    .toolbar-right{display:flex;gap:.5rem;flex-wrap:wrap;justify-content-lg-end}
+  </style>
+</head>
+
+<body>
+<div class="container-fluid py-3">
+
+  <!-- Header -->
+  <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+    <div>
+      <h4 class="m-0 title">{{ page_title }}</h4>
+      <div class="sub">
+        النموذج جاهز تلقائيًا بكل المواد (RAW + SEMI) — اكتب الكميات فقط.
+        <span class="badge-note ms-1">وفي جرد أول المدة: أدخل تكلفة الوحدة يدويًا</span>
+      </div>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+      <span class="chip" id="chipPeriod">🗓 الفترة: …</span>
+      <span class="chip" id="chipType">📌 النوع: …</span>
+      <span class="chip" id="chipLock">…</span>
+    </div>
+  </div>
+
+  <!-- Settings TOP only -->
+  <div class="topbar mb-3">
+    <div id="typeStrip" class="type-strip mb-2"></div>
+
+    <div class="row g-2 align-items-end">
+      <div class="col-lg-4">
+        <label class="form-label fw-bold">الفترة</label>
+        <select class="form-select" id="selPeriod">
+          {% for p in periods %}
+            <option value="{{ p.id }}" {% if period and p.id == period.id %}selected{% endif %}>{{ p }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="col-lg-4">
+        <label class="form-label fw-bold">نوع الجرد</label>
+        <select class="form-select" id="selType">
+          <option value="opening" {% if count_type == "opening" %}selected{% endif %}>جرد أول الفترة</option>
+          <option value="closing" {% if count_type == "closing" %}selected{% endif %}>جرد آخر الفترة</option>
+        </select>
+        <div class="small muted mt-1" id="msgType"></div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="toolbar-right">
+          <button class="btn btn-outline-primary btn-compact" id="btnRecalc">🔄 إعادة حساب</button>
+          <button class="btn btn-outline-danger btn-compact" id="btnClearAll">🧹 مسح البنود</button>
+          <button class="btn btn-success btn-compact" id="btnSubmit">💾 حفظ الجرد</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main table -->
+  <div class="card-soft">
+    <div class="p-3">
+      {% if not period %}
+        <div class="alert alert-warning m-0">لا توجد فترات.</div>
+      {% else %}
+        <div class="table-responsive">
+          <table class="table table-bordered bg-white align-middle mb-0">
+            <thead>
+              <tr>
+                <th style="width:44%">الصنف</th>
+                <th class="unit-cell" style="width:18%">الوحدة</th>
+                <th style="width:14%">الكمية</th>
+                <th style="width:12%">تكلفة الوحدة</th>
+                <th style="width:12%">الإجمالي</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-3 flex-wrap">
+          <span class="chip">🔢 إجمالي الكمية: <b id="totalQty">0.00</b></span>
+          <span class="chip">💰 إجمالي التكلفة: <b id="totalCost">0.00</b></span>
+        </div>
+
+        <div class="sticky-foot mt-3 d-flex justify-content-between flex-wrap gap-2">
+          <div class="small muted">* لو الفترة مقفولة أو عليها حركة: ممنوع الحفظ/التعديل.</div>
+          <div class="small muted">Double-click على خانة الوحدة لاختيار وحدة سريعًا (اختياري).</div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const API_STATE   = "/portal/api/inventory/stockcount/state/";
+  const API_UNITS   = "/portal/api/inventory/units/list/";
+  const API_UPD     = "/portal/api/inventory/stockcount/update-line/";
+  const API_RECALC  = "/portal/api/inventory/stockcount/recalc/";
+  const API_CLEAR   = "/portal/api/inventory/stockcount/clear-all/";
+  const API_SUBMIT  = "/portal/api/inventory/stockcount/submit/";
+
+  let COUNT_ID = null;
+  let LOCKED   = false;
+  let COUNT_TYPE = "opening";
+
+  const selPeriod = document.getElementById("selPeriod");
+  const selType   = document.getElementById("selType");
+
+  const chipPeriod = document.getElementById("chipPeriod");
+  const chipType   = document.getElementById("chipType");
+  const chipLock   = document.getElementById("chipLock");
+  const typeStrip  = document.getElementById("typeStrip");
+  const msgType    = document.getElementById("msgType");
+
+  const tbody     = document.getElementById("tbody");
+  const totalQty  = document.getElementById("totalQty");
+  const totalCost = document.getElementById("totalCost");
+
+  const btnRecalc   = document.getElementById("btnRecalc");
+  const btnClearAll = document.getElementById("btnClearAll");
+  const btnSubmit   = document.getElementById("btnSubmit");
+
+  function csrfToken(){
+    const m = document.cookie.match(/csrftoken=([^;]+)/);
+    return m ? m[1] : "";
+  }
+
+  async function jget(url, params={}){
+    const u = new URL(url, window.location.origin);
+    Object.entries(params).forEach(([k,v]) => u.searchParams.set(k, v));
+    const r = await fetch(u.toString(), {credentials:"same-origin"});
+    return await r.json();
+  }
+
+  async function jpost(url, body={}){
+    const form = new FormData();
+    Object.entries(body).forEach(([k,v]) => form.append(k, v));
+    const r = await fetch(url, {
+      method:"POST",
+      body: form,
+      credentials:"same-origin",
+      headers: {"X-CSRFToken": csrfToken()}
+    });
+    const data = await r.json().catch(()=> ({}));
+    if(!r.ok) throw new Error(data.error || "Request failed");
+    return data;
+  }
+
+  function warn(msg){ alert(msg); }
+
+  // ====== format 2 decimals ======
+  const NF2 = new Intl.NumberFormat("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  function fmt2(v){
+    if(v === null || v === undefined) return "";
+    const s = String(v).trim();
+    if(s === "") return "";
+    const n = Number(s.replace(/,/g,""));
+    if(Number.isNaN(n)) return s;
+    return NF2.format(n);
+  }
+
+  function parseNum(v){
+    const s = String(v ?? "").trim().replace(/,/g,"");
+    if(s === "") return null;
+    const n = Number(s);
+    return Number.isNaN(n) ? null : n;
+  }
+
+  function debounce(fn, ms=300){
+    let t=null;
+    return (...args)=>{
+      clearTimeout(t);
+      t=setTimeout(()=>fn(...args), ms);
+    };
+  }
+
+  function setTypeUI(t){
+    const isClosing = (t === "closing");
+    chipType.textContent = "📌 النوع: " + (isClosing ? "جرد آخر الفترة" : "جرد أول الفترة");
+    typeStrip.classList.toggle("closing", isClosing);
+  }
+
+  function setLockUI(){
+    if(LOCKED){
+      chipLock.textContent = "🔒 مقفول";
+      chipLock.className = "chip danger";
+    }else{
+      chipLock.textContent = "✅ قابل للتعديل";
+      chipLock.className = "chip success";
+    }
+    btnRecalc.disabled   = LOCKED;
+    btnClearAll.disabled = LOCKED;
+    btnSubmit.disabled   = LOCKED;
+  }
+
+  function rowHtml(row){
+    const isOpening = (COUNT_TYPE === "opening");
+
+    const costCell = isOpening
+      ? `<input class="form-control form-control-sm unit_cost_value text-end opening-cost"
+                value="${row.unit_cost ?? ""}"
+                placeholder="0.00"
+                ${LOCKED ? "disabled" : ""}>`
+      : `<span class="unit_cost">${fmt2(row.unit_cost ?? "")}</span>`;
+
+    const qtyVal = (row.qty === null || row.qty === undefined || row.qty === "") ? "0" : row.qty;
+
+    return `
+      <tr data-id="${row.id}" class="${isOpening ? "row-muted" : ""}">
+        <td>
+          <div class="fw-semibold">${row.item_label||""}</div>
+          <div class="small muted">${row.item_type==="raw"?"RAW":"SEMI"}</div>
+        </td>
+
+        <td>
+          <input class="form-control form-control-sm unit" value="${row.unit_label||""}" placeholder="وحدة" ${LOCKED?"disabled":""}>
+          <input type="hidden" class="unit_id" value="${row.unit_id||""}">
+        </td>
+
+        <td>
+          <input class="form-control form-control-sm qty text-end" value="${fmt2(qtyVal)}" ${LOCKED?"disabled":""}>
+        </td>
+
+        <td class="text-end">${costCell}</td>
+
+        <td class="text-end"><span class="total_cost">${fmt2(row.total_cost ?? "")}</span></td>
+      </tr>
+    `;
+  }
+
+  function bindRowEvents(){
+    tbody.querySelectorAll("tr").forEach(tr=>{
+      const qtyInput = tr.querySelector(".qty");
+      const saveLater = debounce(()=> saveRow(tr), 450);
+
+      qtyInput.addEventListener("input", saveLater);
+      qtyInput.addEventListener("change", ()=> saveRow(tr));
+
+      tr.querySelector(".unit").addEventListener("dblclick", async ()=>{
+        if(LOCKED) return;
+        const k = prompt("اكتب جزء من اسم الوحدة:");
+        if(k === null) return;
+        const res = await jget(API_UNITS, {q:k});
+        const pick = (res.units||[])[0];
+        if(!pick){ warn("لم يتم العثور على وحدة"); return; }
+        tr.querySelector(".unit").value = pick.label;
+        tr.querySelector(".unit_id").value = pick.id;
+        await saveRow(tr);
+      });
+
+      const costInp = tr.querySelector(".unit_cost_value");
+      if(costInp){
+        costInp.addEventListener("input", debounce(()=> saveRow(tr), 600));
+        costInp.addEventListener("change", ()=> saveRow(tr));
+      }
+
+      qtyInput.addEventListener("blur", ()=>{
+        const n = parseNum(qtyInput.value);
+        if(n !== null) qtyInput.value = fmt2(n);
+      });
+
+      if(costInp){
+        costInp.addEventListener("blur", ()=>{
+          const n = parseNum(costInp.value);
+          if(n !== null) costInp.value = fmt2(n);
+        });
+      }
+    });
+  }
+
+  async function saveRow(tr){
+    if(LOCKED){ return; }
+
+    const qtyRaw  = (tr.querySelector(".qty").value || "").trim();
+    const unit_id = (tr.querySelector(".unit_id").value || "").trim();
+
+    if(!unit_id){
+      warn("⚠️ اختر الوحدة (Double-click على خانة الوحدة).");
+      return;
+    }
+
+    const qtyNum = parseNum(qtyRaw);
+    if(qtyNum === null){ return; }
+    if(qtyNum < 0){
+      warn("⚠️ الكمية لا يمكن أن تكون سالبة.");
+      return;
+    }
+
+    const payload = {
+      line_id: tr.dataset.id,
+      qty: String(qtyNum),
+      unit_id,
+    };
+
+    if(COUNT_TYPE === "opening"){
+      const c = tr.querySelector(".unit_cost_value");
+      const raw = c ? String(c.value ?? "").trim() : "";
+      const cNum = parseNum(raw);
+
+      if(raw === ""){
+        payload.unit_cost_value = "";
+      }else if(cNum === null || cNum < 0){
+        warn("⚠️ تكلفة الوحدة غير صحيحة.");
+        return;
+      }else{
+        payload.unit_cost_value = String(cNum);
+      }
+    }
+
+    try{
+      await jpost(API_UPD, payload);
+      await loadState();
+    }catch(e){
+      warn(e.message);
+      await loadState();
+    }
+  }
+
+  async function loadState(){
+    const period_id = selPeriod.value;
+    const req_type  = selType.value;
+
+    const data = await jget(API_STATE, {period_id, type: req_type});
+    if(!data.ok){ warn(data.error || "خطأ"); return; }
+
+    COUNT_ID   = data.count_id;
+    LOCKED     = !!data.locked;
+    COUNT_TYPE = data.effective_type || data.count_type || req_type;
+
+    chipPeriod.textContent = "🗓 الفترة: " + (data.period?.label || "");
+    setTypeUI(COUNT_TYPE);
+    setLockUI();
+
+    msgType.textContent = data.message || "";
+
+    if(COUNT_TYPE !== req_type){
+      selType.value = COUNT_TYPE;
+    }
+
+    tbody.innerHTML = (data.lines||[]).map(rowHtml).join("");
+
+    totalQty.textContent  = fmt2(data.totals?.total_qty  || "0");
+    totalCost.textContent = fmt2(data.totals?.total_cost || "0");
+
+    bindRowEvents();
+  }
+
+  async function submitCount(){
+    if(LOCKED) return;
+
+    if(COUNT_TYPE === "opening"){
+      if(!confirm("⚠️ أنت الآن ستحفظ (وتقفل) جرد أول الفترة. هل أنت متأكد 100%؟")) return;
+      if(!confirm("🧨 تأكيد نهائي: بعد الحفظ لن تستطيع تعديل جرد أول الفترة إلا من شاشة الفترات وبصلاحية فتح خاصة. متابعة؟")) return;
+      if(!confirm("✅ آخر تأكيد: هل راجعت الكميات والتكاليف اليدوية بالكامل؟")) return;
+    }else{
+      if(!confirm("⚠️ سيتم حفظ/إقفال جرد آخر الفترة. هل أنت متأكد؟")) return;
+    }
+
+    try{
+      await jpost(API_SUBMIT, {count_id: COUNT_ID});
+      await loadState();
+      warn("✅ تم حفظ/إقفال الجرد بنجاح.");
+    }catch(e){
+      warn(e.message);
+      await loadState();
+    }
+  }
+
+  selPeriod.addEventListener("change", loadState);
+  selType.addEventListener("change", loadState);
+
+  btnRecalc.addEventListener("click", async ()=>{
+    if(LOCKED) return;
+    if(!confirm("⚠️ إعادة حساب التكلفة لكل البنود؟")) return;
+    try{
+      await jpost(API_RECALC, {count_id: COUNT_ID});
+      await loadState();
+    }catch(e){ warn(e.message); }
+  });
+
+  btnClearAll.addEventListener("click", async ()=>{
+    if(LOCKED) return;
+    if(!confirm("🧨 سيتم مسح كل بنود الجرد لهذه الفترة. هل أنت متأكد؟")) return;
+    try{
+      await jpost(API_CLEAR, {count_id: COUNT_ID});
+      await loadState();
+    }catch(e){ warn(e.message); }
+  });
+
+  btnSubmit.addEventListener("click", submitCount);
+
+  (async function init(){
+    await loadState();
+  })();
+</script>
+
+</body>
+</html>

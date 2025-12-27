@@ -1,0 +1,134 @@
+{% extends "base_reports.html" %}
+
+{% block title %}{% load numfmt %}
+تقرير مقارنة أسعار المشتريات للمواد{% endblock %}
+
+{% block filters %}
+<h4 class="mb-3">🧾 تقرير مقارنة أسعار المشتريات للمواد بين عدة شهور</h4>
+
+<form method="get" class="row g-2 align-items-end mb-3">
+        <div class="col-12 col-md-6">
+            <label class="form-label">اختر الشهور (يمكن اختيار أكثر من شهر):</label>
+            <div class="border rounded p-2"
+                style="max-height: 140px; overflow-y: auto; font-size: 0.9rem;">
+                {% for p in all_periods %}
+                <div class="form-check">
+                    <input
+                        class="form-check-input"
+                        type="checkbox"
+                        name="periods"
+                        id="period_{{ p.id }}"
+                        value="{{ p.id }}"
+                        {% if p.id in selected_period_ids %}checked{% endif %}
+                    >
+                    <label class="form-check-label" for="period_{{ p.id }}">
+                        {{ p.name }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    <div class="col-auto mt-2">
+        <button type="submit" class="btn btn-primary">
+            عرض التقرير
+        </button>
+    </div>
+
+    {% if selected_period_ids %}
+    <div class="col-auto mt-2">
+        <a href="?" class="btn btn-outline-secondary">
+            مسح الاختيارات
+        </a>
+    </div>
+    {% endif %}
+</form>
+
+{% block content %}
+    {% endblock %}
+    {% if rows %}
+    <div class="mb-3">
+        <a class="btn btn-success btn-sm"
+        href="?{% for id in selected_period_ids %}periods={{ id }}&{% endfor %}export=excel">
+            💾 تصدير إلى Excel
+        </a>
+
+        <a class="btn btn-danger btn-sm"
+        href="?{% for id in selected_period_ids %}periods={{ id }}&{% endfor %}export=pdf">
+            📄 تصدير إلى PDF
+        </a>
+    </div>
+    {% endif %}
+
+{% if not selected_period_ids %}
+    <div class="alert alert-info">
+        يرجى اختيار شهر واحد على الأقل لعرض المقارنة.
+    </div>
+{% else %}
+    {% if not rows %}
+        <div class="alert alert-warning">
+            لا توجد بيانات مشتريات للفترات المختارة.
+        </div>
+    {% else %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped align-middle text-center">
+                <thead class="table-light">
+                    <tr>
+                        <th>كود المادة</th>   <!-- 🔸 جديد -->
+                        <th>المادة الخام</th>
+                        {% for p in selected_periods %}
+                        <th>{{ p.name }}</th>
+                        {% endfor %}
+                        <th>أعلى سعر</th>
+                        <th>أقل سعر</th>
+                        <th>متوسط السعر</th>
+                        <th>نسبة التغير بين أول وآخر فترة (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                    <tr>
+                        <td>{{ row.raw_material.sku}}</td>          <!-- 🔸 جديد -->
+                        <td class="text-start">{{ row.raw_material.name }}</td>
+
+                        {# أسعار الفترات بالترتيب #}
+                        {% for item in row.prices %}
+                            <td class="{% if item.changed %}table-warning fw-bold{% endif %}">
+                                {% if item.price %}
+                                    {{ item.price|num:3 }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                        {% endfor %}
+
+                        <td>
+                            {% if row.max_price %}
+                                {{ row.max_price|num:3 }}
+                            {% else %}-{% endif %}
+                        </td>
+                        <td>
+                            {% if row.min_price %}
+                                {{ row.min_price|num:3 }}
+                            {% else %}-{% endif %}
+                        </td>
+                        <td>
+                            {% if row.avg_price %}
+                                {{ row.avg_price|num:3 }}
+                            {% else %}-{% endif %}
+                        </td>
+                        <td>
+                            {% if row.change_percent is not None %}
+                                {{ row.change_percent|num:2 }}%
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endif %}
+{% endblock %}

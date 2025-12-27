@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <title>تقرير حركة المواد للفترة</title>
+    <style>
+        body { font-family: Tahoma, Arial, sans-serif; direction: rtl; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 4px 6px; text-align: center; }
+        th { background: #f0f4f7; }
+        .number { text-align: left; font-family: "Consolas", monospace; }
+    </style>
+</head>
+<body>
+    <h2>تقرير حركة المواد للفترة</h2>
+
+    <form method="get">
+        <label>الفترة:</label>
+        <select name="period" onchange="this.form.submit()">
+            <option value="">-- اختر فترة --</option>
+            {% for p in periods %}
+                <option value="{{ p.id }}" {% if selected_period and p.id == selected_period.id %}selected{% endif %}>
+                    {{ p }}
+                </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    {% if selected_period %}
+        <h3>الفترة المختارة: {{ selected_period }}</h3>
+
+        <table>
+            <thead>
+            <tr>
+                <th>المادة</th>
+                <th>الوحدة (كبيرة)</th>
+                <th>رصيد أول الفترة</th>
+                <th>مشتريات الفترة</th>
+                <th>المنصرف للمبيعات</th>
+                <th>المنصرف لأغراض أخرى</th>
+                <th>جرد آخر الفترة</th>
+                <th>المعادلة (أول + مشتريات - المنصرف)</th>
+                <th>فرق الكمية (آخر - المعادلة)</th>
+                <th>تكلفة وحدة المادة</th>
+                <th>قيمة الفرق</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for r in rows %}
+                <tr>
+                    <td>{{ r.raw }}</td>
+                    <td>{{ r.unit }}</td>
+                    <td class="number">{{ r.open_qty|floatformat:3 }}</td>
+                    <td class="number">{{ r.purch_qty|floatformat:3 }}</td>
+                    <td class="number">{{ r.sales_qty|floatformat:3 }}</td>
+                    <td class="number">{{ r.other_qty|floatformat:3 }}</td>
+                    <td class="number">{{ r.close_qty|floatformat:3 }}</td>
+                    <td class="number">{{ r.theoretical|floatformat:3 }}</td>
+                    <td class="number">{{ r.diff_qty|floatformat:3 }}</td>
+                    <td class="number">
+                        {% if r.unit_cost is not None %}
+                            {{ r.unit_cost|floatformat:3 }}
+                        {% else %}-{% endif %}
+                    </td>
+                    <td class="number">
+                        {% if r.diff_value is not None %}
+                            {{ r.diff_value|floatformat:3 }}
+                        {% else %}-{% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="11">لا توجد بيانات للحركة في هذه الفترة.</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>من فضلك اختر فترة من أعلى الصفحة.</p>
+    {% endif %}
+</body>
+</html>

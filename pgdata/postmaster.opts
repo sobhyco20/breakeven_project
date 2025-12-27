@@ -1,0 +1,1 @@
+B:/breakeven_project/postgres/bin/postgres.exe "-D" "B:/breakeven_project/pgdata"

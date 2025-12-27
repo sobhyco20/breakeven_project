@@ -1,0 +1,219 @@
+{% extends "admin/base_site.html" %}
+{% load i18n l10n humanize %}
+
+{% block extrastyle %}
+{% load numfmt %}
+<style>
+  .report-wrapper {
+      background: #fff;
+      padding: 20px 25px;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      margin-top: 10px;
+  }
+  .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      gap: 10px;
+      flex-wrap: wrap;
+  }
+  .report-title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
+  }
+  .report-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+  }
+  .report-filters select {
+      min-width: 220px;
+  }
+  .report-buttons {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+  }
+  .report-buttons a.btn {
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid #417690;
+      background: #f5f5f5;
+      color: #417690;
+      text-decoration: none;
+      font-size: 13px;
+  }
+  .report-buttons a.btn-primary {
+      background: #417690;
+      color: #fff;
+  }
+  .report-buttons a.btn:hover {
+      opacity: .9;
+  }
+
+  .materials-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 13px;
+  }
+  .materials-table th,
+  .materials-table td {
+      padding: 4px 6px;
+      border-bottom: 1px solid #eee;
+      text-align: right;
+      white-space: nowrap;
+  }
+  .materials-table th {
+      background: #f3f6f8;
+      font-weight: 600;
+  }
+  .materials-table tbody tr:nth-child(even) {
+      background: #fafafa;
+  }
+  .materials-table tfoot td {
+      font-weight: 700;
+      background: #eef3f7;
+      border-top: 2px solid #d5dde5;
+  }
+  .col-material {
+      text-align: right;
+      min-width: 220px;
+  }
+  .number {
+      text-align: right;
+      font-family: Tahoma, "Segoe UI", sans-serif;
+  }
+  .number.negative {
+      color: #b30000;
+      font-weight: 600;
+  }
+  .text-muted {
+      color: #999;
+      font-size: 11px;
+  }
+</style>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    › <span>التقارير</span>
+    › <span>تقرير حركة المواد للفترة</span>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="report-wrapper">
+
+    <div class="report-header">
+        <h1 class="report-title">تقرير حركة المواد للفترة</h1>
+
+        <form method="get" class="report-filters">
+            <label for="id_period">الفترة:</label>
+            <select name="period" id="id_period" onchange="this.form.submit()">
+                {% for p in periods %}
+                    <option value="{{ p.id }}"
+                        {% if selected_period and p.id == selected_period.id %}selected{% endif %}>
+                        {{ p.name|default:p }}
+                    </option>
+                {% endfor %}
+            </select>
+            <noscript>
+                <button type="submit" class="default">عرض</button>
+            </noscript>
+        </form>
+    </div>
+
+    <div class="text-muted">
+        {% if selected_period %}
+            الفترة المختارة: {{ selected_period }}
+        {% endif %}
+    </div>
+
+    <div class="report-buttons">
+        <a href="{% url 'admin:index' %}" class="btn btn-primary">⬅ رجوع للوحة التحكم الرئيسية</a>
+        <a href="{% url 'admin:app_list' 'inventory' %}" class="btn">📦 رجوع لموديول المخزون</a>
+        {% comment %} لو عندك صفحة رئيسية للتقارير في الإدارة ممكن تضيف رابطها هنا {% endcomment %}
+        {# <a href="{% url 'admin:reports_inventoryreports_changelist' %}" class="btn">📊 قائمة التقارير</a> #}
+    </div>
+
+    {% if report_rows %}
+        <table class="materials-table">
+            <thead>
+                <tr>
+                    <th class="col-material">المادة</th>
+                    <th class="number">رصيد أول الفترة</th>
+                    <th class="number">مشتريات الفترة</th>
+                    <th class="number">المنصرف للمبيعات</th>
+                    <th class="number">المنصرف لأغراض أخرى</th>
+                    <th class="number">جرد آخر الفترة</th>
+                    <th class="number">الرصيد النظري<br>(أول + مشتريات - منصرف)</th>
+                    <th class="number">فرق الكمية<br>(جرد - نظري)</th>
+                    <th class="number">تكلفة وحدة المادة</th>
+                    <th class="number">قيمة الفرق</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in report_rows %}
+                    <tr>
+                        <td class="col-material">
+                            {{ row.material }}
+                        </td>
+                        <td class="number">{{ row.opening_qty|default:0|num:3 }}</td>
+                        <td class="number">{{ row.purchases_qty|default:0|num:3 }}</td>
+                        <td class="number">{{ row.sales_consumption_qty|default:0|num:3 }}</td>
+                        <td class="number">{{ row.other_out_qty|default:0|num:3 }}</td>
+                        <td class="number">{{ row.closing_qty|default:0|num:3 }}</td>
+                        <td class="number">{{ row.theoretical_closing_qty|default:0|num:3 }}</td>
+                        {% with diff=row.diff_qty|default:0 %}
+                            <td class="number {% if diff < 0 %}negative{% endif %}">
+                                {{ diff|num:3 }}
+                            </td>
+                        {% endwith %}
+                        <td class="number">{{ row.unit_cost|default:0|num:3 }}</td>
+                        {% with val=row.diff_value|default:0 %}
+                            <td class="number {% if val < 0 %}negative{% endif %}">
+                                {{ val|num:3 }}
+                            </td>
+                        {% endwith %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+            {% if totals %}
+            <tfoot>
+                <tr>
+                    <td>الإجمالي</td>
+                    <td class="number">{{ totals.opening_qty|default:0|num:3 }}</td>
+                    <td class="number">{{ totals.purchases_qty|default:0|num:3 }}</td>
+                    <td class="number">{{ totals.sales_consumption_qty|default:0|num:3 }}</td>
+                    <td class="number">{{ totals.other_out_qty|default:0|num:3 }}</td>
+                    <td class="number">{{ totals.closing_qty|default:0|num:3 }}</td>
+                    <td class="number">{{ totals.theoretical_closing_qty|default:0|num:3 }}</td>
+                    {% with diff=totals.diff_qty|default:0 %}
+                        <td class="number {% if diff < 0 %}negative{% endif %}">
+                            {{ diff|num:3 }}
+                        </td>
+                    {% endwith %}
+                    <td class="number">—</td>
+                    {% with val=totals.diff_value|default:0 %}
+                        <td class="number {% if val < 0 %}negative{% endif %}">
+                            {{ val|num:3 }}
+                        </td>
+                    {% endwith %}
+                </tr>
+            </tfoot>
+            {% endif %}
+        </table>
+    {% else %}
+        <p>لا توجد بيانات لهذه الفترة.</p>
+    {% endif %}
+</div>
+{% endblock %}

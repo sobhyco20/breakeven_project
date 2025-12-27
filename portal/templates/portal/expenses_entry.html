@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>إدخال مصروفات الفترة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f3f5f9;
+      --card:#ffffff;
+      --bd:#e6e8ee;
+      --muted:#6b7280;
+      --shadow: 0 12px 28px rgba(0,0,0,.08);
+      --radius:16px;
+
+      --op:#2563eb;   /* blue */
+      --sa:#f97316;   /* orange */
+      --ad:#10b981;   /* green */
+      --all:#111827;  /* dark */
+    }
+
+    body{ background:var(--bg); }
+    .shell{ max-width: 1600px; margin: 0 auto; }
+
+    .cardx{
+      background:var(--card);
+      border:1px solid var(--bd);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hint{ color:var(--muted); font-size:.85rem; }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+    }
+
+    /* Header */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; flex-wrap:wrap;
+      padding:14px 16px;
+    }
+    .title{
+      font-weight:950;
+      font-size:1.05rem;
+      display:flex; align-items:center; gap:10px;
+    }
+    .subtitle{ color:var(--muted); font-size:.85rem; margin-top:2px; }
+
+    /* KPI Cards */
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width: 992px){
+      .kpis{ grid-template-columns: repeat(2, minmax(180px, 1fr)); }
+    }
+    @media (max-width: 520px){
+      .kpis{ grid-template-columns: 1fr; }
+    }
+
+    .kpi{
+      border-radius:16px;
+      border:1px solid var(--bd);
+      background:#fff;
+      padding:12px 14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .kpi:before{
+      content:"";
+      position:absolute;
+      inset:0 auto 0 0;
+      width:6px;
+      background: var(--all);
+      opacity:.9;
+    }
+    .kpi.op:before{ background: var(--op); }
+    .kpi.sa:before{ background: var(--sa); }
+    .kpi.ad:before{ background: var(--ad); }
+    .kpi.all:before{ background: var(--all); }
+
+    .kpi .k-label{
+      color:var(--muted);
+      font-weight:800;
+      font-size:.85rem;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+    }
+    .kpi .k-value{
+      margin-top:8px;
+      font-size:1.35rem;
+      font-weight:950;
+      letter-spacing:.2px;
+    }
+    .kpi .k-chip{
+      font-size:.72rem;
+      padding:3px 10px;
+      border-radius:999px;
+      border:1px solid var(--bd);
+      background:#f9fafb;
+      font-weight:800;
+      color:#111827;
+      white-space:nowrap;
+    }
+
+    /* Lock badge */
+    .lock-pill{
+      border-radius:999px;
+      font-weight:900;
+      padding:8px 12px;
+      border:1px solid var(--bd);
+      background:#fff;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+    .lock-ok{ color:#166534; background:#dcfce7; border-color:#bbf7d0; }
+    .lock-locked{ color:#991b1b; background:#fee2e2; border-color:#fecaca; }
+
+    /* Filters row */
+    .filters{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+      padding:0 16px 14px;
+    }
+    .filters .form-control-sm, .filters .form-select-sm{ min-height:34px; }
+    .filters .search{
+      min-width: 320px;
+      flex: 1 1 320px;
+    }
+
+    /* 3 columns */
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(320px, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width: 1200px){
+      .grid3{ grid-template-columns: 1fr; }
+    }
+
+    /* Section cards */
+    .sec{
+      border:1px solid var(--bd);
+      border-radius:16px;
+      background:#fff;
+      overflow:hidden;
+    }
+    .sec-h{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; flex-wrap:wrap;
+      padding:10px 12px;
+      font-weight:950;
+      border-bottom:1px solid var(--bd);
+      background: #f8fafc;
+    }
+    .sec-h .left{
+      display:flex; align-items:center; gap:10px;
+    }
+    .dot{
+      width:10px; height:10px;
+      border-radius:50%;
+      display:inline-block;
+    }
+    .sec.op{ border-top:4px solid var(--op); }
+    .sec.sa{ border-top:4px solid var(--sa); }
+    .sec.ad{ border-top:4px solid var(--ad); }
+    .dot.op{ background: var(--op); }
+    .dot.sa{ background: var(--sa); }
+    .dot.ad{ background: var(--ad); }
+
+    .sec-actions{
+      display:flex; gap:8px; flex-wrap:wrap;
+      align-items:center;
+    }
+
+    /* Table */
+    .table{ table-layout:fixed; margin:0; }
+    .table thead th{
+      white-space:nowrap;
+      font-weight:900;
+      font-size:.82rem;
+      padding:.55rem .5rem;
+      background:#fafafa;
+    }
+    .table tbody td{
+      padding:.5rem .5rem;
+      vertical-align:top;
+      font-size:.86rem;
+    }
+    .table-responsive{
+      max-height: calc(100vh - 330px);
+      overflow:auto;
+    }
+    @media (max-width: 1200px){
+      .table-responsive{ max-height: none; }
+    }
+
+    .name-2-lines{
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+      white-space:normal;
+      word-break:break-word;
+      line-height:1.35;
+      max-height:calc(1.35em * 2);
+      font-weight:800;
+    }
+
+    .form-control-sm{ min-height:30px; padding:2px 8px; font-size:.82rem; }
+    .btn.btn-sm{ padding:3px 10px; font-size:.82rem; font-weight:800; }
+
+    .foot{
+      padding:10px 12px;
+      border-top:1px solid var(--bd);
+      background:#fcfcfd;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    /* Select arrow on left (RTL) */
+    select.form-select-sm{
+      background-position: left .65rem center !important;
+      padding-left: 2rem !important;
+      padding-right: .6rem !important;
+    }
+
+    /* Dirty row highlight */
+    tr.dirty{
+      outline: 2px solid rgba(13,110,253,.25);
+      outline-offset: -2px;
+      background: #eff6ff !important;
+    }
+
+    .badge-sum{
+      border:1px solid var(--bd);
+      background:#fff;
+      border-radius:999px;
+      padding:4px 10px;
+      font-weight:900;
+      font-size:.8rem;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container-fluid p-3">
+  <div class="shell">
+
+    <!-- Top -->
+    <div class="cardx">
+      <div class="topbar">
+        <div>
+          <div class="title">💸 إدخال مصروفات الفترة</div>
+          <div class="subtitle">لوحة إدخال احترافية (OP / SA / AD) — الحفظ ممنوع إذا الفترة مقفلة.</div>
+        </div>
+
+        <div class="d-flex gap-2 align-items-center flex-wrap">
+          <select id="periodSel" class="form-select form-select-sm" style="min-width:240px"></select>
+          <button class="btn btn-sm btn-outline-secondary" id="btnReload">🔄 تحديث</button>
+          <span id="lockBadge" class="lock-pill lock-ok">✅ قابلة للتعديل</span>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input id="q" class="form-control form-control-sm search" placeholder="🔎 بحث باسم المصروف أو الكود..." />
+        <button class="btn btn-sm btn-outline-danger" id="btnClearAll">🧨 مسح الفترة بالكامل</button>
+      </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="kpis">
+      <div class="kpi op">
+        <div class="k-label"><span>تشغيلي OP</span><span class="k-chip">Operational</span></div>
+        <div class="k-value mono" id="kOP">0.00</div>
+      </div>
+      <div class="kpi sa">
+        <div class="k-label"><span>بيعي SA</span><span class="k-chip">Selling</span></div>
+        <div class="k-value mono" id="kSA">0.00</div>
+      </div>
+      <div class="kpi ad">
+        <div class="k-label"><span>إداري AD</span><span class="k-chip">Admin</span></div>
+        <div class="k-value mono" id="kAD">0.00</div>
+      </div>
+      <div class="kpi all">
+        <div class="k-label"><span>إجمالي الفترة ALL</span><span class="k-chip">Period Total</span></div>
+        <div class="k-value mono" id="kALL">0.00</div>
+      </div>
+    </div>
+
+    <!-- 3 Columns -->
+    <div class="grid3">
+      <div class="sec op" id="secOP"></div>
+      <div class="sec sa" id="secSA"></div>
+      <div class="sec ad" id="secAD"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // =========================
+  // Config
+  // =========================
+  const API_PERIODS = "/portal/api/expenses/periods/";
+  const API_LOAD    = "/portal/api/expenses/entry/load/";
+  const API_SAVE    = "/portal/api/expenses/entry/save/";
+  const API_CLEAR   = "/portal/api/expenses/entry/clear/";
+
+  // =========================
+  // Helpers
+  // =========================
+  function getCookie(name) {
+    const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return v ? v.pop() : '';
+  }
+  function toFormBody(obj) {
+    const p = new URLSearchParams();
+    Object.keys(obj).forEach(k => p.append(k, obj[k] ?? ""));
+    return p.toString();
+  }
+  function esc(s){
+    return String(s ?? "")
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;");
+  }
+  async function post(url, payload){
+    const res = await fetch(url, {
+      method:"POST",
+      credentials:"same-origin",
+      headers:{
+        "Content-Type":"application/x-www-form-urlencoded;charset=UTF-8",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body: toFormBody(payload)
+    });
+    const txt = await res.text();
+    let data = null;
+    try { data = JSON.parse(txt); } catch(e){}
+    return {res, data, txt};
+  }
+
+  function parseMoney(v){
+    v = String(v ?? "").trim().replace(/,/g,"");
+    if(!v) return 0;
+    const n = Number(v);
+    return isFinite(n) ? n : 0;
+  }
+  function fmtMoney(n){
+    return (Number(n || 0)).toFixed(2);
+  }
+
+  // =========================
+  // State
+  // =========================
+  const periodSel = document.getElementById("periodSel");
+  const btnReload = document.getElementById("btnReload");
+  const btnClearAll = document.getElementById("btnClearAll");
+  const qInput = document.getElementById("q");
+
+  const lockBadge = document.getElementById("lockBadge");
+  const kOP = document.getElementById("kOP");
+  const kSA = document.getElementById("kSA");
+  const kAD = document.getElementById("kAD");
+  const kALL = document.getElementById("kALL");
+
+  let CURRENT_PERIOD_ID = null;
+  let IS_CLOSED = false;
+  let GROUPS = null;
+
+  // baseline amounts from server: Map(line_id -> "0.00")
+  let BASELINE = new Map();
+  // dirty lines: Map(line_id -> {nature, amount})
+  let DIRTY = new Map();
+
+  function natureTitle(code){
+    return code === "OP" ? "💡 تشغيلي" : code === "SA" ? "🛒 بيعي" : "🏢 إداري";
+  }
+
+  function sectionHtml(group, disabled){
+    const rows = group.rows || [];
+    const code = group.code;
+
+    return `
+      <div class="sec-h">
+        <div class="left">
+          <span class="dot ${code === "OP" ? "op" : code === "SA" ? "sa" : "ad"}"></span>
+          <span>${esc(natureTitle(code))}</span>
+        </div>
+
+        <div class="sec-actions">
+          <span class="badge-sum mono" id="sum_${code}">0.00</span>
+
+          <button class="btn btn-sm btn-primary btn-save-group"
+                  data-nature="${code}" ${disabled ? "disabled":""}>
+            💾 حفظ المجموعة <span class="mono" id="cnt_${code}"></span>
+          </button>
+
+          <button class="btn btn-sm btn-outline-danger btn-clear-group"
+                  data-nature="${code}" ${disabled ? "disabled":""}>
+            🧹 مسح المجموعة
+          </button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-sm table-striped align-middle">
+          <colgroup>
+            <col style="width:18%">
+            <col style="width:56%">
+            <col style="width:26%">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>كود</th>
+              <th>المصروف</th>
+              <th>المبلغ</th>
+            </tr>
+          </thead>
+          <tbody data-nature="${code}">
+            ${
+              rows.map(r => `
+                <tr data-line="${r.line_id}">
+                  <td class="mono text-muted">${esc(r.item_code)}</td>
+                  <td>
+                    <div class="name-2-lines" title="${esc(r.item_name)}">${esc(r.item_name)}</div>
+                    <div class="hint">${esc(r.category || "")}</div>
+                  </td>
+                  <td>
+                    <input class="form-control form-control-sm mono f-amount"
+                           ${disabled ? "disabled":""}
+                           value="${esc(r.amount ?? "0.00")}"
+                           inputmode="decimal" />
+                  </td>
+                </tr>
+              `).join("")
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="foot">
+        <div class="hint">غيّر الأرقام ثم اضغط (حفظ المجموعة).</div>
+        <div class="hint">الإجماليات تتحدث لحظيًا.</div>
+      </div>
+    `;
+  }
+
+  function applyFilter(){
+    const q = (qInput.value || "").trim().toLowerCase();
+
+    for (const code of ["OP","SA","AD"]){
+      const sec = document.getElementById("sec"+code);
+      if(!sec) continue;
+      sec.querySelectorAll("tbody tr").forEach(tr => {
+        const txt = tr.innerText.toLowerCase();
+        tr.style.display = (!q || txt.includes(q)) ? "" : "none";
+      });
+    }
+  }
+
+  function recalcTotalsLive(){
+    let sumOP = 0, sumSA = 0, sumAD = 0;
+
+    document.querySelectorAll("tbody[data-nature='OP'] .f-amount").forEach(inp => sumOP += parseMoney(inp.value));
+    document.querySelectorAll("tbody[data-nature='SA'] .f-amount").forEach(inp => sumSA += parseMoney(inp.value));
+    document.querySelectorAll("tbody[data-nature='AD'] .f-amount").forEach(inp => sumAD += parseMoney(inp.value));
+
+    const sumALL = sumOP + sumSA + sumAD;
+
+    kOP.textContent  = fmtMoney(sumOP);
+    kSA.textContent  = fmtMoney(sumSA);
+    kAD.textContent  = fmtMoney(sumAD);
+    kALL.textContent = fmtMoney(sumALL);
+
+    const bOP = document.getElementById("sum_OP");
+    const bSA = document.getElementById("sum_SA");
+    const bAD = document.getElementById("sum_AD");
+    if(bOP) bOP.textContent = fmtMoney(sumOP);
+    if(bSA) bSA.textContent = fmtMoney(sumSA);
+    if(bAD) bAD.textContent = fmtMoney(sumAD);
+
+    // counters
+    const counts = {OP:0, SA:0, AD:0};
+    DIRTY.forEach(v => { if(v?.nature) counts[v.nature]++; });
+
+    const cOP = document.getElementById("cnt_OP");
+    const cSA = document.getElementById("cnt_SA");
+    const cAD = document.getElementById("cnt_AD");
+
+    if(cOP) cOP.textContent = counts.OP ? `(${counts.OP})` : "";
+    if(cSA) cSA.textContent = counts.SA ? `(${counts.SA})` : "";
+    if(cAD) cAD.textContent = counts.AD ? `(${counts.AD})` : "";
+  }
+
+  function markDirty(tr, isDirty){
+    tr.classList.toggle("dirty", !!isDirty);
+  }
+
+  function resetDirtyStateFromDOM(){
+    DIRTY.clear();
+    document.querySelectorAll("tr[data-line]").forEach(tr => markDirty(tr, false));
+  }
+
+  function rebuildBaselineFromPayload(payload){
+    BASELINE = new Map();
+    const allRows = []
+      .concat(payload.groups?.OP?.rows || [])
+      .concat(payload.groups?.SA?.rows || [])
+      .concat(payload.groups?.AD?.rows || []);
+    allRows.forEach(r => BASELINE.set(String(r.line_id), String(r.amount ?? "0.00")));
+  }
+
+  function renderAll(payload){
+    GROUPS = payload.groups;
+    IS_CLOSED = !!payload.period.is_closed;
+    CURRENT_PERIOD_ID = payload.period.id;
+
+    lockBadge.className = "lock-pill " + (IS_CLOSED ? "lock-locked" : "lock-ok");
+    lockBadge.textContent = IS_CLOSED ? "🔒 الفترة مقفلة" : "✅ قابلة للتعديل";
+
+    // بناء baseline + reset dirty
+    rebuildBaselineFromPayload(payload);
+    resetDirtyStateFromDOM();
+
+    // KPI initial from server
+    kOP.textContent  = payload.totals?.OP  || "0.00";
+    kSA.textContent  = payload.totals?.SA  || "0.00";
+    kAD.textContent  = payload.totals?.AD  || "0.00";
+    kALL.textContent = payload.totals?.ALL || "0.00";
+
+    document.getElementById("secOP").innerHTML = sectionHtml(GROUPS.OP, IS_CLOSED);
+    document.getElementById("secSA").innerHTML = sectionHtml(GROUPS.SA, IS_CLOSED);
+    document.getElementById("secAD").innerHTML = sectionHtml(GROUPS.AD, IS_CLOSED);
+
+    applyFilter();
+    recalcTotalsLive(); // ✅ اجماليات تفاعلية حتى لو السيرفر أرسل totals
+  }
+
+  async function loadPeriods(){
+    const res = await fetch(API_PERIODS, { credentials:"same-origin" });
+    const txt = await res.text();
+    let data = null;
+    try { data = JSON.parse(txt); } catch(e){}
+
+    if(!res.ok || !data?.ok){
+      alert("فشل تحميل الفترات:\n" + (data?.error || txt.slice(0, 500)));
+      return;
+    }
+
+    const periods = data.rows || [];
+    const url = new URL(window.location.href);
+    const urlPeriod = url.searchParams.get("period");
+    const selected = urlPeriod || (periods[0]?.id || "");
+
+    periodSel.innerHTML = periods.map(p => {
+      const sel = String(p.id) === String(selected) ? "selected" : "";
+      const lock = p.is_closed ? " 🔒" : "";
+      return `<option ${sel} value="${p.id}">${esc(p.label)}${lock}</option>`;
+    }).join("");
+
+    await loadEntry();
+  }
+
+async function loadEntry(){
+  const pid = periodSel.value;
+
+  const res = await fetch(API_LOAD + `?period=${encodeURIComponent(pid)}`, {
+    credentials:"same-origin"
+  });
+
+  const txt = await res.text();
+  let data = null;
+  try { data = JSON.parse(txt); } catch(e){}
+
+  if(!res.ok || !data?.ok){
+    let err = "فشل تحميل بيانات الفترة";
+    if (data?.error) {
+      err = data.error;
+    }
+    alert(err);
+    return;
+  }
+
+  renderAll(data);
+
+
+    const u = new URL(window.location.href);
+    u.searchParams.set("period", pid);
+    history.replaceState({}, "", u.toString());
+  }
+
+  async function clearGroup(nature){
+    if(!confirm("⚠️ تأكيد مسح (تصفير) هذه المجموعة؟")) return;
+
+    const {res, data, txt} = await post(API_CLEAR, {
+      period_id: CURRENT_PERIOD_ID,
+      scope: "group",
+      nature
+    });
+
+    if(!res.ok || !data?.ok){
+      alert("فشل المسح:\n" + (data?.error || txt.slice(0, 500)));
+      return;
+    }
+    await loadEntry();
+  }
+
+  async function clearAll(){
+    if(!confirm("⚠️ تأكيد مسح (تصفير) كل مصروفات الفترة؟")) return;
+
+    const {res, data, txt} = await post(API_CLEAR, {
+      period_id: CURRENT_PERIOD_ID,
+      scope: "all"
+    });
+
+    if(!res.ok || !data?.ok){
+      alert("فشل المسح:\n" + (data?.error || txt.slice(0, 500)));
+      return;
+    }
+    await loadEntry();
+  }
+
+  async function saveGroup(nature){
+    if(IS_CLOSED) return;
+
+    // اجمع فقط السطور المعدلة لهذه المجموعة
+    const changes = [];
+    DIRTY.forEach((v, line_id) => {
+      if(v.nature === nature){
+        changes.push({ line_id, amount: v.amount });
+      }
+    });
+
+    if(!changes.length){
+      alert("لا توجد تغييرات لحفظها في هذه المجموعة.");
+      return;
+    }
+
+    if(!confirm(`تأكيد حفظ المجموعة (${nature})؟\nعدد التغييرات: ${changes.length}`)){
+      return;
+    }
+
+    // حفظ بالتتابع باستخدام API_SAVE الحالي (بدون تعديل API)
+    for(const it of changes){
+      const {res, data, txt} = await post(API_SAVE, {
+        period_id: CURRENT_PERIOD_ID,
+        line_id: it.line_id,
+        amount: it.amount,
+        notes: "" // ✅ ملاحظات مخفية
+      });
+
+      if(!res.ok || !data?.ok){
+        alert("فشل حفظ المجموعة عند سطر: " + it.line_id + "\n" + (data?.error || txt.slice(0, 300)));
+        return;
+      }
+    }
+
+    await loadEntry(); // يعيد baseline + يصفر dirty
+    alert("✅ تم حفظ المجموعة");
+  }
+
+  // =========================
+  // Events
+  // =========================
+  btnReload.addEventListener("click", loadEntry);
+  periodSel.addEventListener("change", loadEntry);
+  qInput.addEventListener("input", applyFilter);
+  btnClearAll.addEventListener("click", () => { if(!IS_CLOSED) clearAll(); });
+
+  // تفاعل مباشر: تغيير المبالغ + dirty tracking + totals live
+  document.addEventListener("input", (e) => {
+    const inp = e.target.closest(".f-amount");
+    if(!inp) return;
+
+    const tr = inp.closest("tr[data-line]");
+    const tbody = inp.closest("tbody[data-nature]");
+    if(!tr || !tbody) return;
+
+    const line_id = String(tr.getAttribute("data-line") || "");
+    const nature = tbody.getAttribute("data-nature");
+    const nowVal = fmtMoney(parseMoney(inp.value));
+    const baseVal = fmtMoney(parseMoney(BASELINE.get(line_id) || "0"));
+
+    const isDirty = nowVal !== baseVal;
+    markDirty(tr, isDirty);
+
+    if(isDirty){
+      DIRTY.set(line_id, { nature, amount: nowVal });
+    }else{
+      DIRTY.delete(line_id);
+    }
+
+    recalcTotalsLive();
+  });
+
+  document.addEventListener("click", (e) => {
+    const btnG = e.target.closest(".btn-clear-group");
+    if(btnG && !IS_CLOSED) clearGroup(btnG.getAttribute("data-nature"));
+
+    const btnSaveG = e.target.closest(".btn-save-group");
+    if(btnSaveG && !IS_CLOSED) saveGroup(btnSaveG.getAttribute("data-nature"));
+  });
+
+  // Start
+  loadPeriods();
+</script>
+</body>
+</html>

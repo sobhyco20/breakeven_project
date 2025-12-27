@@ -1,0 +1,148 @@
+{% extends "base_reports.html" %}
+
+{% block title %}تقرير تفصيلي لاستهلاك المواد الخام{% endblock %}
+
+{% block filters %}
+<form method="get" class="row g-2 mb-3">
+  <div class="col-md-4">
+    <label class="form-label">الفترة</label>
+    <select name="period" class="form-select">
+      {% for p in periods %}
+        <option value="{{ p.id }}"
+          {% if current_period and p.id == current_period.id %}selected{% endif %}>
+          {{ p.name }} ({{ p.start_date }} - {{ p.end_date }})
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2 align-self-end">
+    <button type="submit" class="btn btn-primary w-100">عرض</button>
+  </div>
+</form>
+{% endblock %}
+
+{% block content %}
+{% for item in products_data %}
+  <div class="card mb-3">
+
+<div class="card-header d-flex justify-content-between align-items-center" 
+     style="background: #ffc40058; border-bottom: 2px solid #0036a3;">
+
+    <div style="font-size: 1.15rem; font-weight: bold; color: #0036a3;">
+        المنتج النهائي:
+        <span style="color: #000;">{{ item.product.name }}</span>
+    </div>
+
+    <div style="font-size: 1rem; font-weight: bold;">
+
+        <span style="margin-left: 25px; color: #444;">
+            عدد الطلبات:
+            <span style="color: #000; font-size: 1.1rem;">
+                {{ item.quantity_sold|floatformat:0 }}
+            </span>
+        </span>
+
+        <span style="color: #444;">
+            تكلفة الطلب:
+            <span style="color: #c20000; font-size: 1.15rem;">
+            {% if item.cost_per_order %}
+                {{ item.cost_per_order|floatformat:3 }}
+            {% else %}
+                -
+            {% endif %}
+            </span>
+        </span>
+
+    </div>
+
+</div>
+
+   
+    <div class="card-body p-2">
+      <table class="table table-sm table-bordered mb-0">
+        <thead class="table-secondary">
+          <tr>
+            <th>المستوى</th>
+            <th>المصدر</th>
+            <th>المادة الخام</th>
+            <th>الكمية لكل طلب</th>
+            <th>الوحدة</th>
+            <th>عدد الطلبات المباعة</th>
+            <th>الكمية المستهلكة</th>
+            <th>التكلفة الإجمالية</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item_line in item.lines %}
+            {% with line=item_line.line %}
+            <tr>
+              <!-- المستوى -->
+              <td>{{ line.level }}</td>
+
+              <!-- المصدر (المنتج أو المكوّن الوسيط) -->
+              <td>
+                {% if line.source_product %}
+                  {{ line.source_product.name }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+
+              <!-- المادة الخام -->
+              <td>
+                {% if line.raw_material %}
+                  {{ line.raw_material.name }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+              <!-- الكمية لكل طلب -->
+              <td>
+                {% if item_line.per_order_qty %}
+                  {{ item_line.per_order_qty|floatformat:3 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+              <!-- الوحدة -->
+              <td>
+                {% if line.raw_material and line.raw_material.ingredient_unit %}
+                  {{ line.raw_material.ingredient_unit }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+                            <!-- عدد الطلبات المباعة (لكل سطر) -->
+              <td>{{ item_line.orders_sold|floatformat:0 }}</td>
+              
+              <!-- الكمية المستهلكة بثلاث أرقام عشرية -->
+              <td>{{ line.quantity_consumed|floatformat:3 }}</td>
+
+              <!-- التكلفة الإجمالية بثلاث أرقام عشرية -->
+              <td>{{ line.total_cost|floatformat:3 }}</td>
+            </tr>
+            {% endwith %}
+          {% endfor %}
+        </tbody>
+
+        <!-- إجمالي تكلفة المنتج الواحد -->
+        <tfoot>
+          <tr class="table-info fw-bold">
+            <td colspan="7" class="text-center">إجمالي تكلفة هذا المنتج</td>
+            <td>{{ item.total_cost|floatformat:3 }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+{% empty %}
+  <div class="alert alert-info">لا توجد بيانات في الفترة المحددة.</div>
+{% endfor %}
+
+{% if products_data %}
+  <div class="alert alert-success text-center fw-bold mt-3">
+    الإجمالي العام لتكلفة المواد الخام في هذه الفترة:
+    {{ grand_total_cost|floatformat:3 }}
+  </div>
+{% endif %}
+{% endblock %}

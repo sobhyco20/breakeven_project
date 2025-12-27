@@ -1,0 +1,43 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block content %}
+  <style>
+    .totals-grid{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap:10px;
+      margin: 10px 0 18px;
+    }
+    .tot-card{
+      padding:12px 14px;
+      border:1px solid #e5e7eb;
+      border-radius:12px;
+      background:#fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,.04);
+    }
+    .tot-card .label{ font-size:12px; color:#6b7280; margin-bottom:6px; }
+    .tot-card .value{ font-size:18px; font-weight:700; }
+  </style>
+
+  <div class="totals-grid">
+    <div class="tot-card">
+      <div class="label">إجمالي تشغيلي (OP)</div>
+      <div class="value">{{ total_op|default:"0" }}</div>
+    </div>
+    <div class="tot-card">
+      <div class="label">إجمالي بيعي (SA)</div>
+      <div class="value">{{ total_sa|default:"0" }}</div>
+    </div>
+    <div class="tot-card">
+      <div class="label">إجمالي إداري (AD)</div>
+      <div class="value">{{ total_ad|default:"0" }}</div>
+    </div>
+    <div class="tot-card">
+      <div class="label">الإجمالي العام للفترة</div>
+      <div class="value">{{ total_all|default:"0" }}</div>
+    </div>
+  </div>
+
+  {{ block.super }}
+{% endblock %}

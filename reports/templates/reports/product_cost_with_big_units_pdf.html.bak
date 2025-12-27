@@ -1,0 +1,383 @@
+{# templates/reports/product_cost_with_big_units_pdf.html #}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 6mm 8mm 6mm 8mm;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: "Tahoma", "Arial", sans-serif;
+      font-size: 9px;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .product-page {
+      padding: 0;
+      margin: 0;
+      page-break-after: always;
+    }
+
+    .product-page:last-child {
+      page-break-after: auto;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0d6efd;
+      text-align: center;
+      margin: 2mm 0 1mm 0;
+    }
+
+    .sub-info {
+      text-align: center;
+      margin-bottom: 2mm;
+      font-size: 8px;
+    }
+
+    h5.section-title {
+      font-size: 10px;
+      font-weight: 700;
+      margin: 2mm 0 1mm 0;
+    }
+
+    .total-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #198754;
+      text-align: center;
+      margin-top: 3mm;
+    }
+
+    .total-title span {
+      color: #0d6efd;
+    }
+
+    /* =================== الجداول =================== */
+
+    table.bom-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;      /* مهم عشان يحترم عرض الأعمدة */
+      margin-bottom: 3mm;
+      page-break-inside: auto;
+    }
+
+    table.bom-table th,
+    table.bom-table td {
+      border: 1px solid #cfd4da;
+      padding: 1px 2px;
+      line-height: 1.2;
+      font-size: 8px;
+    }
+
+    /* الهيدر فقط يلتف */
+    table.bom-table thead th {
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      text-align: center;
+      background-color: #e9ecef;
+      font-weight: 700;
+    }
+
+    /* بيانات الجدول لا تلتف */
+    table.bom-table tbody td,
+    table.bom-table tfoot td {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    thead {
+      display: table-header-group;
+    }
+
+    tfoot {
+      display: table-footer-group;
+    }
+
+    .table-success {
+      background-color: #e5f4eb;
+    }
+
+    .table-warning {
+      background-color: #fff6dd;
+    }
+
+    .tfoot-total td {
+      background-color: #e0f4ff;
+      font-weight: 800;
+    }
+
+    .text-center { text-align: center; }
+    .text-end    { text-align: right; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.5px 3px;
+      border-radius: 3px;
+      font-size: 7px;
+      font-weight: 600;
+    }
+
+    .badge-raw {
+      background-color: #198754;
+      color: #fff;
+    }
+
+    .badge-manuf {
+      background-color: #ffc107;
+      color: #000;
+    }
+
+    /* عمود اسم المادة: أعرض ولا يلتف */
+    table.bom-table th.col-name,
+    table.bom-table td.col-name {
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    /* توزيع عرض الأعمدة (مجموعها ≈ 100%) */
+    table.bom-table th:nth-child(1),
+    table.bom-table td:nth-child(1) { width: 7%; }   /* النوع */
+    table.bom-table th:nth-child(2),
+    table.bom-table td:nth-child(2) { width: 9%; }   /* الكود */
+    table.bom-table th:nth-child(3),
+    table.bom-table td:nth-child(3) { width: 24%; }  /* اسم المادة */
+    table.bom-table th:nth-child(4),
+    table.bom-table td:nth-child(4) { width: 14%; }  /* حجم وحدة الشراء الكبيرة */
+    table.bom-table th:nth-child(5),
+    table.bom-table td:nth-child(5) { width: 10%; }  /* سعر وحدة الشراء الكبيرة */
+    table.bom-table th:nth-child(6),
+    table.bom-table td:nth-child(6) { width: 8%; }   /* وحدة القياس الكبيرة */
+    table.bom-table th:nth-child(7),
+    table.bom-table td:nth-child(7) { width: 12%; }  /* الكمية المستخدمة في الوصفة */
+    table.bom-table th:nth-child(8),
+    table.bom-table td:nth-child(8) { width: 7%; }   /* الوحدة الصغيرة */
+    table.bom-table th:nth-child(9),
+    table.bom-table td:nth-child(9) { width: 9%; }   /* التكلفة */
+  </style>
+</head>
+<body>
+
+{% for data in reports %}
+
+  <div class="product-page">
+    <div class="page-title">
+      {{ data.product.code }} - {{ data.product.name }}
+    </div>
+
+    <div class="sub-info">
+      <strong>الفترة:</strong>
+      {{ current_period.name }} ({{ current_period.start_date }} - {{ current_period.end_date }})
+      &nbsp; | &nbsp;
+      <strong>الكمية المطلوب حساب تكلفتها:</strong>
+      {{ data.qty }}
+    </div>
+
+    {# =================== الجدول الأول =================== #}
+    <h5 class="section-title">
+      مكوّنات المستوى الأول (مواد خام + منتجات نصف مصنع)
+    </h5>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 9%;">النوع</th>
+          <th style="width: 10%;">الكود</th>
+          <th class="col-name">اسم المادة</th>
+          <th style="width: 14%;">حجم وحدة الشراء الكبيرة</th>
+          <th style="width: 14%;">سعر وحدة الشراء الكبيرة</th>
+          <th style="width: 11%;">وحدة القياس الكبيرة</th>
+          <th style="width: 13%;">الكمية المستخدمة في الوصفة</th>
+          <th style="width: 11%;">الوحدة الصغيرة</th>
+          <th style="width: 11%;">التكلفة</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data.level1_rows %}
+          <tr class="
+                {% if row.type == 'raw' %}table-success{% elif row.type == 'manufactured' %}table-warning{% endif %}
+              ">
+            <td class="text-center">
+              {% if row.type == "raw" %}
+                <span class="badge badge-raw">مادة خام</span>
+              {% elif row.type == "manufactured" %}
+                <span class="badge badge-manuf">منتج نصف مصنع</span>
+              {% endif %}
+            </td>
+            <td class="text-center">{{ row.code }}</td>
+            <td class="col-name">{{ row.name }}</td>
+
+            <td class="text-center">
+              {% if row.big_unit_qty %}
+                {{ row.big_unit_qty|floatformat:0 }} {{ row.small_unit_name }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+
+            <td class="text-end">
+              {% if row.big_unit_price %}
+                {{ row.big_unit_price|floatformat:3 }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+
+            <td class="text-center">{{ row.big_unit_name }}</td>
+
+            <td class="text-end">
+              {% if row.qty %}
+                {{ row.qty|floatformat:3 }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+
+            <td class="text-center">{{ row.small_unit_name }}</td>
+
+            <td class="text-end">
+              {% if row.total_cost %}
+                {{ row.total_cost|floatformat:3 }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="9" class="text-center">
+              لا توجد مكونات في المستوى الأول.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr class="tfoot-total">
+          <td colspan="8" class="text-end">
+            إجمالي تكلفة مكوّنات المستوى الأول:
+          </td>
+          <td class="text-end">
+            {{ data.level1_total_cost|floatformat:3 }}
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    {# =================== الجدول الثاني =================== #}
+    <h5 class="section-title">
+      مكوّنات المنتجات المصنّعة (المستويات الثانية فأعلى)
+    </h5>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 9%;">النوع</th>
+          <th style="width: 10%;">الكود</th>
+          <th class="col-name">اسم المادة</th>
+          <th style="width: 14%;">حجم وحدة الشراء الكبيرة</th>
+          <th style="width: 14%;">سعر وحدة الشراء الكبيرة</th>
+          <th style="width: 11%;">وحدة القياس الكبيرة</th>
+          <th style="width: 13%;">الكمية المستخدمة في الوصفة</th>
+          <th style="width: 11%;">الوحدة الصغيرة</th>
+          <th style="width: 11%;">التكلفة</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data.level2_rows %}
+          <tr class="
+                {% if row.type == 'raw' %}table-success{% elif row.type == 'manufactured' %}table-warning{% endif %}
+              ">
+            <td class="text-center">
+              {% if row.type == "raw" %}
+                <span class="badge badge-raw">مادة خام</span>
+              {% elif row.type == "manufactured" %}
+                <span class="badge badge-manuf">منتج نصف مصنع</span>
+              {% endif %}
+            </td>
+            <td class="text-center">{{ row.code }}</td>
+            <td class="col-name">{{ row.name }}</td>
+
+            <td class="text-center">
+              {% if row.big_unit_qty %}
+                {{ row.big_unit_qty|floatformat:0 }} {{ row.small_unit_name }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+
+            <td class="text-end">
+              {% if row.big_unit_price %}
+                {{ row.big_unit_price|floatformat:3 }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+
+            <td class="text-center">{{ row.big_unit_name }}</td>
+
+            <td class="text-end">
+              {% if row.qty %}
+                {{ row.qty|floatformat:3 }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+
+            <td class="text-center">{{ row.small_unit_name }}</td>
+
+            <td class="text-end">
+              {% if row.total_cost %}
+                {{ row.total_cost|floatformat:3 }}
+              {% else %}
+                -
+              {% endif %}
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="9" class="text-center">
+              لا توجد مكوّنات في المستويات الأعمق.
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr class="tfoot-total">
+          <td colspan="8" class="text-end">
+            إجمالي تكلفة المنتجات المصنّعة (المستويات الثانية فأعلى):
+          </td>
+          <td class="text-end">
+            {{ data.level2_total_cost|floatformat:3 }}
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="total-title">
+      إجمالي تكلفة الوصفة للكمية
+      {{ data.qty }}
+      من المنتج:
+      <span>{{ data.product_total_cost|floatformat:3 }}</span>
+    </div>
+
+  </div>
+
+{% endfor %}
+
+</body>
+</html>

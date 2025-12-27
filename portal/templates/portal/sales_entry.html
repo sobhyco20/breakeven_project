@@ -1,0 +1,830 @@
+{% load static %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>💰 إدخال المبيعات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  body{background:#f4f6f9}
+  .card-soft{border:1px solid #e6e6e6;border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+  .mini{font-size:.85rem;color:#6c757d}
+  .sticky-actions{position:sticky;bottom:0;background:#f4f6f9;padding:10px 0}
+  .table td, .table th{vertical-align:middle}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* ✅ KPI cards */
+  /* ✅ تصغير كارت إجمالي المبيعات */
+  .kpi-compact .kpi-value{font-size:1.25rem}
+  .kpi-compact{padding:12px !important}
+
+  /* ✅ تكبير بطاقات Top5 */
+  .top-card{
+    min-height:160px;           /* كانت 132 */
+    padding:14px 14px 12px 14px;
+  }
+
+  /* ✅ الاسم يظهر كامل */
+  .top-name{
+    font-weight:950;
+    line-height:1.2;
+    font-size:1rem;
+
+    /* ✅ إظهار كامل بدون ellipsis */
+    display:block;
+    white-space:normal;
+    overflow:visible;
+    text-overflow:unset;
+    word-break:break-word;
+
+    /* لو الاسم طويل جدًا جدًا:
+      خلّيه يلف لحد 4 أسطر ثم اسكرول بسيط */
+    max-height:4.9em;          /* تقريبًا 4 أسطر */
+    overflow:auto;
+    padding-left:2px;
+  }
+
+  /* تحسين شكل الاسكرول داخل الاسم (اختياري) */
+  .top-name::-webkit-scrollbar{height:6px;width:6px}
+  .top-name::-webkit-scrollbar-thumb{background:#d9dee7;border-radius:999px}
+
+  /* ✅ share indicator (table) */
+  .share-wrap{min-width:170px}
+  .share-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .share-pct{font-weight:800}
+  .progress{height:10px;border-radius:999px;background:#eef1f5}
+  .progress-bar{border-radius:999px}
+
+  /* ✅ Top highlight in grid */
+  .topN-row{background: rgba(13,110,253,.07) !important;}
+  .topN-badge{
+    font-size:.72rem;padding:.12rem .45rem;border-radius:999px;
+    background: rgba(13,110,253,.12);
+    border:1px solid rgba(13,110,253,.22);
+    color:#0d6efd;margin-inline-start:.35rem;white-space:nowrap;
+  }
+
+  /* ✅ badges */
+  .tbadge{
+    font-size:.72rem;padding:.12rem .45rem;border-radius:999px;border:1px solid transparent;white-space:nowrap;
+    display:inline-flex;align-items:center;gap:6px
+  }
+  .tb-blue {background:rgba(13,110,253,.12); border-color:rgba(13,110,253,.25); color:#0d6efd;}
+  .tb-amber{background:rgba(255,193,7,.16); border-color:rgba(255,193,7,.30); color:#b58100;}
+
+  /* ✅ Top5 wrap داخل الكونتينر */
+  .top5-wrap{overflow:hidden;}
+  .top5-grid{display:grid;grid-template-columns:repeat(5, minmax(0,1fr));gap:10px}
+  @media (max-width: 1200px){ .top5-grid{grid-template-columns:repeat(3, minmax(0,1fr));} }
+  @media (max-width: 768px){  .top5-grid{grid-template-columns:repeat(1, minmax(0,1fr));} }
+
+  .top-card{
+    border-radius:16px;border:1px solid #e6e8ee;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.06);
+    padding:12px 12px 10px 12px;
+    min-height:132px; /* مساحة أكبر للاسم */
+    position:relative;
+    overflow:hidden;
+  }
+  .top-card::after{
+    content:"";
+    position:absolute;inset:auto -50px -50px auto;
+    width:140px;height:140px;border-radius:44px;
+    background:rgba(13,110,253,.08);
+    transform:rotate(15deg);
+  }
+  .top-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;position:relative;z-index:1}
+  .top-rank{
+    width:36px;height:36px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:900;
+    border:1px solid rgba(0,0,0,.06);
+    background:#f1f3f5;color:#495057;
+    flex:0 0 36px;
+  }
+  .top-rank.r1{background:rgba(255,193,7,.18); border-color:rgba(255,193,7,.35); color:#b58100;}
+  .top-rank.r2{background:rgba(13,110,253,.14); border-color:rgba(13,110,253,.30); color:#0d6efd;}
+  .top-rank.r3{background:rgba(25,135,84,.14); border-color:rgba(25,135,84,.30); color:#198754;}
+
+  /* ✅ الاسم سطرين بدل ellipsis قاسي */
+  .top-name{
+    font-weight:950;
+    line-height:1.15;
+    font-size:.95rem;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    white-space:normal;
+    word-break:break-word;
+    margin-top:1px;
+  }
+  .top-code{font-size:.78rem;color:#6c757d;margin-top:2px}
+
+  .top-foot{
+    display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px;
+    position:relative;z-index:1
+  }
+  .top-amt{font-weight:950}
+  .top-pct{font-weight:950}
+
+  .top-bar{margin-top:8px;position:relative;z-index:1}
+  .top-bar .progress{height:8px}
+
+  /* ✅ toast */
+  .toast-wrap{position:fixed;left:16px;bottom:16px;z-index:1080;display:flex;flex-direction:column;gap:10px}
+  .toastx{
+    background:#fff;border:1px solid #e6e8ee;border-radius:14px;
+    box-shadow:0 10px 24px rgba(0,0,0,.10);
+    padding:12px 14px;min-width:280px;max-width:360px
+  }
+  .toastx .title{font-weight:950;margin-bottom:2px}
+  .toastx.ok{border-color:rgba(25,135,84,.35)}
+  .toastx.err{border-color:rgba(220,53,69,.35)}
+  /* ===== تحسين عام للكروت ===== */
+.kpi-card{
+  border-radius:18px;
+  border:1px solid #e6e8ee;
+  background:#fff;
+  box-shadow:0 10px 26px rgba(0,0,0,.06);
+}
+.kpi-title{font-size:.9rem;color:#6c757d;font-weight:700}
+.kpi-value{font-size:1.55rem;font-weight:900;letter-spacing:.2px}
+.kpi-compact{padding:12px !important}
+.kpi-compact .kpi-value{font-size:1.25rem}
+.kpi-note{color:#8a93a3}
+
+/* ===== Top5 container ===== */
+.top5-wrap{
+  background: linear-gradient(180deg, rgba(13,110,253,.04), rgba(255,255,255,1));
+  border:1px solid rgba(13,110,253,.10);
+}
+
+/* ✅ شبكة Top5 ثابتة وجميلة */
+.top5-grid{
+  display:grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap:12px;
+}
+@media (max-width: 1200px){
+  .top5-grid{grid-template-columns: repeat(3, minmax(0,1fr));}
+}
+@media (max-width: 768px){
+  .top5-grid{grid-template-columns: repeat(2, minmax(0,1fr));}
+}
+@media (max-width: 420px){
+  .top5-grid{grid-template-columns: 1fr;}
+}
+
+/* ===== بطاقة المنتج ===== */
+.top-card{
+  border-radius:16px;
+  border:1px solid #e9edf4;
+  background:#fff;
+  box-shadow:0 6px 16px rgba(0,0,0,.05);
+  padding:12px;
+  min-height:170px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  position:relative;
+  overflow:hidden;
+}
+.top-card::before{
+  content:"";
+  position:absolute;
+  inset:auto -40px -40px auto;
+  width:140px;height:140px;
+  background:rgba(13,110,253,.06);
+  border-radius:50%;
+  filter: blur(0px);
+}
+
+/* ===== رأس البطاقة ===== */
+.top-head{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  position:relative;
+  z-index:1;
+}
+.top-main{min-width:0;flex:1}
+
+/* ✅ اسم المنتج كامل (حتى 4 أسطر) */
+.top-name{
+  font-weight:950;
+  font-size:1rem;
+  line-height:1.25;
+  color:#1f2a37;
+  white-space:normal;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:4;           /* ✅ 4 أسطر */
+  -webkit-box-orient:vertical;
+}
+.top-code{
+  margin-top:2px;
+  font-size:.78rem;
+  color:#7b8794;
+}
+
+/* ===== الرتبة ===== */
+.top-rank{
+  width:32px;height:32px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:950;
+  border:1px solid #e9ecef;
+  background:#f3f5f9;
+  color:#495057;
+  flex:0 0 32px;
+}
+.top-rank.r1{background:rgba(255,193,7,.22); border-color:rgba(255,193,7,.35); color:#9a6b00;}
+.top-rank.r2{background:rgba(13,110,253,.16); border-color:rgba(13,110,253,.28); color:#0d6efd;}
+.top-rank.r3{background:rgba(25,135,84,.16); border-color:rgba(25,135,84,.28); color:#198754;}
+.top-rank.r4{background:rgba(108,117,125,.14); border-color:rgba(108,117,125,.22); color:#495057;}
+
+/* ===== المقاييس ===== */
+.top-metrics{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:10px;
+  position:relative;
+  z-index:1;
+}
+.metric{min-width:0}
+.metric-label{color:#6c757d}
+.metric-value{
+  font-weight:950;
+  font-size:1.05rem;
+  color:#111827;
+}
+
+/* ===== الشريط ===== */
+.top-bar{margin-top:10px;position:relative;z-index:1}
+.top-bar .progress{
+  height:10px;
+  border-radius:999px;
+  background:#eef1f5;
+}
+.top-bar .progress-bar{
+  border-radius:999px;
+}
+
+/* ===== شارات ===== */
+.tbadge{
+  font-size:.75rem;
+  padding:.15rem .45rem;
+  border-radius:999px;
+  border:1px solid transparent;
+  white-space:nowrap;
+}
+.tb-blue {background:rgba(13,110,253,.12); border-color:rgba(13,110,253,.25); color:#0d6efd;}
+.tb-amber{background:rgba(255,193,7,.16); border-color:rgba(255,193,7,.30); color:#9a6b00;}
+
+</style>
+</head>
+
+<body>
+<div class="container py-3">
+
+  <div class="card card-soft p-3 mb-3">
+    <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
+      <div>
+        <div class="h5 m-0">💰 إدخال المبيعات</div>
+        <div class="mini">داخل Portal — حفظ دفعة واحدة</div>
+      </div>
+
+      <div class="d-flex gap-2 align-items-center">
+        <select id="periodSel" class="form-select">
+          {% for p in periods %}
+            <option value="{{p.id}}" {% if period and p.id == period.id %}selected{% endif %}>
+              {{p.year}}-{{p.month|stringformat:"02d"}}
+            </option>
+          {% endfor %}
+        </select>
+
+        <button class="btn btn-outline-secondary" id="btnReload" type="button">🔄 تحديث</button>
+        <button class="btn btn-primary" id="btnSave" type="button">💾 حفظ</button>
+      </div>
+    </div>
+
+    <div class="mt-2" id="lockBar" style="display:none;">
+      <div class="alert alert-warning m-0">⛔ الفترة مقفلة — ممنوع الحفظ</div>
+    </div>
+    </div><div class="row g-2 mb-3">
+
+    <!-- ✅ Top5 أكبر -->
+    <div class="col-12 col-lg-9 order-1">
+      <div class="kpi-card p-3 h-100 top5-wrap">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <div>
+            <div class="kpi-title">أعلى 5 منتجات مبيعًا</div>
+            <div class="mini">ثابتة داخل الفترة (تُحدد تلقائيًا عند أول وجود مبيعات)</div>
+          </div>
+          <span class="tbadge tb-amber" id="top5Count">0/5</span>
+        </div>
+
+        <div class="top5-grid" id="top5Grid">
+          {% for i in "12345" %}
+          <div class="top-card" id="topCard{{i}}">
+            <div class="top-head">
+              <div class="top-rank {% if i == '1' %}r1{% elif i == '2' %}r2{% elif i == '3' %}r3{% else %}r4{% endif %}">
+                {{ i }}
+              </div>
+
+              <div class="top-main">
+                <div class="top-name" id="topName{{i}}">—</div>
+                <div class="top-code num" id="topCode{{i}}">&nbsp;</div>
+              </div>
+
+              <span class="tbadge tb-amber">Top{{i}}</span>
+            </div>
+
+            <div class="top-metrics">
+              <div class="metric">
+                <div class="metric-label mini">القيمة</div>
+                <div class="metric-value num" id="topAmt{{i}}">0.00</div>
+              </div>
+              <div class="metric">
+                <div class="metric-label mini">النسبة</div>
+                <div class="metric-value num" id="topPct{{i}}">0.0%</div>
+              </div>
+            </div>
+
+            <div class="top-bar">
+              <div class="progress">
+                <div class="progress-bar bg-secondary" id="topBar{{i}}" style="width:0%"></div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ✅ إجمالي المبيعات أصغر -->
+    <div class="col-12 col-lg-3 order-2">
+      <div class="kpi-card p-3 h-100 kpi-compact">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="kpi-title">إجمالي المبيعات</div>
+            <div class="kpi-value num" id="kpiGrandTotal">0.00</div>
+            <div class="kpi-sub mini" id="kpiHint">مجموع (الكمية × سعر الوحدة)</div>
+          </div>
+          <span class="tbadge tb-blue">SAR</span>
+        </div>
+
+        <div class="mini mt-2 kpi-note" id="kpiNote">—</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ✅ GRID -->
+  <div class="card card-soft p-2">
+    <div class="table-responsive">
+      <table class="table table-bordered bg-white m-0">
+        <thead class="table-light">
+          <tr>
+            <th style="width:12%">الكود</th>
+            <th>المنتج</th>
+            <th style="width:14%">الوحدة</th>
+            <th style="width:14%">الكمية</th>
+            <th style="width:14%">سعر الوحدة</th>
+            <th style="width:16%">الإجمالي</th>
+            <th style="width:20%">المؤشر</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+        <tfoot class="table-light">
+          <tr>
+            <th colspan="5" class="text-end">إجمالي المبيعات</th>
+            <th class="num" id="grandTotal">0</th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="sticky-actions d-flex justify-content-between align-items-center">
+      <div class="mini" id="status">جاهز</div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-danger" id="btnClearZero" type="button">🧹 مسح الكميات المباعة</button>
+        <button class="btn btn-primary" id="btnSave2" type="button">💾 حفظ</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast-wrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
+
+<script>
+  const SALES_PERIOD_ID = "{{ period.id|default:'' }}";
+  const SALES_API_GET   = "/portal/api/sales/grid/";
+  const SALES_API_SAVE  = "/portal/api/sales/grid/save/";
+</script>
+
+<script>
+(function () {
+  const tbody = document.getElementById("tbody");
+  const periodSel = document.getElementById("periodSel");
+  const btnReload = document.getElementById("btnReload");
+  const btnSave = document.getElementById("btnSave");
+  const btnSave2 = document.getElementById("btnSave2");
+  const btnClearZero = document.getElementById("btnClearZero");
+  const lockBar = document.getElementById("lockBar");
+  const statusEl = document.getElementById("status");
+  const grandTotalEl = document.getElementById("grandTotal");
+
+  const top5CountEl = document.getElementById("top5Count");
+  const kpiGrandEl = document.getElementById("kpiGrandTotal");
+  const toastWrap = document.getElementById("toastWrap");
+
+  let isLocked = false;
+  let rows = [];
+
+  let top5Fixed = [];          // ثابتة: [{id,name,code}]
+  let top5FixedSet = new Set();
+
+  let saving = false;
+
+  function num(v){ const x = parseFloat(v || "0"); return isNaN(x) ? 0 : x; }
+  function money(v){ return (num(v)).toFixed(2); }
+  function setStatus(t){ statusEl.textContent = t; }
+
+  function escapeHtml(s){
+    return String(s ?? "")
+      .replaceAll("&","&amp;").replaceAll("<","&lt;")
+      .replaceAll(">","&gt;").replaceAll('"',"&quot;");
+  }
+
+  function toast(type, title, msg){
+    if(!toastWrap) return;
+    const el = document.createElement("div");
+    el.className = "toastx " + (type === "ok" ? "ok" : "err");
+    el.innerHTML = `<div class="title">${escapeHtml(title)}</div><div class="mini">${escapeHtml(msg||"")}</div>`;
+    toastWrap.appendChild(el);
+    setTimeout(() => { el.style.opacity = "0"; el.style.transform = "translateY(6px)"; }, 2600);
+    setTimeout(() => { el.remove(); }, 3400);
+  }
+
+  // ✅ CSRF (Django)
+  function getCookie(name){
+    const v = `; ${document.cookie}`;
+    const parts = v.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
+    return "";
+  }
+  const CSRF = getCookie("csrftoken");
+
+  function pctColorClass(pct){
+    if (pct >= 20) return "bg-success";
+    if (pct >= 8)  return "bg-warning";
+    return "bg-danger";
+  }
+
+  function lineTotalOf(r){ return num(r.quantity) * num(r.unit_price); }
+  function recalcGrand(){ return rows.reduce((acc, r) => acc + lineTotalOf(r), 0); }
+
+  function computeTop5Fixed(){
+    const grand = recalcGrand();
+    if(grand <= 0) {
+      top5Fixed = [];
+      top5FixedSet = new Set();
+      return false;
+    }
+
+    const top = rows
+      .map(r => ({
+        id: String(r.product_id),
+        name: r.name || "",
+        code: r.code || "",
+        total: lineTotalOf(r),
+      }))
+      .filter(x => x.total > 0)
+      .sort((a,b) => b.total - a.total)
+      .slice(0, 5);
+
+    top5Fixed = top.map(x => ({ id:x.id, name:x.name, code:x.code }));
+    top5FixedSet = new Set(top5Fixed.map(x => x.id));
+    return true;
+  }
+
+  // ✅ تحديث 5 بطاقات ثابتة (بدون إعادة بناء DOM) => يحدث للجميع فورًا
+  function paintTop5Cards(grand){
+    const items = [...top5Fixed];
+    while(items.length < 5) items.push({ empty:true, name:"—", code:"" });
+
+    for(let idx=0; idx<5; idx++){
+      const rank = idx + 1;
+      const it = items[idx];
+
+      const nameEl = document.getElementById(`topName${rank}`);
+      const codeEl = document.getElementById(`topCode${rank}`);
+      const amtEl  = document.getElementById(`topAmt${rank}`);
+      const pctEl  = document.getElementById(`topPct${rank}`);
+      const barEl  = document.getElementById(`topBar${rank}`);
+
+      if(!nameEl || !codeEl || !amtEl || !pctEl || !barEl) continue;
+
+      if(it.empty){
+        nameEl.textContent = "—";
+        codeEl.innerHTML = "&nbsp;";
+        amtEl.textContent = "0.00";
+        pctEl.textContent = "0.0%";
+        barEl.style.width = "0%";
+        barEl.className = "progress-bar bg-secondary";
+        continue;
+      }
+
+      const row = rows.find(x => String(x.product_id) === String(it.id));
+      const total = row ? lineTotalOf(row) : 0;
+      const pct = grand > 0 ? (total / grand) * 100 : 0;
+
+      nameEl.textContent = it.name || "—";
+      nameEl.title = it.name || "";
+      codeEl.textContent = it.code || "";
+      amtEl.textContent = money(total);
+      pctEl.textContent = pct.toFixed(1) + "%";
+
+      const width = Math.min(100, Math.max(0, pct)).toFixed(1);
+      barEl.style.width = width + "%";
+      barEl.classList.remove("bg-secondary","bg-success","bg-warning","bg-danger");
+      barEl.classList.add(pctColorClass(pct));
+    }
+
+    if(top5CountEl) top5CountEl.textContent = `${top5Fixed.length}/5`;
+  }
+
+  function updateRowIndicator(tr, row, grand){
+    const lineTotal = lineTotalOf(row);
+    row.line_total = lineTotal.toFixed(2);
+
+    const tds = tr.querySelectorAll("td");
+    const lineTotalTd = tds[5];
+    if (lineTotalTd) lineTotalTd.textContent = row.line_total;
+
+    const pct = grand > 0 ? (lineTotal / grand) * 100 : 0;
+    const bar = tr.querySelector(".progress-bar");
+    const pctEl = tr.querySelector(".share-pct");
+
+    if (pctEl) pctEl.textContent = pct.toFixed(1) + "%";
+    if (bar) {
+      bar.style.width = `${Math.min(100, Math.max(0, pct)).toFixed(1)}%`;
+      bar.classList.remove("bg-success","bg-warning","bg-danger");
+      bar.classList.add(pctColorClass(pct));
+    }
+  }
+
+  function renderGrid(){
+    tbody.innerHTML = "";
+
+    let grand = 0;
+    rows.forEach(r => {
+      const lt = lineTotalOf(r);
+      r.line_total = lt.toFixed(2);
+      grand += lt;
+    });
+
+    rows.forEach((r) => {
+      const tr = document.createElement("tr");
+
+      const lineTotal = num(r.line_total);
+      const pct = grand > 0 ? (lineTotal / grand) * 100 : 0;
+      const pctTxt = pct.toFixed(1) + "%";
+
+      const isTop = top5FixedSet.has(String(r.product_id));
+      if (isTop) tr.classList.add("topN-row");
+
+      tr.innerHTML = `
+        <td class="num">${escapeHtml(r.code || "")}</td>
+        <td>
+          ${escapeHtml(r.name || "")}
+          ${isTop ? `<span class="topN-badge">Top5</span>` : ""}
+        </td>
+        <td class="num">${escapeHtml(r.unit_name || "")}</td>
+
+        <td>
+          <input ${isLocked ? "disabled" : ""}
+            class="form-control form-control-sm num"
+            data-k="quantity"
+            data-id="${r.product_id}"
+            value="${escapeHtml(r.quantity)}">
+        </td>
+
+        <td>
+          <input ${isLocked ? "disabled" : ""}
+            class="form-control form-control-sm num"
+            data-k="unit_price"
+            data-id="${r.product_id}"
+            value="${escapeHtml(r.unit_price)}">
+        </td>
+
+        <td class="num">${escapeHtml(r.line_total)}</td>
+
+        <td>
+          <div class="share-wrap">
+            <div class="share-top">
+              <span class="mini">نسبة من الإجمالي</span>
+              <span class="share-pct num">${pctTxt}</span>
+            </div>
+            <div class="progress mt-1">
+              <div class="progress-bar ${pctColorClass(pct)}"
+                  style="width:${Math.min(100, Math.max(0, pct)).toFixed(1)}%"></div>
+            </div>
+          </div>
+        </td>
+      `;
+
+      tbody.appendChild(tr);
+    });
+
+    grandTotalEl.textContent = grand.toFixed(2);
+    if (kpiGrandEl) kpiGrandEl.textContent = grand.toFixed(2);
+
+    // ✅ تحديث البطاقات دائمًا
+    paintTop5Cards(grand);
+
+    lockBar.style.display = isLocked ? "block" : "none";
+    btnSave.disabled = isLocked || saving;
+    btnSave2.disabled = isLocked || saving;
+  }
+
+  async function load(periodId){
+    setStatus("⏳ تحميل...");
+    btnSave.disabled = true; btnSave2.disabled = true;
+
+    const url = `${SALES_API_GET}?period_id=${encodeURIComponent(periodId)}`;
+    const r = await fetch(url, { credentials: "same-origin" });
+
+    let data = null;
+    try { data = await r.json(); }
+    catch { data = { ok:false, error:"الرد ليس JSON (تحقق من المسار/الصلاحيات)" }; }
+
+    if (!r.ok || !data.ok){
+      const msg = data.error || ("HTTP " + r.status);
+      setStatus("❌ " + msg);
+      toast("err","فشل التحميل", msg);
+      return;
+    }
+
+    rows = data.rows || [];
+    isLocked = !!data.is_locked;
+
+    // reset top5 لكل فترة
+    top5Fixed = [];
+    top5FixedSet = new Set();
+
+    // ✅ لو في مبيعات وقت التحميل حدد Top5 فورًا
+    computeTop5Fixed();
+
+    setStatus(isLocked ? "⛔ الفترة مقفلة" : "✅ جاهز");
+    renderGrid();
+  }
+
+  function setSavingUI(on){
+    saving = on;
+    btnSave.disabled = isLocked || saving;
+    btnSave2.disabled = isLocked || saving;
+    btnSave.innerHTML = on ? "⏳ جاري الحفظ..." : "💾 حفظ";
+    btnSave2.innerHTML = on ? "⏳ جاري الحفظ..." : "💾 حفظ";
+  }
+
+  async function save(periodId){
+    if (isLocked || saving) return;
+
+    setSavingUI(true);
+    setStatus("💾 حفظ...");
+
+    const payload = rows.map(r => ({
+      line_id: r.line_id,
+      product_id: r.product_id,
+      unit_id: r.unit_id,
+      quantity: r.quantity,
+      unit_price: r.unit_price,
+    }));
+
+    const fd = new FormData();
+    fd.append("period_id", periodId);
+    fd.append("rows_json", JSON.stringify(payload));
+
+    try{
+      const r = await fetch(SALES_API_SAVE, {
+        method: "POST",
+        body: fd,
+        credentials: "same-origin",
+        headers: {
+          "X-CSRFToken": CSRF,
+          "X-Requested-With": "XMLHttpRequest",
+          "Accept": "application/json",
+        }
+      });
+
+      let data = null;
+      try { data = await r.json(); }
+      catch {
+        const txt = await r.text();
+        data = { ok:false, error: ("الرد غير متوقع: " + (txt ? txt.slice(0,120) : ("HTTP "+r.status))) };
+      }
+
+      if (!r.ok || !data.ok){
+        const msg = data.error || ("HTTP " + r.status);
+        setStatus("❌ " + msg);
+        toast("err","فشل الحفظ", msg);
+        return;
+      }
+
+      setStatus(`✅ تم الحفظ (${data.saved_count})`);
+      toast("ok","تم الحفظ ✅", `تم حفظ ${data.saved_count} سطر بنجاح`);
+
+      await load(periodId);
+
+    } catch(err){
+      setStatus("❌ تعذر الاتصال بالخادم");
+      toast("err","تعذر الاتصال بالخادم", "تحقق من السيرفر/CSRF/المسار");
+    } finally {
+      setSavingUI(false);
+    }
+  }
+
+  // ✅ input: تحديث فوري للجميع + تحديد Top5 أول مرة فقط
+  tbody.addEventListener("input", (e) => {
+    const inp = e.target.closest("input[data-k]");
+    if (!inp) return;
+
+    const k = inp.dataset.k;
+    const pid = inp.dataset.id;
+
+    const row = rows.find(r => String(r.product_id) === String(pid));
+    if (!row) return;
+
+    row[k] = inp.value;
+
+    const tr = inp.closest("tr");
+    const grand = recalcGrand();
+
+    // ✅ أول ما تظهر مبيعات حقيقية: ثبت Top5 ثم أعد رسم الجدول مرة واحدة لتحديث badges
+    if (grand > 0 && top5Fixed.length === 0){
+      computeTop5Fixed();
+      renderGrid();
+      return;
+    }
+
+    // تحديث الفوتر + KPI
+    grandTotalEl.textContent = grand.toFixed(2);
+    if (kpiGrandEl) kpiGrandEl.textContent = grand.toFixed(2);
+
+    // تحديث الصف الحالي
+    if (tr) updateRowIndicator(tr, row, grand);
+
+    // تحديث نسب باقي الصفوف
+    tbody.querySelectorAll("tr").forEach((rowTr) => {
+      const anyInp = rowTr.querySelector("input[data-id]");
+      if (!anyInp) return;
+      const id = anyInp.dataset.id;
+      const r = rows.find(x => String(x.product_id) === String(id));
+      if (!r) return;
+      updateRowIndicator(rowTr, r, grand);
+    });
+
+    // ✅ تحديث كل بطاقات Top5 فورًا
+    paintTop5Cards(grand);
+  });
+
+  btnReload.addEventListener("click", () => load(periodSel.value));
+  btnSave.addEventListener("click", () => save(periodSel.value));
+  btnSave2.addEventListener("click", () => save(periodSel.value));
+
+  btnClearZero.addEventListener("click", () => {
+    if (isLocked) return;
+    if (!confirm("هل تريد مسح الكميات المباعة (تصفير الكميات والأسعار محلياً)؟")) return;
+    rows = rows.map(r => ({ ...r, quantity:"0", unit_price:"0" }));
+    // reset top5
+    top5Fixed = [];
+    top5FixedSet = new Set();
+    renderGrid();
+    toast("ok","تم التصفير", "تم تصفير القيم محلياً (لم يتم الحفظ بعد)");
+  });
+
+  periodSel.addEventListener("change", () => {
+    const pid = periodSel.value;
+    const u = new URL(window.location.href);
+    u.searchParams.set("period", pid);
+    window.location.href = u.toString();
+  });
+
+  const initPeriod = SALES_PERIOD_ID || periodSel.value;
+  load(initPeriod);
+
+})();
+</script>
+
+</body>
+</html>

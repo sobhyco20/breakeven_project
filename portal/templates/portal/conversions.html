@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>تحويلات الوحدات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bd:#e5e7eb;
+      --bg:#f4f6f9;
+      --card:#fff;
+      --muted:#6b7280;
+    }
+
+    body{ background:var(--bg); }
+
+    .cardx{
+      background:var(--card);
+      border:1px solid var(--bd);
+      border-radius:12px;
+      overflow:hidden;
+    }
+
+    .hdr{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:.75rem;
+      flex-wrap:wrap;
+      margin-bottom:.75rem;
+    }
+
+    .table{
+      table-layout:fixed;         /* ✅ مهم لتضييق الأعمدة وضبط التفاف الاسم */
+      margin:0;
+    }
+
+    .table thead th{
+      white-space:nowrap;
+      font-weight:700;
+      font-size:.84rem;
+      color:#111827;
+      padding:.55rem .5rem;
+    }
+
+    .table tbody td{
+      padding:.5rem .5rem;
+      vertical-align:top;
+      font-size:.87rem;
+    }
+
+    /* ✅ ضبط أعمدة ثابتة + اسم المادة يأخذ مساحة أكبر */
+    col.col-sku    { width: 7.5%; }
+    col.col-name   { width: 28%; }
+    col.col-big    { width: 10.5%; }
+    col.col-small  { width: 10.5%; }
+    col.col-factor { width: 8.5%; }
+    col.col-price  { width: 10%; }
+    col.col-cost   { width: 10%; }
+    col.col-state  { width: 7.5%; }
+    col.col-act    { width: 7.5%; }
+
+    /* سطرين للاسم بدون تخريب */
+    .name-2-lines{
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+      white-space:normal;
+      word-break:break-word;
+      line-height:1.35;
+      max-height:calc(1.35em * 2);
+      color:#111827;
+    }
+
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    /* تصغير Inputs */
+    .table td .form-control-sm,
+    .table td .form-select-sm{
+      min-height:30px;
+      padding:2px 8px;
+      font-size:.82rem;
+    }
+
+    .locked-row{ opacity:.78; }
+
+    .badge-lock{
+      background:#ffe4e6;
+      color:#9f1239;
+      border:1px solid #fecdd3;
+    }
+    .badge-ok{
+      background:#dcfce7;
+      color:#166534;
+      border:1px solid #bbf7d0;
+    }
+
+    .actions{
+      display:flex;
+      gap:.35rem;
+      justify-content:flex-start;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .btn.btn-sm{
+      padding:3px 8px;
+      font-size:.82rem;
+    }
+
+    .hint{
+      color:var(--muted);
+      font-size:.85rem;
+    }
+
+    /* على الشاشات الصغيرة نعطي الاسم مساحة أكبر */
+    @media (max-width: 992px){
+      col.col-name{ width: 36%; }
+      col.col-act { width: 10%; }
+    }
+    @media (max-width: 768px){
+      col.col-name{ width: 44%; }
+      col.col-sku { width: 10%; }
+      col.col-act { width: 14%; }
+      .table thead th{ font-size:.8rem; }
+      .table tbody td{ font-size:.84rem; }
+    }
+
+    /* اجعل سهم الـ select على اليسار (RTL) */
+select.form-select {
+  background-position: left .75rem center !important; /* مكان السهم */
+  padding-left: 2rem !important;                      /* مساحة للسهم */
+  padding-right: .75rem !important;                   /* تقليل اليمين */
+}
+
+select.form-select-sm {
+  background-position: left .65rem center !important;
+  padding-left: 2rem !important;
+  padding-right: .6rem !important;
+}
+
+  </style>
+</head>
+
+<body>
+<div class="container-fluid p-3">
+
+  <div class="hdr">
+    <div>
+      <h5 class="m-0">🔁 تحويلات الوحدات (حسب المواد الخام)</h5>
+      <div class="hint">أي مادة عليها حركة يتم قفل الوحدات والمعامل ضد التعديل.</div>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button class="btn btn-sm btn-outline-secondary" id="btnReload">🔄 تحديث</button>
+    </div>
+  </div>
+
+  <div class="cardx p-3 mb-3">
+    <div class="row g-2 align-items-center">
+      <div class="col-md-6 col-lg-4">
+        <input id="q" class="form-control form-control-sm" placeholder="🔎 بحث بالـ SKU أو اسم المادة..." />
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <select id="filterLock" class="form-select form-select-sm">
+          <option value="all">عرض الكل</option>
+          <option value="unlocked">غير مقفلة فقط</option>
+          <option value="locked">مقفلة فقط (عليها حركة)</option>
+        </select>
+      </div>
+      <div class="col-lg-5 text-muted small">
+        <span class="badge badge-ok rounded-pill px-2 py-1">✅ قابلة للتعديل</span>
+        <span class="badge badge-lock rounded-pill px-2 py-1">🔒 مقفلة</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive cardx">
+    <table class="table table-sm table-striped align-middle">
+      <!-- ✅ توزيع الأعمدة بدقة -->
+      <colgroup>
+        <col class="col-sku">
+        <col class="col-name">
+        <col class="col-big">
+        <col class="col-small">
+        <col class="col-factor">
+        <col class="col-price">
+        <col class="col-cost">
+        <col class="col-state">
+        <col class="col-act">
+      </colgroup>
+
+      <thead class="table-light">
+        <tr>
+          <th>SKU</th>
+          <th>المادة الخام</th>
+          <th>الوحدة الكبيرة</th>
+          <th>الوحدة الصغيرة</th>
+          <th>المعامل</th>
+          <th>سعر الكبيرة</th>
+          <th>تكلفة الصغيرة</th>
+          <th>الحالة</th>
+          <th>إجراءات</th>
+        </tr>
+      </thead>
+
+      <tbody id="tbody">
+        <tr><td colspan="9" class="text-center text-muted p-4">جاري التحميل...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  // =========================
+  // Helpers
+  // =========================
+  function getCookie(name) {
+    const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return v ? v.pop() : '';
+  }
+
+  function toFormBody(obj) {
+    const p = new URLSearchParams();
+    Object.keys(obj).forEach(k => p.append(k, obj[k] ?? ""));
+    return p.toString();
+  }
+
+  function numOrEmpty(v){ return (v === null || v === undefined) ? "" : String(v); }
+
+  // =========================
+  // Data
+  // =========================
+  const API_LIST = "/portal/api/raw-materials/list/";
+  const API_SAVE = "/portal/api/raw-materials/";
+
+  const tbody = document.getElementById("tbody");
+  const qInput = document.getElementById("q");
+  const filterLock = document.getElementById("filterLock");
+  const btnReload = document.getElementById("btnReload");
+
+  let UNITS = [];
+  let ROWS = [];
+
+  function unitLabel(u){
+    if(!u) return "";
+    const ab = u.abbreviation ? ` (${u.abbreviation})` : "";
+    return (u.name || "") + ab;
+  }
+
+  function render(){
+    const q = (qInput.value || "").trim().toLowerCase();
+    const fl = filterLock.value;
+
+    const filtered = ROWS.filter(r => {
+      const hay = ((r.sku||"") + " " + (r.name||"")).toLowerCase();
+      if (q && !hay.includes(q)) return false;
+      if (fl === "locked" && !r.locked) return false;
+      if (fl === "unlocked" && r.locked) return false;
+      return true;
+    });
+
+    if (!filtered.length){
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted p-4">لا توجد بيانات</td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(r => {
+      const lockBadge = r.locked
+        ? `<span class="badge badge-lock rounded-pill px-2 py-1">🔒 مقفلة</span>`
+        : `<span class="badge badge-ok rounded-pill px-2 py-1">✅ قابلة</span>`;
+
+      const disabled = r.locked ? "disabled" : "";
+
+      const unitOptions = (selectedId) => {
+        const opts = [`<option value="">—</option>`];
+        UNITS.forEach(u => {
+          const sel = String(u.id) === String(selectedId) ? "selected" : "";
+          opts.push(`<option ${sel} value="${u.id}">${unitLabel(u)}</option>`);
+        });
+        return opts.join("");
+      };
+
+      const safeName = (r.name || "").replaceAll('"','&quot;');
+
+      return `
+      <tr class="${r.locked ? "locked-row" : ""}" data-id="${r.id}">
+        <td class="text-muted mono">${r.sku || ""}</td>
+
+        <td>
+          <div class="name-2-lines" title="${safeName}">
+            ${r.name || ""}
+          </div>
+        </td>
+
+        <td>
+          <select class="form-select form-select-sm f-big" ${disabled}>
+            ${unitOptions(r.storage_unit_id)}
+          </select>
+        </td>
+
+        <td>
+          <select class="form-select form-select-sm f-small" ${disabled}>
+            ${unitOptions(r.ingredient_unit_id)}
+          </select>
+        </td>
+
+        <td>
+          <input class="form-control form-control-sm f-factor mono" ${disabled}
+                 value="${numOrEmpty(r.factor)}" placeholder="مثال: 50" />
+        </td>
+
+        <td>
+          <input class="form-control form-control-sm f-bigprice mono" ${disabled}
+                 value="${numOrEmpty(r.big_price)}" placeholder="سعر الكبيرة" />
+        </td>
+
+        <td class="mono text-muted pt-2">
+          ${numOrEmpty(r.small_cost)}
+        </td>
+
+        <td class="pt-2">${lockBadge}</td>
+
+        <td>
+          <div class="actions">
+            <button class="btn btn-sm btn-primary btn-save" ${r.locked ? "disabled" : ""}>💾</button>
+            <button class="btn btn-sm btn-outline-danger btn-del" ${r.locked ? "disabled" : ""}>🗑</button>
+          </div>
+        </td>
+      </tr>
+      `;
+    }).join("");
+  }
+
+  async function load(){
+    tbody.innerHTML = `<tr><td colspan="9" class="text-center text-muted p-4">جاري التحميل...</td></tr>`;
+    const res = await fetch(API_LIST, { credentials: "same-origin" });
+    const data = await res.json();
+
+    if(!data.ok){
+      tbody.innerHTML = `<tr><td colspan="9" class="text-center text-danger p-4">فشل التحميل</td></tr>`;
+      return;
+    }
+
+    ROWS = data.rows || [];
+    UNITS = data.units || [];
+    render();
+  }
+
+  async function saveRow(tr){
+    const id = tr.getAttribute("data-id");
+    const storage_unit_id = tr.querySelector(".f-big").value;
+    const ingredient_unit_id = tr.querySelector(".f-small").value;
+    const factor = tr.querySelector(".f-factor").value;
+    const big_price = tr.querySelector(".f-bigprice").value;
+
+    if(!confirm("تأكيد حفظ تحويل الوحدات لهذه المادة؟")) return;
+
+    const body = toFormBody({
+      action: "save",
+      id,
+      storage_unit_id,
+      ingredient_unit_id,
+      factor,
+      big_price
+    });
+
+    const res = await fetch(API_SAVE, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body
+    });
+
+    const data = await res.json().catch(()=>({ok:false,error:"خطأ غير معروف"}));
+
+    if(!res.ok || !data.ok){
+      alert(data.error || "فشل الحفظ");
+      return;
+    }
+
+    const idx = ROWS.findIndex(x => String(x.id) === String(id));
+    if (idx >= 0){
+      ROWS[idx].storage_unit_id = storage_unit_id ? Number(storage_unit_id) : null;
+      ROWS[idx].ingredient_unit_id = ingredient_unit_id ? Number(ingredient_unit_id) : null;
+      ROWS[idx].factor = factor;
+      ROWS[idx].big_price = big_price;
+      if (data.small_cost !== undefined) ROWS[idx].small_cost = data.small_cost;
+      if (data.locked !== undefined) ROWS[idx].locked = !!data.locked;
+    }
+
+    render();
+    alert("✅ تم الحفظ");
+  }
+
+  async function deleteRow(tr){
+    const id = tr.getAttribute("data-id");
+    if(!confirm("⚠️ تأكيد الحذف؟")) return;
+
+    const body = toFormBody({ action: "delete", id });
+
+    const res = await fetch(API_SAVE, {
+      method: "POST",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body
+    });
+
+    const data = await res.json().catch(()=>({ok:false,error:"خطأ غير معروف"}));
+
+    if(!res.ok || !data.ok){
+      alert(data.error || "فشل الحذف");
+      return;
+    }
+
+    ROWS = ROWS.filter(x => String(x.id) !== String(id));
+    render();
+    alert("🗑 تم الحذف");
+  }
+
+  // Events
+  btnReload.addEventListener("click", load);
+  qInput.addEventListener("input", render);
+  filterLock.addEventListener("change", render);
+
+  document.addEventListener("click", (e) => {
+    const tr = e.target.closest("tr[data-id]");
+    if(!tr) return;
+
+    if (e.target.closest(".btn-save")) saveRow(tr);
+    if (e.target.closest(".btn-del"))  deleteRow(tr);
+  });
+
+  // Start
+  load();
+</script>
+
+</body>
+</html>

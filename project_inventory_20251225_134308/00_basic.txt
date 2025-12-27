@@ -1,0 +1,4 @@
+cwd: B:\breakeven_project
+python: 3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)]
+platform: Windows-10-10.0.26200-SP0
+django_settings_module: breakeven_project.settings

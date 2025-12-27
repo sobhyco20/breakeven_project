@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>المواد الخام</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    html, body { height: 100%; }
+    body { margin: 0; background: #fff !important; }
+
+    .cardx{background:#fff;border:1px solid #e6e8ee;border-radius:14px;box-shadow:0 10px 24px rgba(0,0,0,.05)}
+    .toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px 12px;border-bottom:1px solid #eef1f6}
+    .toolbar .left{display:flex;gap:10px;align-items:center}
+    .toolbar .title{font-weight:900}
+    .mini{font-size:.82rem;color:#6c757d}
+    input.form-control, select.form-select{height:34px;padding:.25rem .5rem}
+    .btn-sm{padding:.25rem .55rem}
+    .locked-badge{font-size:.72rem}
+    .row-locked{opacity:.92}
+    .row-locked input, .row-locked select{background:#f3f4f6}
+
+        /* ===== RTL: اجعل سهم select على اليسار ===== */
+    select.form-select{
+    background-position: left .75rem center !important;
+    padding-left: 2rem !important;   /* مساحة للسهم */
+    padding-right: .5rem !important;
+    direction: rtl;
+    }
+
+    /* لو عندك input-group أو حالات خاصة */
+    .row-locked select.form-select{
+    background-position: left .75rem center !important;
+    }
+
+
+    /* ✅ غلاف الصفحة داخل الـ iframe */
+    .page-wrap{
+      height: 100vh;              /* ✅ بدل min-height */
+      display: flex;
+      flex-direction: column;
+      background:#fff;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+
+    /* ✅ الهيدر */
+    .page-top{ flex: 0 0 auto; }
+
+    /* ✅ منطقة الجدول تتمدد وتعمل Scroll داخلي */
+    .page-table{
+      flex: 1 1 auto;
+      min-height: 0;              /* مهم جداً */
+      overflow: auto;
+      background:#fff;
+      margin-top: 12px;
+    }
+
+    thead th{
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      background:#f8fafc;
+      border-bottom:1px solid #e6e8ee
+    }
+
+    /* ✅ شيلنا max-height نهائياً */
+    .table-wrap{
+      height: 100%;
+      overflow: auto;
+      border: 1px solid #eef1f6;
+      border-radius: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="page-wrap">
+
+  <!-- ✅ TOP (الهيدر فقط) -->
+  <div class="page-top">
+    <div class="cardx">
+      <div class="toolbar">
+        <div class="left">
+          <div class="title">🧱 المواد الخام</div>
+          <div class="mini">تعديل/حفظ/حذف داخل نفس الشاشة</div>
+        </div>
+        <div class="left">
+          <input id="q" class="form-control" style="width:280px" placeholder="بحث بالـ SKU أو الاسم">
+          <button class="btn btn-outline-primary btn-sm" id="btnReload">تحديث</button>
+          <button class="btn btn-primary btn-sm" id="btnAdd">➕ إضافة</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ TABLE (يتمدد لآخر iframe) -->
+  <div class="page-table">
+    <div class="table-wrap">
+      <table class="table table-bordered table-sm align-middle m-0">
+        <thead>
+          <tr>
+            <th style="width:120px">SKU</th>
+            <th>الاسم</th>
+            <th style="width:140px">الوحدة الكبيرة</th>
+            <th style="width:140px">الوحدة الصغيرة</th>
+            <th style="width:120px">المعامل</th>
+            <th style="width:140px">سعر الكبيرة</th>
+            <th style="width:160px">تكلفة الصغيرة</th>
+            <th style="width:150px">الحالة</th>
+            <th style="width:190px">إجراءات</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const UNITS = [
+    {% for u in units %}
+      {id: {{u.id}}, name: "{{u.name|escapejs}}", abbr: "{{u.abbreviation|default:''|escapejs}}"},
+    {% endfor %}
+  ];
+
+  const endpoints = {
+    list: "{% url 'portal:raw_materials_list' %}",
+    save: "{% url 'portal:raw_materials_api' %}",
+  };
+
+  function unitOptions(selectedId){
+    let html = `<option value="">—</option>`;
+    for (const u of UNITS){
+      const label = (u.abbr ? `${u.name} (${u.abbr})` : u.name);
+      html += `<option value="${u.id}" ${String(u.id)===String(selectedId||"")?"selected":""}>${label}</option>`;
+    }
+    return html;
+  }
+
+  function calcSmallCost(factor, bigPrice){
+    const f = parseFloat(factor||"0") || 0;
+    const p = parseFloat(bigPrice||"0") || 0;
+    if (f <= 0) return "";
+    return (p / f).toFixed(6);
+  }
+
+  function setRowEditable(tr, editable){
+    tr.querySelectorAll("[data-field]").forEach(el => { el.disabled = !editable; });
+    tr.dataset.editing = editable ? "1" : "0";
+    tr.querySelector("[data-act='edit']").classList.toggle("d-none", editable);
+    tr.querySelector("[data-act='save']").classList.toggle("d-none", !editable);
+    tr.querySelector("[data-act='cancel']").classList.toggle("d-none", !editable);
+  }
+
+  function rowHtml(r){
+    const locked = !!r.locked;
+    const lockBadge = locked
+      ? `<span class="badge text-bg-danger locked-badge">عليه حركة</span>`
+      : `<span class="badge text-bg-success locked-badge">مسموح</span>`;
+
+    return `
+      <tr data-id="${r.id||""}" class="${locked?'row-locked':''}">
+        <td><input class="form-control" data-field="sku" value="${r.sku||""}" ${locked?'disabled':''}></td>
+        <td><input class="form-control" data-field="name" value="${r.name||""}" ${locked?'disabled':''}></td>
+
+        <td>
+          <select class="form-select" data-field="storage_unit_id" ${locked?'disabled':''}>
+            ${unitOptions(r.storage_unit_id)}
+          </select>
+        </td>
+
+        <td>
+          <select class="form-select" data-field="ingredient_unit_id" ${locked?'disabled':''}>
+            ${unitOptions(r.ingredient_unit_id)}
+          </select>
+        </td>
+
+        <td><input class="form-control" data-field="factor" value="${r.factor||"0"}" ${locked?'disabled':''}></td>
+        <td><input class="form-control" data-field="big_price" value="${r.big_price||"0"}" ${locked?'disabled':''}></td>
+        <td><input class="form-control" data-field="small_cost" value="${r.small_cost||""}" disabled></td>
+
+        <td class="text-center">${lockBadge}</td>
+
+        <td class="text-center">
+          <button class="btn btn-outline-secondary btn-sm" data-act="edit" ${locked?'disabled':''}>تعديل</button>
+          <button class="btn btn-primary btn-sm d-none" data-act="save" ${locked?'disabled':''}>حفظ</button>
+          <button class="btn btn-light btn-sm d-none" data-act="cancel" ${locked?'disabled':''}>إلغاء</button>
+          <button class="btn btn-outline-danger btn-sm" data-act="delete" ${locked?'disabled':''}>حذف</button>
+        </td>
+      </tr>
+    `;
+  }
+
+  async function loadRows(){
+    const q = (document.getElementById("q").value || "").trim();
+    const url = endpoints.list + (q ? `?q=${encodeURIComponent(q)}` : "");
+    const res = await fetch(url, {headers: {"X-Requested-With":"XMLHttpRequest"}});
+    const data = await res.json();
+    const tbody = document.getElementById("tbody");
+    tbody.innerHTML = "";
+    for (const r of data.rows){
+      tbody.insertAdjacentHTML("beforeend", rowHtml(r));
+      const tr = tbody.lastElementChild;
+      // ✅ احسب small_cost فوراً لو السيرفر مش راجعه
+      if (!r.small_cost){
+        tr.querySelector(`[data-field="small_cost"]`).value = calcSmallCost(r.factor, r.big_price);
+      }
+    }
+  }
+
+  function getRowPayload(tr){
+    const get = (name) => tr.querySelector(`[data-field="${name}"]`)?.value ?? "";
+    return {
+      id: tr.dataset.id || "",
+      sku: get("sku"),
+      name: get("name"),
+      storage_unit_id: get("storage_unit_id"),
+      ingredient_unit_id: get("ingredient_unit_id"),
+      factor: get("factor"),
+      big_price: get("big_price"),
+    };
+  }
+
+  async function postForm(payload){
+    const fd = new FormData();
+    for (const [k,v] of Object.entries(payload)) fd.append(k, v);
+    const res = await fetch(endpoints.save, {
+      method:"POST",
+      body: fd,
+      headers: {"X-Requested-With":"XMLHttpRequest"}
+    });
+    const data = await res.json().catch(()=>({ok:false,error:"invalid json"}));
+    if (!res.ok) throw (data?.error || "request failed");
+    if (!data.ok) throw (data.error || "failed");
+    return data;
+  }
+
+  document.addEventListener("click", async (e) => {
+    const btn = e.target.closest("button[data-act]");
+    if (!btn) return;
+    const tr = btn.closest("tr");
+    const act = btn.dataset.act;
+
+    if (act === "edit"){
+      tr._snapshot = getRowPayload(tr);
+      setRowEditable(tr, true);
+    }
+
+    if (act === "cancel"){
+      const snap = tr._snapshot || {};
+      for (const [k,v] of Object.entries(snap)){
+        const el = tr.querySelector(`[data-field="${k}"]`);
+        if (el) el.value = v;
+      }
+      tr.querySelector(`[data-field="small_cost"]`).value = calcSmallCost(snap.factor, snap.big_price);
+      setRowEditable(tr, false);
+    }
+
+    if (act === "save"){
+      try{
+        const payload = getRowPayload(tr);
+        payload.action = "save";
+        const out = await postForm(payload);
+        if (!tr.dataset.id) tr.dataset.id = out.id;
+        tr.querySelector(`[data-field="small_cost"]`).value =
+          out.small_cost || calcSmallCost(payload.factor, payload.big_price) || "";
+        setRowEditable(tr, false);
+      }catch(err){
+        alert(String(err || "خطأ"));
+      }
+    }
+
+    if (act === "delete"){
+      if (!confirm("هل أنت متأكد من الحذف؟")) return;
+      try{
+        const payload = {action:"delete", id: tr.dataset.id};
+        await postForm(payload);
+        tr.remove();
+      }catch(err){
+        alert(String(err || "خطأ"));
+      }
+    }
+  });
+
+  document.addEventListener("input", (e) => {
+    const el = e.target;
+    const tr = el.closest("tr");
+    if (!tr) return;
+    if (!el.matches('[data-field="factor"], [data-field="big_price"]')) return;
+
+    const factor = tr.querySelector('[data-field="factor"]').value;
+    const big = tr.querySelector('[data-field="big_price"]').value;
+    tr.querySelector('[data-field="small_cost"]').value = calcSmallCost(factor, big);
+  });
+
+  document.getElementById("btnReload").addEventListener("click", loadRows);
+  document.getElementById("q").addEventListener("keydown", (e)=>{ if(e.key==="Enter") loadRows(); });
+
+  document.getElementById("btnAdd").addEventListener("click", () => {
+    const tbody = document.getElementById("tbody");
+    const r = {id:"", sku:"", name:"", storage_unit_id:"", ingredient_unit_id:"", factor:"1", big_price:"0", small_cost:"", locked:false};
+    tbody.insertAdjacentHTML("afterbegin", rowHtml(r));
+    const tr = tbody.querySelector("tr");
+    setRowEditable(tr, true);
+  });
+
+  loadRows();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+{% load humanize %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title }}</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body{background:#f4f6fb;font-family:system-ui}
+
+    /* ====== Header ====== */
+    .page-header{
+      background:linear-gradient(135deg,#1e3a8a,#2563eb);
+      color:#fff;
+      border-radius:18px;
+      padding:1.4rem 1.6rem;
+      box-shadow:0 12px 28px rgba(0,0,0,.15);
+    }
+    .page-title{font-size:1.6rem;font-weight:900}
+    .page-sub{opacity:.85}
+
+    /* ===== Sidebar ===== */
+    .sidebar{
+      background:#fff;border:1px solid #e5e7eb;border-radius:16px;
+      height:calc(100vh - 24px);position:sticky;top:12px;overflow:auto
+    }
+    .period-btn{
+      border-radius:12px;
+      font-weight:800;
+      padding:.55rem .7rem;
+      text-align:center
+    }
+
+    /* ===== KPI ===== */
+    .card-kpi{border-radius:16px;border:1px solid #e5e7eb}
+    .kpi-title{font-size:.8rem;color:#6b7280}
+    .kpi-value{font-size:1.45rem;font-weight:900;font-variant-numeric:tabular-nums}
+
+    /* ===== Boxes ===== */
+    .box{background:#fff;border:1px solid #e5e7eb;border-radius:16px}
+    .mono{font-variant-numeric:tabular-nums}
+
+    /* ===== Section Headers ===== */
+    .section-head{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:.6rem .9rem;border-radius:14px;font-weight:900;
+      border:1px solid #e5e7eb;margin-bottom:.75rem
+    }
+    .badge-soft{
+      border-radius:999px;padding:.25rem .7rem;
+      font-size:.75rem;font-weight:800
+    }
+
+    /* ===== Accents ===== */
+    .accent-cogs{background: #ff8c00ff;border-color: #ee0101ff}
+    .accent-cogs .badge-soft{background:#ffedd5;color:#9a3412}
+
+    .accent-op{background: #367edbff;border-color:#bfdbfe}
+    .accent-op .badge-soft{background:#dbeafe;color:#1d4ed8}
+
+    .accent-sa{background: #887cc2ff;border-color:#ddd6fe}
+    .accent-sa .badge-soft{background:#ede9fe;color:#6d28d9}
+
+    .accent-ad{background: #54e6a2ff;border-color:#bbf7d0}
+    .accent-ad .badge-soft{background:#dcfce7;color:#047857}
+
+    /* ===== Tables ===== */
+    .table-op tbody tr{background:#f6faff}
+    .table-sa tbody tr{background:#faf8ff}
+    .table-ad tbody tr{background:#f5fff9}
+    .table-hover-soft tbody tr:hover{filter:brightness(.97)}
+  </style>
+</head>
+
+<body>
+
+<div class="container-fluid px-3 py-3">
+
+  <!-- ===== Header ===== -->
+  <div class="page-header mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <div class="page-title">📊 قائمة الدخل التفصيلية</div>
+        <div class="page-sub">
+          {% if current_period %}
+            الفترة: {{ current_period.start_date|date:"F"|cut:" " }}{{ current_period.start_date|date:"Y" }}
+          {% else %}
+            اختر فترة
+          {% endif %}
+        </div>
+      </div>
+      <div class="fs-1 opacity-25">💼</div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+
+    <!-- ===== Sidebar ===== -->
+    <div class="col-12 col-lg-3 col-xl-2">
+      <div class="sidebar p-3">
+        <div class="fw-bold mb-2">🗓️ الفترات</div>
+        <div class="d-grid gap-2">
+          {% for p in periods %}
+            <a class="btn {% if current_period and p.id == current_period.id %}btn-primary{% else %}btn-outline-primary{% endif %} period-btn"
+               href="?period={{ p.id }}">
+              {{ p.start_date|date:"F"|cut:" " }}{{ p.start_date|date:"Y" }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Main ===== -->
+    <div class="col-12 col-lg-9 col-xl-10">
+
+      <!-- KPIs -->
+      <div class="row g-3 mb-3">
+        <div class="col-md-3"><div class="card card-kpi"><div class="card-body">
+          <div class="kpi-title">إجمالي المبيعات</div>
+          <div class="kpi-value mono">{{ revenue|floatformat:2|intcomma }}</div>
+        </div></div></div>
+
+        <div class="col-md-3"><div class="card card-kpi"><div class="card-body">
+          <div class="kpi-title">COGS</div>
+          <div class="kpi-value mono">{{ cogs|floatformat:2|intcomma }}</div>
+        </div></div></div>
+
+        <div class="col-md-3"><div class="card card-kpi"><div class="card-body">
+          <div class="kpi-title">مجمل الربح</div>
+          <div class="kpi-value mono">{{ gross_profit|floatformat:2|intcomma }}</div>
+        </div></div></div>
+
+        <div class="col-md-3"><div class="card card-kpi"><div class="card-body">
+          <div class="kpi-title">صافي الربح</div>
+          <div class="kpi-value mono">{{ net_profit|floatformat:2|intcomma }}</div>
+        </div></div></div>
+      </div>
+
+      <!-- ===== COGS ===== -->
+      <div class="box p-3 mb-3">
+        <div class="section-head accent-cogs">
+          <div>🧾 تفاصيل COGS</div>
+          <span class="badge-soft">مواد خام</span>
+        </div>
+
+        <table class="table table-sm table-bordered mono table-hover-soft">
+          <thead class="table-light">
+            <tr>
+              <th>الكود</th>
+              <th>المادة</th>
+              <th class="text-end">الإجمالي</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in cogs_rows %}
+              <tr>
+                <td>{{ r.raw_material__sku }}</td>
+                <td>{{ r.raw_material__name }}</td>
+                <td class="text-end">{{ r.total|floatformat:2|intcomma }}</td>
+              </tr>
+            {% empty %}
+              <tr><td colspan="3" class="text-center text-muted">لا توجد بيانات</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===== Expenses ===== -->
+      <div class="row g-3">
+
+        <!-- OP -->
+        <div class="col-lg-4">
+          <div class="box p-3">
+            <div class="section-head accent-op">
+              <div>⚙️ تشغيلية OP</div>
+              <span class="badge-soft">تشغيلي</span>
+            </div>
+            <table class="table table-sm table-bordered mono table-op table-hover-soft">
+              <tbody>
+                {% for r in op_rows %}
+                  <tr>
+                    <td>{{ r.item__code }}</td>
+                    <td>{{ r.item__name }}</td>
+                    <td class="text-end">{{ r.total|floatformat:2|intcomma }}</td>
+                  </tr>
+                {% empty %}
+                  <tr><td colspan="3" class="text-center text-muted">لا يوجد</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SA -->
+        <div class="col-lg-4">
+          <div class="box p-3">
+            <div class="section-head accent-sa">
+              <div>🛒 بيعية SA</div>
+              <span class="badge-soft">بيعي</span>
+            </div>
+            <table class="table table-sm table-bordered mono table-sa table-hover-soft">
+              <tbody>
+                {% for r in sa_rows %}
+                  <tr>
+                    <td>{{ r.item__code }}</td>
+                    <td>{{ r.item__name }}</td>
+                    <td class="text-end">{{ r.total|floatformat:2|intcomma }}</td>
+                  </tr>
+                {% empty %}
+                  <tr><td colspan="3" class="text-center text-muted">لا يوجد</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- AD -->
+        <div class="col-lg-4">
+          <div class="box p-3">
+            <div class="section-head accent-ad">
+              <div>🏢 إدارية AD</div>
+              <span class="badge-soft">إداري</span>
+            </div>
+            <table class="table table-sm table-bordered mono table-ad table-hover-soft">
+              <tbody>
+                {% for r in ad_rows %}
+                  <tr>
+                    <td>{{ r.item__code }}</td>
+                    <td>{{ r.item__name }}</td>
+                    <td class="text-end">{{ r.total|floatformat:2|intcomma }}</td>
+                  </tr>
+                {% empty %}
+                  <tr><td colspan="3" class="text-center text-muted">لا يوجد</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

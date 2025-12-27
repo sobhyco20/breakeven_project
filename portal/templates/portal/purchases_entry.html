@@ -1,0 +1,647 @@
+{% load static %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>🧾 إدخال المشتريات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+    html, body { width:100%; height:100%; }
+    body{
+    background:#f4f6f9;
+    margin:0;
+    padding:0;
+    overflow-x:hidden;
+    }
+
+    /* ✅ مهم جدًا: صفحة embed تكون FULL WIDTH */
+    .container-fluid.maxw{
+    width: 100vw !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    }
+
+    /* ✅ لو في wrapper/card يضيّق العرض */
+    .card-soft, .kpi-card, .hint-bar{
+    width: 100% !important;
+    }
+
+    /* ✅ خلي الجدول يتمدد */
+    .table-responsive{
+    width: 100% !important;
+    }
+
+    /* ✅ أعطِ عمود الاسم مساحة أكبر (اختياري) */
+    .name-cell{min-width: 720px; max-width: none;}
+
+  .mini{font-size:.85rem;color:#6c757d}
+  .sticky-actions{position:sticky;bottom:0;background:#f4f6f9;padding:10px 0; z-index:5}
+  .table td, .table th{vertical-align:middle}
+  .num{font-variant-numeric:tabular-nums}
+
+  .kpi-card{border-radius:16px;border:1px solid #e6e8ee;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+  .kpi-title{font-size:.85rem;color:#6c757d}
+  .kpi-value{font-size:1.35rem;font-weight:800;letter-spacing:.2px}
+  .kpi-sub{font-size:.82rem;color:#6c757d}
+
+  .tbadge{font-size:.72rem;padding:.12rem .45rem;border-radius:999px;border:1px solid transparent;white-space:nowrap;}
+  .tb-blue {background:rgba(13,110,253,.12); border-color:rgba(13,110,253,.25); color:#0d6efd;}
+  .tb-amber{background:rgba(255,193,7,.16); border-color:rgba(255,193,7,.30); color:#b58100;}
+
+  .top5-grid{display:grid;grid-template-columns: repeat(5, minmax(0, 1fr));gap:10px;}
+  @media (max-width: 1200px){ .top5-grid{grid-template-columns: repeat(3, minmax(0, 1fr));} }
+  @media (max-width: 768px){ .top5-grid{grid-template-columns: repeat(2, minmax(0, 1fr));} }
+
+  .top-card{
+    border:1px solid #e6e8ee;background:#fff;border-radius:16px;
+    padding:10px 12px; position:relative; overflow:hidden;
+    box-shadow:0 6px 18px rgba(0,0,0,.05);
+    min-height:110px;
+  }
+  .top-card:before{
+    content:""; position:absolute; inset:-20px auto auto -20px;
+    width:120px; height:120px; border-radius:50%;
+    background:rgba(13,110,253,.08);
+  }
+  .top-head{display:flex; align-items:flex-start; gap:10px; position:relative; z-index:1}
+  .top-rank{
+    width:34px;height:34px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    font-weight:900;font-size:.9rem;flex:0 0 34px;background:#f1f3f5;color:#495057;border:1px solid #e9ecef;
+  }
+  .top-name{font-weight:800; line-height:1.25; white-space:normal; word-break:break-word; font-size:.92rem;}
+  .top-code{font-size:.78rem;color:#6c757d}
+  .top-foot{display:flex; justify-content:space-between; gap:10px; margin-top:8px; position:relative; z-index:1}
+  .top-amt{font-weight:900}
+  .top-pct{font-weight:800;color:#6c757d}
+  .progress{height:10px;border-radius:999px;background:#eef1f5}
+  .progress-bar{border-radius:999px}
+
+  .delta{
+    display:inline-flex; align-items:center; gap:6px; justify-content:flex-end;
+    font-weight:900; padding:.15rem .4rem; border-radius:999px;
+    border:1px solid rgba(0,0,0,.06); background:#fff; white-space:nowrap;
+  }
+  .delta.up{color:#dc3545; background:rgba(220,53,69,.08); border-color:rgba(220,53,69,.20)}
+  .delta.down{color:#198754; background:rgba(25,135,84,.08); border-color:rgba(25,135,84,.20)}
+  .delta.eq{color:#6c757d; background:rgba(108,117,125,.08); border-color:rgba(108,117,125,.20)}
+  .delta .ico{
+    width:22px;height:22px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid rgba(0,0,0,.08); background:#fff; font-size:.9rem; line-height:1;
+  }
+
+  .hint-bar{border:1px dashed #e6e8ee; background:#fff; border-radius:16px; padding:12px 14px;}
+
+  .table thead th{white-space:nowrap}
+  .name-cell{min-width: 620px; max-width: 900px;}
+  .name-cell .nm{font-weight:700; white-space:normal; overflow:visible; line-height:1.35;}
+  .code-cell{min-width:110px}
+  .unit-cell{min-width:120px}
+  .inp-cell{min-width:140px}
+  .money-cell{min-width:130px}
+  .delta-cell{min-width:190px}
+  .hint-cell{min-width:260px}
+</style>
+</head>
+
+<body>
+<div class="container-fluid maxw py-3">
+
+  <div class="card card-soft p-3 mb-3">
+    <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
+      <div>
+        <div class="h5 m-0">🧾 إدخال المشتريات</div>
+        <div class="mini">داخل Portal — حفظ دفعة واحدة</div>
+      </div>
+
+      <div class="d-flex gap-2 align-items-center">
+        <select id="periodSel" class="form-select">
+          {% for p in periods %}
+            <option value="{{p.id}}" {% if period and p.id == period.id %}selected{% endif %}>
+              {{p.year}}-{{p.month|stringformat:"02d"}}
+            </option>
+          {% endfor %}
+        </select>
+
+        <button class="btn btn-outline-secondary" id="btnReload" type="button">🔄 تحديث</button>
+        <button class="btn btn-primary" id="btnSave" type="button">💾 حفظ</button>
+      </div>
+    </div>
+
+    <div class="mt-2" id="lockBar" style="display:none;">
+      <div class="alert alert-warning m-0">⛔ الفترة مقفلة — ممنوع الحفظ</div>
+    </div>
+  </div>
+
+  <div class="row g-2 mb-3">
+    <div class="col-12 col-lg-9 order-1">
+      <div class="kpi-card p-3 h-100">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <div>
+            <div class="kpi-title">أعلى 5 مواد شراءً</div>
+            <div class="mini">مرتبة حسب قيمة الشراء داخل الفترة (الكمية × تكلفة الوحدة)</div>
+          </div>
+          <span class="tbadge tb-amber" id="top5Count">0/5</span>
+        </div>
+        <div class="top5-grid" id="top5Grid"></div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-3 order-2">
+      <div class="kpi-card p-3 h-100">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="kpi-title">إجمالي المشتريات</div>
+            <div class="kpi-value num" id="kpiGrandTotal">0.00</div>
+            <div class="kpi-sub">مجموع (الكمية × تكلفة الوحدة)</div>
+          </div>
+          <span class="tbadge tb-blue">SAR</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="hint-bar">
+        <span class="tbadge tb-blue me-1">Auto</span>
+        <span class="mini">
+          تكلفة الوحدة تُعرض تلقائيًا من <b>آخر تكلفة معروفة</b> (الفترة السابقة أو Opening).
+          عند فترة جديدة بدون مشتريات، ستظل التكلفة ظاهرة — لكن الإجمالي يعتمد على الكمية فقط.
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-soft p-2">
+    <div class="table-responsive">
+      <table class="table table-bordered bg-white m-0">
+        <thead class="table-light">
+          <tr>
+            <th class="code-cell">الكود</th>
+            <th class="name-cell">المادة الخام</th>
+            <th class="unit-cell">الوحدة</th>
+            <th class="inp-cell">الكمية</th>
+            <th class="inp-cell">تكلفة الوحدة</th>
+            <th class="money-cell">آخر تكلفة</th>
+            <th class="delta-cell">اتجاه</th>
+            <th class="money-cell">الإجمالي</th>
+            <th class="hint-cell">تلميح</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+        <tfoot class="table-light">
+          <tr>
+            <th colspan="7" class="text-end">إجمالي المشتريات</th>
+            <th class="num" id="grandTotal">0.00</th>
+            <th></th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="sticky-actions d-flex justify-content-between align-items-center">
+      <div class="mini" id="status">جاهز</div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-outline-danger" id="btnClearQty" type="button">🧹 مسح الكميات فقط</button>
+        <button class="btn btn-primary" id="btnSave2" type="button">💾 حفظ</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const PURCHASE_PERIOD_ID = "{{ period.id|default:'' }}";
+  const PURCHASE_API_GET   = "/portal/api/purchases/grid/";
+  const PURCHASE_API_SAVE  = "/portal/api/purchases/grid/save/";
+</script>
+
+<script>
+(function () {
+  const tbody = document.getElementById("tbody");
+  const periodSel = document.getElementById("periodSel");
+  const btnReload = document.getElementById("btnReload");
+  const btnSave = document.getElementById("btnSave");
+  const btnSave2 = document.getElementById("btnSave2");
+  const btnClearQty = document.getElementById("btnClearQty");
+  const lockBar = document.getElementById("lockBar");
+  const statusEl = document.getElementById("status");
+  const grandTotalEl = document.getElementById("grandTotal");
+  const kpiGrandEl = document.getElementById("kpiGrandTotal");
+  const top5GridEl = document.getElementById("top5Grid");
+  const top5CountEl = document.getElementById("top5Count");
+
+  let isLocked = false;
+  let rows = [];
+
+  function setStatus(t){ statusEl.textContent = t; }
+
+  function escapeHtml(s) {
+    return String(s ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;");
+  }
+
+  function toNum(v){
+    const x = parseFloat(String(v ?? "0").replace(/,/g,""));
+    return isNaN(x) ? 0 : x;
+  }
+
+  function fmt2(n){
+    return (Number(n || 0)).toFixed(2);
+  }
+
+  function barClass(pct){
+    if (pct >= 20) return "bg-success";
+    if (pct >= 8)  return "bg-warning";
+    return "bg-danger";
+  }
+
+  // ✅ CSRF
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return "";
+  }
+  function csrfToken(){
+    return getCookie("csrftoken");
+  }
+
+  function deltaMeta(lastCost, newCost){
+    lastCost = toNum(lastCost);
+    newCost  = toNum(newCost);
+    const diff = newCost - lastCost;
+    const pct  = lastCost > 0 ? (diff / lastCost) * 100 : (newCost > 0 ? 100 : 0);
+
+    if (Math.abs(diff) < 0.00001){
+      return { cls:"eq", ico:"≡", text:`${fmt2(0)} (${fmt2(0)}%)` };
+    }
+    if (diff > 0){
+      return { cls:"up", ico:"⬆", text:`+${fmt2(diff)} (+${fmt2(pct)}%)` };
+    }
+    return { cls:"down", ico:"⬇", text:`${fmt2(diff)} (${fmt2(pct)}%)` };
+  }
+
+  function rowTotal(r){ return toNum(r.quantity) * toNum(r.unit_cost); }
+  function recalcGrand(){ return rows.reduce((acc, r) => acc + rowTotal(r), 0); }
+
+  function updateFooterAndKpis(grand){
+    grandTotalEl.textContent = fmt2(grand);
+    kpiGrandEl.textContent = fmt2(grand);
+  }
+
+  function buildTop5(grand){
+    top5GridEl.innerHTML = "";
+
+    const sorted = [...rows]
+      .map(r => ({...r, _total: rowTotal(r)}))
+      .sort((a,b)=> b._total - a._total)
+      .filter(x => x._total > 0);
+
+    const top5 = sorted.slice(0,5);
+    top5CountEl.textContent = `${top5.length}/5`;
+
+    const max = top5.length ? top5[0]._total : 0;
+
+    top5.forEach((r, i)=>{
+      const pct = grand>0 ? (r._total/grand)*100 : 0;
+      const w = max>0 ? (r._total/max)*100 : 0;
+
+      const card = document.createElement("div");
+      card.className = "top-card";
+      card.innerHTML = `
+        <div class="top-head">
+          <div class="top-rank">${i+1}</div>
+          <div style="min-width:0;flex:1">
+            <div class="top-name">${escapeHtml(r.name || "")}</div>
+            <div class="top-code">${escapeHtml(r.code || "")}</div>
+          </div>
+          <span class="tbadge tb-amber">Top${i+1}</span>
+        </div>
+        <div class="top-foot">
+          <span class="top-amt num">${fmt2(r._total)}</span>
+          <span class="top-pct num">${pct.toFixed(1)}%</span>
+        </div>
+        <div class="mt-2">
+          <div class="progress">
+            <div class="progress-bar ${barClass(pct)}" style="width:${Math.min(100,Math.max(0,w)).toFixed(1)}%"></div>
+          </div>
+        </div>
+      `;
+      top5GridEl.appendChild(card);
+    });
+
+    if(!top5.length){
+      top5GridEl.innerHTML = `<div class="mini text-muted">لا توجد مشتريات بقيم > 0 في هذه الفترة.</div>`;
+    }
+  }
+
+  // ✅ أهم تعديل: لو الفترة جديدة/فاضية، عبّي unit_cost من last_unit_cost
+  function normalizeRow(x){
+    const last = toNum(x.last_unit_cost);
+    const unit = toNum(x.unit_cost);
+
+    const normalized = {
+      ...x,
+      quantity: fmt2(toNum(x.quantity)),
+      last_unit_cost: fmt2(last),
+      unit_cost: fmt2(unit),
+      _auto_cost: false,
+    };
+
+    if (unit <= 0 && last > 0){
+      normalized.unit_cost = fmt2(last);
+      normalized._auto_cost = true; // مجرد علامة للتفسير/اليوآي
+    }
+
+    return normalized;
+  }
+
+  function updateRowUI(tr, row, grand){
+    const qty  = toNum(row.quantity);
+    const cost = toNum(row.unit_cost);
+    const last = toNum(row.last_unit_cost);
+
+    // ✅ اتجاه المقارنة دائماً مع "آخر تكلفة" (last)
+    const d = deltaMeta(last, cost);
+
+    const total = qty * cost;
+    const pct = grand>0 ? (total/grand)*100 : 0;
+
+    const tds = tr.querySelectorAll("td");
+    tds[5].textContent = fmt2(last);
+    tds[7].textContent = fmt2(total);
+
+    tds[6].innerHTML = `
+      <span class="delta ${d.cls}">
+        <span class="ico">${d.ico}</span>
+        <span class="num">${d.text}</span>
+      </span>
+    `;
+
+    const hint = (last > 0)
+      ? (row._auto_cost ? "تم تعبئة تكلفة الوحدة تلقائيًا من الفترة السابقة" : "آخر تكلفة من الفترة السابقة")
+      : "آخر تكلفة من جرد أول المدة (Opening)";
+
+    tds[8].innerHTML = `
+      <div class="mini">${hint}</div>
+      <div class="progress mt-1">
+        <div class="progress-bar ${barClass(pct)}" style="width:${Math.min(100,Math.max(0,pct)).toFixed(1)}%"></div>
+      </div>
+    `;
+  }
+
+  function updateAllRowsAfterEdit(grand){
+    updateFooterAndKpis(grand);
+    buildTop5(grand);
+
+    const trs = tbody.querySelectorAll("tr");
+    trs.forEach(tr=>{
+      const anyInp = tr.querySelector("input[data-id]");
+      if(!anyInp) return;
+      const id = anyInp.dataset.id;
+      const row = rows.find(x => String(x.raw_material_id) === String(id));
+      if(!row) return;
+      updateRowUI(tr, row, grand);
+    });
+  }
+
+  function render(){
+    tbody.innerHTML = "";
+    const grand = recalcGrand();
+
+    rows.forEach((r)=>{
+      const qty  = toNum(r.quantity);
+      const cost = toNum(r.unit_cost);
+      const last = toNum(r.last_unit_cost);
+
+      const total = qty * cost;
+      const pct = grand>0 ? (total/grand)*100 : 0;
+      const d = deltaMeta(last, cost);
+
+      const hint = (last > 0)
+        ? (r._auto_cost ? "تم تعبئة تكلفة الوحدة تلقائيًا من الفترة السابقة" : "آخر تكلفة من الفترة السابقة")
+        : "آخر تكلفة من جرد أول المدة (Opening)";
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="num code-cell">${escapeHtml(r.code || "")}</td>
+        <td class="name-cell"><div class="nm">${escapeHtml(r.name || "")}</div></td>
+        <td class="num unit-cell">${escapeHtml(r.unit_name || "")}</td>
+
+        <td class="inp-cell">
+          <input ${isLocked?"disabled":""}
+            class="form-control form-control-sm num"
+            inputmode="decimal" step="0.01"
+            data-k="quantity" data-id="${r.raw_material_id}"
+            value="${fmt2(qty)}">
+        </td>
+
+        <td class="inp-cell">
+          <input ${isLocked?"disabled":""}
+            class="form-control form-control-sm num"
+            inputmode="decimal" step="0.01"
+            data-k="unit_cost" data-id="${r.raw_material_id}"
+            data-prev="${fmt2(last)}"
+            value="${fmt2(cost)}">
+        </td>
+
+        <td class="num money-cell">${fmt2(last)}</td>
+
+        <td class="text-end delta-cell">
+          <span class="delta ${d.cls}">
+            <span class="ico">${d.ico}</span>
+            <span class="num">${d.text}</span>
+          </span>
+        </td>
+
+        <td class="num money-cell">${fmt2(total)}</td>
+
+        <td class="hint-cell">
+          <div class="mini">${hint}</div>
+          <div class="progress mt-1">
+            <div class="progress-bar ${barClass(pct)}" style="width:${Math.min(100,Math.max(0,pct)).toFixed(1)}%"></div>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    updateFooterAndKpis(grand);
+    buildTop5(grand);
+
+    lockBar.style.display = isLocked ? "block" : "none";
+    btnSave.disabled = isLocked;
+    btnSave2.disabled = isLocked;
+  }
+
+  async function load(periodId){
+    setStatus("⏳ تحميل...");
+    const url = `${PURCHASE_API_GET}?period_id=${encodeURIComponent(periodId)}`;
+
+    const r = await fetch(url, {
+      credentials:"same-origin",
+      headers: { "X-Requested-With": "XMLHttpRequest" }
+    }).catch(()=>null);
+
+    if(!r){ setStatus("❌ تعذر الاتصال بالخادم"); return; }
+
+    const data = await r.json().catch(()=>null);
+    if(!data || !data.ok){
+      setStatus("❌ " + ((data && data.error) || "خطأ"));
+      return;
+    }
+
+    rows = (data.rows || []).map(normalizeRow);
+
+    isLocked = !!data.is_locked;
+    setStatus(isLocked ? "⛔ الفترة مقفلة" : "✅ جاهز");
+    render();
+  }
+
+  async function save(periodId){
+    if(isLocked) return;
+
+    setStatus("💾 حفظ...");
+    btnSave.disabled = true;
+    btnSave2.disabled = true;
+
+    const payload = rows.map(r => ({
+      line_id: r.line_id,
+      raw_material_id: r.raw_material_id,
+      purchase_unit_id: r.purchase_unit_id,
+      quantity: fmt2(toNum(r.quantity)),
+      unit_cost: fmt2(toNum(r.unit_cost)),
+    }));
+
+    const fd = new FormData();
+    fd.append("period_id", periodId);
+    fd.append("rows_json", JSON.stringify(payload));
+
+    const r = await fetch(PURCHASE_API_SAVE, {
+      method:"POST",
+      body:fd,
+      credentials:"same-origin",
+      headers: {
+        "X-CSRFToken": csrfToken(),
+        "X-Requested-With": "XMLHttpRequest"
+      }
+    }).catch(()=>null);
+
+    if(!r){
+      setStatus("❌ تعذر الاتصال بالخادم");
+      btnSave.disabled = isLocked;
+      btnSave2.disabled = isLocked;
+      return;
+    }
+
+    if(!r.ok){
+      const txt = await r.text().catch(()=> "");
+      if (r.status === 403){
+        setStatus("❌ فشل الحفظ: CSRF (403) — تأكد أن csrftoken موجود بالكوكيز");
+      } else {
+        setStatus(`❌ فشل الحفظ (${r.status})`);
+      }
+      console.log("SAVE RESPONSE:", r.status, txt);
+      btnSave.disabled = isLocked;
+      btnSave2.disabled = isLocked;
+      return;
+    }
+
+    const data = await r.json().catch(()=>null);
+    if(!data || !data.ok){
+      setStatus("❌ " + ((data && data.error) || "فشل الحفظ"));
+      btnSave.disabled = isLocked;
+      btnSave2.disabled = isLocked;
+      return;
+    }
+
+    setStatus(`✅ تم الحفظ (${data.saved_count})`);
+    await load(periodId);
+  }
+
+  // ✅ أثناء الكتابة: تحديثات مباشرة
+  tbody.addEventListener("input", (e)=>{
+    const inp = e.target.closest("input[data-k]");
+    if(!inp) return;
+
+    const k = inp.dataset.k;
+    const id = inp.dataset.id;
+
+    const row = rows.find(x => String(x.raw_material_id) === String(id));
+    if(!row) return;
+
+    row._auto_cost = false; // المستخدم عدّل يدوياً
+    row[k] = inp.value;
+
+    const tr = inp.closest("tr");
+    const grand = recalcGrand();
+    if (tr) updateRowUI(tr, row, grand);
+    updateAllRowsAfterEdit(grand);
+  });
+
+  // ✅ تنسيق عند الخروج فقط
+  tbody.addEventListener("blur", (e)=>{
+    const inp = e.target.closest("input[data-k]");
+    if(!inp) return;
+
+    const k = inp.dataset.k;
+    const id = inp.dataset.id;
+
+    const row = rows.find(x => String(x.raw_material_id) === String(id));
+    if(!row) return;
+
+    const v = fmt2(toNum(inp.value));
+    inp.value = v;
+    row[k] = v;
+
+    // ✅ لا نغيّر data-prev هنا (لا نريد مقارنة الاتجاه بتاريخ تعديل المستخدم)
+    // inp.dataset.prev = v;
+
+    const tr = inp.closest("tr");
+    const grand = recalcGrand();
+    if (tr) updateRowUI(tr, row, grand);
+    updateAllRowsAfterEdit(grand);
+  }, true);
+
+  btnReload.addEventListener("click", ()=> load(periodSel.value));
+  btnSave.addEventListener("click", ()=> save(periodSel.value));
+  btnSave2.addEventListener("click", ()=> save(periodSel.value));
+
+  // ✅ زر مسح الكميات فقط
+  btnClearQty.addEventListener("click", ()=>{
+    if(isLocked) return;
+
+    const hasAnyQty = rows.some(r => toNum(r.quantity) > 0);
+    if(!hasAnyQty){
+      alert("لا توجد كميات لإزالتها في هذه الفترة.");
+      return;
+    }
+
+    if(!confirm("⚠️ سيتم تصفير كل الكميات فقط (بدون المساس بتكلفة الوحدة). هل تريد المتابعة؟")) return;
+
+    rows = rows.map(r => ({ ...r, quantity:"0.00" }));
+    render();
+    setStatus("🧹 تم مسح الكميات محليًا — اضغط حفظ لتثبيت التغيير");
+  });
+
+  // ✅ حافظ على embed
+  periodSel.addEventListener("change", ()=>{
+    const pid = periodSel.value;
+    const u = new URL(window.location.href);
+    u.searchParams.set("period", pid);
+    window.location.href = u.toString();
+  });
+
+  const initPeriod = PURCHASE_PERIOD_ID || periodSel.value;
+  load(initPeriod);
+})();
+</script>
+
+</body>
+</html>

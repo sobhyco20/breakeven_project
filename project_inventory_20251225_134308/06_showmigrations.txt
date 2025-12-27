@@ -1,0 +1,75 @@
+[1madmin
+[0m [X] 0001_initial
+ [X] 0002_logentry_remove_auto_add
+ [X] 0003_logentry_add_action_flag_choices
+[1mauth
+[0m [X] 0001_initial
+ [X] 0002_alter_permission_name_max_length
+ [X] 0003_alter_user_email_max_length
+ [X] 0004_alter_user_username_opts
+ [X] 0005_alter_user_last_login_null
+ [X] 0006_require_contenttypes_0002
+ [X] 0007_alter_validators_add_error_messages
+ [X] 0008_alter_user_username_max_length
+ [X] 0009_alter_user_last_name_max_length
+ [X] 0010_alter_group_name_max_length
+ [X] 0011_update_proxy_permissions
+ [X] 0012_alter_user_first_name_max_length
+[1mcontenttypes
+[0m [X] 0001_initial
+ [X] 0002_remove_content_type_name
+[1mcosting
+[0m [X] 0001_initial
+ [X] 0002_alter_billofmaterial_options_alter_bomitem_options_and_more
+ [X] 0003_rawmaterial_cost_per_base_unit
+ [X] 0004_product_name_en_alter_product_code_and_more
+ [X] 0005_remove_rawmaterial_base_unit_remove_rawmaterial_code_and_more
+ [X] 0006_alter_product_options_alter_bomitem_quantity_and_more
+ [X] 0007_alter_product_options_and_more
+ [X] 0008_billofmaterial_batch_output_quantity_and_more
+ [X] 0009_billofmaterial_unit_cost
+ [X] 0010_billofmaterial_unit_cost_final
+[1mexpenses
+[0m [X] 0001_initial
+ [X] 0002_alter_expenseentry_options_alter_expensetype_options_and_more
+ [X] 0003_alter_period_options_alter_period_unique_together_and_more
+ [X] 0004_alter_period_options_remove_period_period_type_and_more
+ [X] 0005_expensecategory_alter_expensetype_options_and_more
+ [X] 0006_expensebatch_expenseline
+ [X] 0007_alter_expensebatch_options
+ [X] 0008_period_allow_opening_stock_and_more
+[1minventory
+[0m [X] 0001_initial
+ [X] 0002_alter_stockcount_count_type
+ [X] 0003_stockcount_count_date_stockcount_notes_and_more
+ [X] 0004_alter_stockcount_notes
+ [X] 0005_stockcountline_line_total_value_and_more
+ [X] 0006_bomtreereport
+ [X] 0007_remove_stockcountline_line_total_value_and_more
+ [X] 0008_stockcount_is_committed_stockcount_is_submitted
+ [X] 0009_remove_stockcount_is_submitted_and_more
+[1mportal
+[0m[31;1m (no migrations)
+[0m[1mpricing
+[0m [X] 0001_initial
+ [X] 0002_pricingpolicy_pricingresult
+ [X] 0003_pricingcontext
+[1mpurchases
+[0m [X] 0001_initial
+ [X] 0002_remove_purchasesummary_end_date_and_more
+ [X] 0003_purchasesummaryline_last_unit_cost_and_more
+[1mreports
+[0m [X] 0001_initial
+ [X] 0002_alter_inventoryreports_options_and_more
+[1msales
+[0m [X] 0001_initial
+ [X] 0002_alter_salessummaryline_line_total
+ [X] 0003_remove_salessummary_period_end_and_more
+ [X] 0004_salesconsumptionsummary_salesconsumption
+ [X] 0005_salesconsumption_semi_product_and_more
+ [X] 0006_alter_salesconsumption_options_and_more
+ [X] 0007_alter_salesconsumption_raw_material
+ [X] 0008_alter_salesconsumption_quantity_consumed_and_more
+ [X] 0009_alter_salesconsumption_quantity_consumed_and_more
+[1msessions
+[0m [X] 0001_initial

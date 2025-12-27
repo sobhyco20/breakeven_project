@@ -1,0 +1,633 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>تعريف المصروفات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bd:#e5e7eb;
+      --bg:#f4f6f9;
+      --card:#fff;
+      --muted:#6b7280;
+    }
+    body{ background:var(--bg); }
+
+    .cardx{
+      background:var(--card);
+      border:1px solid var(--bd);
+      border-radius:12px;
+      overflow:hidden;
+    }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    .hint{ color:var(--muted); font-size:.85rem; }
+
+    /* جدول ثابت لتوزيع الأعمدة */
+    .table{ table-layout:fixed; margin:0; }
+    .table thead th{
+      white-space:nowrap;
+      font-weight:700;
+      font-size:.84rem;
+      padding:.55rem .5rem;
+    }
+    .table tbody td{
+      padding:.5rem .5rem;
+      vertical-align:top;
+      font-size:.87rem;
+    }
+
+    /* اسم: سطرين */
+    .name-2-lines{
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+      white-space:normal;
+      word-break:break-word;
+      line-height:1.35;
+      max-height:calc(1.35em * 2);
+    }
+
+    /* تصغير الحقول */
+    .table td .form-control-sm,
+    .table td .form-select-sm{
+      min-height:30px;
+      padding:2px 8px;
+      font-size:.82rem;
+    }
+
+    /* سهم الـ select على اليسار (RTL) */
+    select.form-select-sm{
+      background-position: left .65rem center !important;
+      padding-left: 2rem !important;
+      padding-right: .6rem !important;
+    }
+
+    .actions{ display:flex; gap:.35rem; flex-wrap:wrap; }
+    .btn.btn-sm{ padding:3px 8px; font-size:.82rem; }
+
+    .pill-ok{ background:#dcfce7; color:#166534; border:1px solid #bbf7d0; }
+    .pill-off{ background:#fee2e2; color:#991b1b; border:1px solid #fecaca; }
+
+    .toastx{
+      position:fixed; bottom:16px; left:16px;
+      background:#111827; color:#fff;
+      padding:10px 12px; border-radius:10px;
+      font-size:.9rem; opacity:0; transform:translateY(8px);
+      transition:all .18s ease;
+      z-index:9999;
+    }
+    .toastx.show{ opacity:1; transform:translateY(0); }
+
+    /* col widths */
+    .w-code{ width:10%; }
+    .w-name{ width:26%; }
+    .w-cat { width:18%; }
+    .w-small{ width:12%; }
+    .w-actions{ width:12%; }
+
+    @media (max-width: 768px){
+      .w-name{ width:34%; }
+      .w-actions{ width:16%; }
+    }
+  </style>
+</head>
+
+<body>
+<div class="container-fluid p-3">
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+    <div>
+      <h5 class="m-0">🧾 تعريف المصروفات</h5>
+      <div class="hint">أضف التصنيفات وأسماء المصروفات قبل إدخال مصروفات الفترات.</div>
+    </div>
+    <div class="d-flex gap-2">
+      <button class="btn btn-sm btn-outline-secondary" id="btnReloadAll">🔄 تحديث</button>
+    </div>
+  </div>
+
+  <div class="cardx p-3 mb-3">
+    <div class="row g-2 align-items-center">
+      <div class="col-md-6 col-lg-4">
+        <input id="q" class="form-control form-control-sm" placeholder="🔎 بحث..." />
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <select id="activeFilter" class="form-select form-select-sm">
+          <option value="all">عرض الكل</option>
+          <option value="active">النشطة فقط</option>
+          <option value="inactive">غير النشطة فقط</option>
+        </select>
+      </div>
+      <div class="col-lg-5 text-muted small">
+        <span class="badge rounded-pill px-2 py-1 pill-ok">نشط</span>
+        <span class="badge rounded-pill px-2 py-1 pill-off">غير نشط</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cardx">
+    <div class="px-3 pt-3">
+      <ul class="nav nav-tabs" id="tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabCats" type="button" role="tab">
+            🏷️ تصنيفات المصروفات
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabItems" type="button" role="tab">
+            🧾 أسماء المصروفات
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tab-content p-3">
+
+      <!-- =========================
+           TAB: Categories
+      ========================== -->
+      <div class="tab-pane fade show active" id="tabCats" role="tabpanel">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="hint">تعريف Nature / Directness / Frequency / Behavior</div>
+          <button class="btn btn-sm btn-outline-primary" id="btnAddCat">➕ إضافة تصنيف</button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-sm table-striped align-middle">
+            <colgroup>
+              <col class="w-code">
+              <col class="w-name">
+              <col class="w-small">
+              <col class="w-small">
+              <col class="w-small">
+              <col class="w-small">
+              <col class="w-small">
+              <col class="w-actions">
+            </colgroup>
+            <thead class="table-light">
+              <tr>
+                <th>الكود</th>
+                <th>اسم التصنيف</th>
+                <th>Nature</th>
+                <th>مباشر؟</th>
+                <th>الدورية</th>
+                <th>ثابت/متغير</th>
+                <th>نشط</th>
+                <th>إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="catsBody">
+              <tr><td colspan="8" class="text-center text-muted p-4">جاري التحميل...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- =========================
+           TAB: Items
+      ========================== -->
+      <div class="tab-pane fade" id="tabItems" role="tabpanel">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="hint">كل مصروف مرتبط بتصنيف واحد</div>
+          <button class="btn btn-sm btn-outline-primary" id="btnAddItem">➕ إضافة مصروف</button>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-sm table-striped align-middle">
+            <colgroup>
+              <col class="w-code">
+              <col class="w-name">
+              <col class="w-cat">
+              <col class="w-small">
+              <col class="w-small">
+              <col class="w-actions">
+            </colgroup>
+            <thead class="table-light">
+              <tr>
+                <th>الكود</th>
+                <th>اسم المصروف</th>
+                <th>التصنيف</th>
+                <th>مبلغ افتراضي</th>
+                <th>نشط</th>
+                <th>إجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="itemsBody">
+              <tr><td colspan="6" class="text-center text-muted p-4">جاري التحميل...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toastx" id="toastx"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // =========================
+  // Config (APIs)
+  // =========================
+    const API_CATS_LIST  = "/portal/api/expenses/categories/list/";
+    const API_CATS_ACT   = "/portal/api/expenses/categories/";
+    const API_ITEMS_LIST = "/portal/api/expenses/items/list/";
+    const API_ITEMS_ACT  = "/portal/api/expenses/items/";
+
+
+
+  // =========================
+  // Helpers
+  // =========================
+  function getCookie(name) {
+    const v = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return v ? v.pop() : '';
+  }
+  function toFormBody(obj) {
+    const p = new URLSearchParams();
+    Object.keys(obj).forEach(k => p.append(k, obj[k] ?? ""));
+    return p.toString();
+  }
+  function toast(msg){
+    const t = document.getElementById("toastx");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(()=>t.classList.remove("show"), 1600);
+  }
+  function esc(s){
+    return String(s ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;");
+  }
+
+  // =========================
+  // State
+  // =========================
+  let CATS = [];
+  let ITEMS = [];
+  let CAT_OPTIONS = [];
+
+  const qInput = document.getElementById("q");
+  const activeFilter = document.getElementById("activeFilter");
+  const btnReloadAll = document.getElementById("btnReloadAll");
+
+  const catsBody  = document.getElementById("catsBody");
+  const itemsBody = document.getElementById("itemsBody");
+
+  const btnAddCat  = document.getElementById("btnAddCat");
+  const btnAddItem = document.getElementById("btnAddItem");
+
+  // choices
+  const NATURE = [
+    ["OP","تشغيلي"], ["SA","بيعي"], ["AD","إداري"]
+  ];
+  const DIRECTNESS = [
+    ["DIRECT","مباشر"], ["INDIRECT","غير مباشر"]
+  ];
+  const FREQUENCY = [
+    ["MONTHLY","شهري"], ["YEARLY","سنوي"], ["ADHOC","غير دوري"]
+  ];
+  const BEHAVIOR = [
+    ["FIXED","ثابت"], ["VARIABLE","متغير"]
+  ];
+
+  function optList(list, selected){
+    return list.map(([v,txt]) => {
+      const sel = String(v) === String(selected) ? "selected" : "";
+      return `<option ${sel} value="${esc(v)}">${esc(txt)}</option>`;
+    }).join("");
+  }
+
+  function catSelectOptions(selectedId){
+    const opts = [`<option value="">— اختر —</option>`];
+    CAT_OPTIONS.forEach(c => {
+      const sel = String(c.id) === String(selectedId) ? "selected" : "";
+      opts.push(`<option ${sel} value="${c.id}">${esc(c.code)} - ${esc(c.name)}</option>`);
+    });
+    return opts.join("");
+  }
+
+  function passActive(isActive){
+    const f = activeFilter.value;
+    if (f === "all") return true;
+    if (f === "active") return !!isActive;
+    if (f === "inactive") return !isActive;
+    return true;
+  }
+
+  function passQuery(obj){
+    const q = (qInput.value || "").trim().toLowerCase();
+    if(!q) return true;
+    const hay = (Object.values(obj).join(" ")).toLowerCase();
+    return hay.includes(q);
+  }
+
+  // =========================
+  // Render
+  // =========================
+  function renderCats(){
+    const rows = CATS.filter(r => passActive(r.is_active) && passQuery({code:r.code,name:r.name,nature:r.nature}));
+    if(!rows.length){
+      catsBody.innerHTML = `<tr><td colspan="8" class="text-center text-muted p-4">لا توجد بيانات</td></tr>`;
+      return;
+    }
+
+    catsBody.innerHTML = rows.map(r => {
+      const badge = r.is_active
+        ? `<span class="badge rounded-pill px-2 py-1 pill-ok">نشط</span>`
+        : `<span class="badge rounded-pill px-2 py-1 pill-off">غير نشط</span>`;
+
+      return `
+      <tr data-id="${r.id}">
+        <td><input class="form-control form-control-sm mono f-code" value="${esc(r.code)}" /></td>
+
+        <td>
+          <div class="name-2-lines" title="${esc(r.name)}">
+            <input class="form-control form-control-sm f-name" value="${esc(r.name)}" />
+          </div>
+        </td>
+
+        <td>
+          <select class="form-select form-select-sm f-nature">
+            ${optList(NATURE, r.nature)}
+          </select>
+        </td>
+
+        <td>
+          <select class="form-select form-select-sm f-directness">
+            ${optList(DIRECTNESS, r.directness)}
+          </select>
+        </td>
+
+        <td>
+          <select class="form-select form-select-sm f-frequency">
+            ${optList(FREQUENCY, r.frequency)}
+          </select>
+        </td>
+
+        <td>
+          <select class="form-select form-select-sm f-behavior">
+            ${optList(BEHAVIOR, r.behavior)}
+          </select>
+        </td>
+
+        <td class="pt-2">
+          <div class="d-flex align-items-center gap-2">
+            <input class="form-check-input f-active" type="checkbox" ${r.is_active ? "checked" : ""} />
+            ${badge}
+          </div>
+        </td>
+
+        <td>
+          <div class="actions">
+            <button class="btn btn-sm btn-primary btn-save-cat">💾</button>
+            <button class="btn btn-sm btn-outline-danger btn-del-cat">🗑</button>
+          </div>
+        </td>
+      </tr>`;
+    }).join("");
+  }
+
+  function renderItems(){
+    const rows = ITEMS.filter(r => passActive(r.is_active) && passQuery({code:r.code,name:r.name,cat:r.category_name}));
+    if(!rows.length){
+      itemsBody.innerHTML = `<tr><td colspan="6" class="text-center text-muted p-4">لا توجد بيانات</td></tr>`;
+      return;
+    }
+
+    itemsBody.innerHTML = rows.map(r => {
+      const badge = r.is_active
+        ? `<span class="badge rounded-pill px-2 py-1 pill-ok">نشط</span>`
+        : `<span class="badge rounded-pill px-2 py-1 pill-off">غير نشط</span>`;
+
+      return `
+      <tr data-id="${r.id}">
+        <td><input class="form-control form-control-sm mono f-code" value="${esc(r.code)}" /></td>
+
+        <td>
+          <div class="name-2-lines" title="${esc(r.name)}">
+            <input class="form-control form-control-sm f-name" value="${esc(r.name)}" />
+          </div>
+        </td>
+
+        <td>
+          <select class="form-select form-select-sm f-cat">
+            ${catSelectOptions(r.category_id)}
+          </select>
+        </td>
+
+        <td>
+          <input class="form-control form-control-sm mono f-def" value="${esc(r.default_amount)}" />
+        </td>
+
+        <td class="pt-2">
+          <div class="d-flex align-items-center gap-2">
+            <input class="form-check-input f-active" type="checkbox" ${r.is_active ? "checked" : ""} />
+            ${badge}
+          </div>
+        </td>
+
+        <td>
+          <div class="actions">
+            <button class="btn btn-sm btn-primary btn-save-item">💾</button>
+            <button class="btn btn-sm btn-outline-danger btn-del-item">🗑</button>
+          </div>
+        </td>
+      </tr>`;
+    }).join("");
+  }
+
+  // =========================
+  // Load
+  // =========================
+  async function loadCats(){
+    catsBody.innerHTML = `<tr><td colspan="8" class="text-center text-muted p-4">جاري التحميل...</td></tr>`;
+    const res = await fetch(API_CATS_LIST, { credentials:"same-origin" });
+    const data = await res.json().catch(()=>({ok:false}));
+    if(!data.ok){
+      catsBody.innerHTML = `<tr><td colspan="8" class="text-center text-danger p-4">فشل تحميل التصنيفات</td></tr>`;
+      return;
+    }
+    CATS = data.rows || [];
+    renderCats();
+  }
+
+  async function loadItems(){
+    itemsBody.innerHTML = `<tr><td colspan="6" class="text-center text-muted p-4">جاري التحميل...</td></tr>`;
+    const res = await fetch(API_ITEMS_LIST, { credentials:"same-origin" });
+    const data = await res.json().catch(()=>({ok:false}));
+    if(!data.ok){
+      itemsBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger p-4">فشل تحميل المصروفات</td></tr>`;
+      return;
+    }
+    ITEMS = data.rows || [];
+    CAT_OPTIONS = data.categories || [];
+    renderItems();
+  }
+
+  async function loadAll(){
+    await loadCats();
+    await loadItems();
+    toast("✅ تم التحديث");
+  }
+
+  // =========================
+  // Actions (POST)
+  // =========================
+  async function post(url, payload){
+    const res = await fetch(url, {
+      method:"POST",
+      credentials:"same-origin",
+      headers:{
+        "Content-Type":"application/x-www-form-urlencoded;charset=UTF-8",
+        "X-CSRFToken": getCookie("csrftoken"),
+      },
+      body: toFormBody(payload)
+    });
+    const data = await res.json().catch(()=>({ok:false,error:"خطأ غير معروف"}));
+    return {res, data};
+  }
+
+  async function saveCat(tr){
+    const id = tr.dataset.id || "";
+    const code = tr.querySelector(".f-code").value.trim();
+    const name = tr.querySelector(".f-name").value.trim();
+    const nature = tr.querySelector(".f-nature").value;
+    const directness = tr.querySelector(".f-directness").value;
+    const frequency = tr.querySelector(".f-frequency").value;
+    const behavior = tr.querySelector(".f-behavior").value;
+    const is_active = tr.querySelector(".f-active").checked;
+
+    if(!code || !name){ alert("الكود والاسم مطلوبان"); return; }
+
+    const {res, data} = await post(API_CATS_ACT, {
+      action:"save", id, code, name, nature, directness, frequency, behavior, is_active: String(is_active)
+    });
+
+    if(!res.ok || !data.ok){ alert(data.error || "فشل الحفظ"); return; }
+
+    if(!id){
+      // سجل جديد: ضع id ثم أعد تحميل
+      await loadCats();
+      await loadItems(); // لتحديث خيارات التصنيفات
+    }else{
+      const idx = CATS.findIndex(x => String(x.id) === String(id));
+      if(idx >= 0){
+        Object.assign(CATS[idx], {code,name,nature,directness,frequency,behavior,is_active});
+      }
+      renderCats();
+      await loadItems(); // لتحديث اسم التصنيف في العناصر
+    }
+
+    toast("💾 تم حفظ التصنيف");
+  }
+
+  async function deleteCat(tr){
+    const id = tr.dataset.id;
+    if(!id){ tr.remove(); return; }
+    if(!confirm("⚠️ حذف التصنيف؟ (سيُمنع إذا توجد مصروفات مرتبطة)")) return;
+
+    const {res, data} = await post(API_CATS_ACT, {action:"delete", id});
+    if(!res.ok || !data.ok){ alert(data.error || "فشل الحذف"); return; }
+
+    CATS = CATS.filter(x => String(x.id) !== String(id));
+    renderCats();
+    await loadItems(); // تحديث القائمة
+    toast("🗑 تم حذف التصنيف");
+  }
+
+  async function saveItem(tr){
+    const id = tr.dataset.id || "";
+    const code = tr.querySelector(".f-code").value.trim();
+    const name = tr.querySelector(".f-name").value.trim();
+    const category_id = tr.querySelector(".f-cat").value;
+    const default_amount = tr.querySelector(".f-def").value.trim();
+    const is_active = tr.querySelector(".f-active").checked;
+
+    if(!code || !name){ alert("الكود والاسم مطلوبان"); return; }
+    if(!category_id){ alert("اختر التصنيف"); return; }
+
+    const {res, data} = await post(API_ITEMS_ACT, {
+      action:"save", id, code, name, category_id, default_amount, is_active: String(is_active)
+    });
+
+    if(!res.ok || !data.ok){ alert(data.error || "فشل الحفظ"); return; }
+
+    await loadItems();
+    toast("💾 تم حفظ المصروف");
+  }
+
+  async function deleteItem(tr){
+    const id = tr.dataset.id;
+    if(!id){ tr.remove(); return; }
+    if(!confirm("⚠️ حذف المصروف؟ (سيُمنع إذا مستخدم داخل مصروفات الفترات)")) return;
+
+    const {res, data} = await post(API_ITEMS_ACT, {action:"delete", id});
+    if(!res.ok || !data.ok){ alert(data.error || "فشل الحذف"); return; }
+
+    ITEMS = ITEMS.filter(x => String(x.id) !== String(id));
+    renderItems();
+    toast("🗑 تم حذف المصروف");
+  }
+
+  // =========================
+  // Add Row
+  // =========================
+  function addCatRow(){
+    const r = {
+      id: "",
+      code: "",
+      name: "",
+      nature: "OP",
+      directness: "INDIRECT",
+      frequency: "MONTHLY",
+      behavior: "FIXED",
+      is_active: true
+    };
+    CATS = [r, ...CATS];
+    renderCats();
+  }
+
+  function addItemRow(){
+    const r = {
+      id: "",
+      code: "",
+      name: "",
+      category_id: (CAT_OPTIONS[0]?.id || ""),
+      category_name: "",
+      default_amount: "0.00",
+      is_active: true
+    };
+    ITEMS = [r, ...ITEMS];
+    renderItems();
+  }
+
+  // =========================
+  // Events
+  // =========================
+  btnReloadAll.addEventListener("click", loadAll);
+  qInput.addEventListener("input", () => { renderCats(); renderItems(); });
+  activeFilter.addEventListener("change", () => { renderCats(); renderItems(); });
+
+  btnAddCat.addEventListener("click", addCatRow);
+  btnAddItem.addEventListener("click", addItemRow);
+
+  document.addEventListener("click", (e) => {
+    const trCat = e.target.closest("#catsBody tr[data-id]");
+    const trItem = e.target.closest("#itemsBody tr[data-id]");
+
+    if(e.target.closest(".btn-save-cat") && trCat)  saveCat(trCat);
+    if(e.target.closest(".btn-del-cat") && trCat)   deleteCat(trCat);
+
+    if(e.target.closest(".btn-save-item") && trItem) saveItem(trItem);
+    if(e.target.closest(".btn-del-item") && trItem)  deleteItem(trItem);
+  });
+
+  // Start
+  loadAll();
+</script>
+
+</body>
+</html>

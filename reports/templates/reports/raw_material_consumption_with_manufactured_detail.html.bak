@@ -1,0 +1,172 @@
+{% extends "base_reports.html" %}
+
+{% block title %}تقرير استهلاك المواد الخام + تفكيك المواد المصنعة{% endblock %}
+
+{% block filters %}
+<form method="get" class="row g-2 mb-3">
+  <div class="col-md-4">
+    <label class="form-label">الفترة</label>
+    <select name="period" class="form-select">
+      {% for p in periods %}
+        <option value="{{ p.id }}"
+          {% if current_period and p.id == current_period.id %}selected{% endif %}>
+          {{ p.name }} ({{ p.start_date }} - {{ p.end_date }})
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-2 align-self-end">
+    <button type="submit" class="btn btn-primary w-100">عرض</button>
+  </div>
+</form>
+{% endblock %}
+
+{% block content %}
+
+{% if products_data %}
+
+  {% for data in products_data %}
+
+    <div class="card mb-4 shadow-sm">
+
+        <div class="card-header bg-light">
+        <div class="d-flex justify-content-between">
+            <div>
+            <strong>المنتج:</strong>
+            {{ data.product.code }} - {{ data.product.name }}
+            </div>
+            <div>
+            <strong>إجمالي الكمية المباعة في الفترة:</strong>
+            {{ data.sold_qty|floatformat:0 }}
+            </div>
+        </div>
+        </div>
+
+
+      <div class="card-body p-2">
+
+        <table class="table table-bordered table-striped table-sm align-middle mb-0">
+          <thead class="table-secondary text-center">
+            <tr>
+              <th style="width: 110px;">النوع</th>
+              <th style="width: 100px;">الكود</th>
+              <th>الاسم</th>
+              <th style="width: 220px;">المصدر / المنتج الأعلى</th>
+              <th style="width: 70px;">المستوى</th>
+              <th style="width: 140px;">كمية الخامة في الطلب</th>
+              <th style="width: 140px;">الكمية المباعة</th>
+              <th style="width: 140px;">الكمية المستهلكة</th>
+              <th style="width: 140px;">تكلفة الوحدة</th>
+              <th style="width: 160px;">إجمالي التكلفة</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for row in data.lines %}
+              <tr
+                class="
+                  {% if row.type == 'raw' %}
+                    table-success
+                  {% elif row.type == 'manufactured' %}
+                    table-warning
+                  {% endif %}
+                "
+              >
+                <td class="text-center">
+                  {% if row.type == "raw" %}
+                    <span class="badge bg-success">مادة خام</span>
+                  {% elif row.type == "manufactured" %}
+                    <span class="badge bg-warning text-dark">منتج نصف مصنع</span>
+                  {% endif %}
+                </td>
+
+                <td class="text-center">
+                  {{ row.code }}
+                </td>
+
+                <td>
+                  {% if row.level > 1 %}
+                    <span style="padding-right: {{ row.level|add:'-1' }}0px;">
+                      ⮞ {{ row.name }}
+                    </span>
+                  {% else %}
+                    {{ row.name }}
+                  {% endif %}
+                </td>
+
+                <td class="text-center">
+                  {{ row.parent }}
+                </td>
+
+                <td class="text-center">
+                  {{ row.level }}
+                </td>
+
+                {# كمية الخامة في الطلب الواحد #}
+                <td class="text-end">
+                  {% if row.per_order_qty %}
+                    {{ row.per_order_qty|floatformat:3 }}
+                  {% else %}
+                    -
+                  {% endif %}
+                </td>
+
+                {# الكمية المباعة #}
+                <td class="text-end">
+                  {{ data.sold_qty|floatformat:0 }}
+                </td>
+
+                {# الكمية المستهلكة #}
+                <td class="text-end">
+                  {{ row.qty|floatformat:3 }}
+                </td>
+
+                {# تكلفة الوحدة #}
+                <td class="text-end">
+                  {% if row.unit_cost %}
+                    {{ row.unit_cost|floatformat:3 }}
+                  {% else %}
+                    -
+                  {% endif %}
+                </td>
+
+                {# إجمالي التكلفة #}
+            <td class="text-end">
+            {% if row.type == "raw" and row.total_cost %}
+                {{ row.total_cost|floatformat:2 }}
+            {% elif row.type == "manufactured" %}
+                -
+            {% else %}
+                -
+            {% endif %}
+            </td>
+            {% endfor %}
+                <tr class="table-info fw-bold">
+                    <td colspan="9" class="text-end">
+                        إجمالي تكلفة المنتج في هذه الفترة (Monthly Food Cost):
+                    </td>
+                    <td class="text-end">
+                        {{ data.product_total_cost|floatformat:2 }}
+                    </td>
+                </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  {% endfor %}
+
+    <div class="alert alert-success text-center fw-bold mt-3">
+    إجمالي تكلفة الأغذية (Monthly Food Cost) لكل المنتجات في هذه الفترة:
+    {{ grand_total_cost|floatformat:0 }}
+    </div>
+
+
+{% else %}
+  <div class="alert alert-info text-center">
+    لا توجد مبيعات في الفترة المحددة.
+  </div>
+{% endif %}
+
+{% endblock %}

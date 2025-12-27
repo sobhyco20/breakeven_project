@@ -1,0 +1,14 @@
+{% extends "admin/change_list.html" %}
+
+{% block object-tools %}
+  <div class="object-tools">
+    <ul class="object-tools">
+      <li>
+        <a href="{% url 'admin:purchases_purchasesummary_import_excel' %}" class="historylink">
+          📥 استيراد من إكسل
+        </a>
+      </li>
+    </ul>
+  </div>
+  {{ block.super }}
+{% endblock %}

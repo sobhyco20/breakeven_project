@@ -1,0 +1,182 @@
+{% extends "base_reports.html" %}
+
+{% block title %}تقرير تكلفة المنتج (تجميعي بالوحدات){% endblock %}
+
+{% block filters %}
+<form method="get" class="row g-2 mb-3">
+
+  <div class="col-md-3">
+    <label class="form-label">الفترة</label>
+    <select name="period" class="form-select">
+      {% for p in periods %}
+        <option value="{{ p.id }}"
+          {% if current_period and p.id == current_period.id %}selected{% endif %}>
+          {{ p.name }} ({{ p.start_date }} - {{ p.end_date }})
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-5">
+    <label class="form-label">المنتج</label>
+    <select name="product" class="form-select">
+      <option value="">-- اختر منتجاً --</option>
+      {% for pr in products %}
+        <option value="{{ pr.id }}"
+          {% if selected_product and pr.id == selected_product.id %}selected{% endif %}>
+          {{ pr.code }} - {{ pr.name }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="col-md-2">
+    <label class="form-label">الكمية</label>
+    <input type="number" step="0.001" name="qty"
+           value="{{ qty }}" class="form-control">
+  </div>
+
+  <div class="col-md-2 align-self-end">
+    <button type="submit" class="btn btn-primary w-100">
+      عرض التقرير
+    </button>
+  </div>
+
+</form>
+{% endblock %}
+
+{% block content %}
+
+{% if selected_product and current_period and components %}
+
+  <div class="text-center my-3">
+    <h1 style="
+        font-size: 32px;
+        font-weight: 800;
+        color: #0d6efd;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    ">
+      {{ selected_product.code }} - {{ selected_product.name }}
+    </h1>
+    <div class="mt-1">
+      <strong>الفترة:</strong>
+      {{ current_period.name }} ({{ current_period.start_date }} - {{ current_period.end_date }})
+      &nbsp; | &nbsp;
+      <strong>الكمية المطلوب حساب تكلفتها:</strong>
+      {{ qty|floatformat:3 }}
+    </div>
+  </div>
+
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body p-2">
+
+      <h5 class="mt-1 mb-2">
+        📦 مكوّنات الوصفة (مواد خام + منتجات مصنّعة + المنتج نفسه)
+      </h5>
+
+      <table class="table table-bordered table-striped table-sm align-middle mb-3">
+        <thead class="table-secondary text-center">
+          <tr>
+            <th style="width: 110px;">النوع</th>
+            <th style="width: 110px;">الكود</th>
+            <th>اسم المادة</th>
+            <th style="width: 150px;">تكلفة المادة بالوحدة الكبيرة</th>
+            <th style="width: 130px;">وحدة القياس الكبيرة</th>
+            <th style="width: 160px;">الكمية المستخدمة في الوصفة</th>
+            <th style="width: 130px;">الوحدة الصغيرة</th>
+            <th style="width: 150px;">التكلفة</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in components %}
+            <tr
+              class="
+                {% if row.type == 'raw' %}
+                  table-success
+                {% elif row.type == 'manufactured' %}
+                  table-warning
+                {% elif row.type == 'product' %}
+                  table-info
+                {% endif %}
+              "
+            >
+              <td class="text-center">
+                {% if row.type == "raw" %}
+                  <span class="badge bg-success">مادة خام</span>
+                {% elif row.type == "manufactured" %}
+                  <span class="badge bg-warning text-dark">منتج مصنَّع</span>
+                {% elif row.type == "product" %}
+                  <span class="badge bg-info text-dark">المنتج نفسه</span>
+                {% endif %}
+              </td>
+
+              <td class="text-center">
+                {{ row.code }}
+              </td>
+
+              <td>
+                {{ row.name }}
+              </td>
+
+              <td class="text-end">
+                {% if row.big_unit_cost %}
+                  {{ row.big_unit_cost|floatformat:3 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+
+              <td class="text-center">
+                {{ row.big_unit_name }}
+              </td>
+
+              <td class="text-end">
+                {% if row.recipe_qty %}
+                  {{ row.recipe_qty|floatformat:3 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+
+              <td class="text-center">
+                {{ row.small_unit_name }}
+              </td>
+
+              <td class="text-end">
+                {% if row.total_cost %}
+                  {{ row.total_cost|floatformat:3 }}
+                {% else %}
+                  -
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="8" class="text-center">
+                لا توجد مكوّنات مسجّلة لهذه الوصفة.
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr class="table-info fw-bold">
+            <td colspan="7" class="text-end">
+              إجمالي تكلفة الوصفة للكمية {{ qty|floatformat:3 }} من المنتج:
+            </td>
+            <td class="text-end">
+              {{ total_cost|floatformat:3 }}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+
+    </div>
+  </div>
+
+{% else %}
+  <div class="alert alert-info text-center">
+    من فضلك اختر الفترة والمنتج ثم اضغط "عرض التقرير".
+  </div>
+{% endif %}
+
+{% endblock %}

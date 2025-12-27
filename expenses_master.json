@@ -1,0 +1,960 @@
+[
+{
+  "model": "expenses.expensecategory",
+  "pk": 1,
+  "fields": {
+    "code": "OP-001",
+    "name": "إيجار موقع / مصنع / مستودع",
+    "nature": "OP",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 2,
+  "fields": {
+    "code": "OP-002",
+    "name": "كهرباء ومياه وغاز (تشغيل)",
+    "nature": "OP",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 3,
+  "fields": {
+    "code": "OP-003",
+    "name": "صيانة معدات وآلات",
+    "nature": "OP",
+    "directness": "INDIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 4,
+  "fields": {
+    "code": "OP-004",
+    "name": "قطع غيار واستهلاكات تشغيل",
+    "nature": "OP",
+    "directness": "INDIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 5,
+  "fields": {
+    "code": "OP-005",
+    "name": "نظافة وتعقيم وتشغيل",
+    "nature": "OP",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 6,
+  "fields": {
+    "code": "OP-006",
+    "name": "رسوم بلدية/رخص/تصاريح تشغيل",
+    "nature": "OP",
+    "directness": "INDIRECT",
+    "frequency": "YEARLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 7,
+  "fields": {
+    "code": "OP-D01",
+    "name": "رواتب عمال التشغيل المباشر",
+    "nature": "OP",
+    "directness": "DIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 8,
+  "fields": {
+    "code": "OP-D02",
+    "name": "ساعات إضافية لعمال التشغيل",
+    "nature": "OP",
+    "directness": "DIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 9,
+  "fields": {
+    "code": "OP-D03",
+    "name": "حوافز ومكافآت تشغيل/إنتاج",
+    "nature": "OP",
+    "directness": "DIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 10,
+  "fields": {
+    "code": "SA-001",
+    "name": "إعلانات وتسويق رقمي",
+    "nature": "SA",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 11,
+  "fields": {
+    "code": "SA-002",
+    "name": "عمولات منصات/بوابات دفع",
+    "nature": "SA",
+    "directness": "DIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 12,
+  "fields": {
+    "code": "SA-003",
+    "name": "شحن وتسليم للعملاء",
+    "nature": "SA",
+    "directness": "DIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 13,
+  "fields": {
+    "code": "SA-004",
+    "name": "تغليف ومواد تعبئة",
+    "nature": "SA",
+    "directness": "DIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 14,
+  "fields": {
+    "code": "SA-005",
+    "name": "رواتب فريق المبيعات",
+    "nature": "SA",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 15,
+  "fields": {
+    "code": "SA-006",
+    "name": "عمولات مندوبي المبيعات",
+    "nature": "SA",
+    "directness": "DIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 16,
+  "fields": {
+    "code": "AD-001",
+    "name": "رواتب الإدارة والموظفين الإداريين",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 17,
+  "fields": {
+    "code": "AD-002",
+    "name": "اشتراكات أنظمة وبرامج",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 18,
+  "fields": {
+    "code": "AD-003",
+    "name": "إنترنت واتصالات (إداري)",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 19,
+  "fields": {
+    "code": "AD-004",
+    "name": "مصاريف بنكية ورسوم تحويل",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 20,
+  "fields": {
+    "code": "AD-005",
+    "name": "استشارات محاسبية/قانونية",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "ADHOC",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 21,
+  "fields": {
+    "code": "OP-007",
+    "name": "نظافة وتعقيم وتشغيل",
+    "nature": "OP",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 22,
+  "fields": {
+    "code": "OP-008",
+    "name": "أدوات السلامة المهنية (PPE)",
+    "nature": "OP",
+    "directness": "INDIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 23,
+  "fields": {
+    "code": "OP-009",
+    "name": "رسوم بلدية/رخص/تصاريح تشغيل",
+    "nature": "OP",
+    "directness": "INDIRECT",
+    "frequency": "YEARLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 24,
+  "fields": {
+    "code": "OP-010",
+    "name": "تأمينات تشغيلية (حريق/معدات)",
+    "nature": "OP",
+    "directness": "INDIRECT",
+    "frequency": "YEARLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 25,
+  "fields": {
+    "code": "OP-D04",
+    "name": "هالك وفاقد تشغيل",
+    "nature": "OP",
+    "directness": "DIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 26,
+  "fields": {
+    "code": "OP-D05",
+    "name": "فحص جودة / مختبر",
+    "nature": "OP",
+    "directness": "DIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 27,
+  "fields": {
+    "code": "OP-D06",
+    "name": "عمالة موسمية / مؤقتة",
+    "nature": "OP",
+    "directness": "DIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 28,
+  "fields": {
+    "code": "OP-D07",
+    "name": "ملابس عمال تشغيل",
+    "nature": "OP",
+    "directness": "DIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 29,
+  "fields": {
+    "code": "SA-007",
+    "name": "رواتب فريق المبيعات",
+    "nature": "SA",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 30,
+  "fields": {
+    "code": "SA-008",
+    "name": "عمولات مندوبي المبيعات",
+    "nature": "SA",
+    "directness": "DIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 31,
+  "fields": {
+    "code": "SA-009",
+    "name": "معارض/تسويق ميداني",
+    "nature": "SA",
+    "directness": "INDIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 32,
+  "fields": {
+    "code": "SA-010",
+    "name": "تصميم محتوى/تصوير منتجات",
+    "nature": "SA",
+    "directness": "INDIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 33,
+  "fields": {
+    "code": "AD-006",
+    "name": "قرطاسية ومستلزمات مكتبية",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 34,
+  "fields": {
+    "code": "AD-007",
+    "name": "ضيافة واجتماعات",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 35,
+  "fields": {
+    "code": "AD-008",
+    "name": "تدريب وتطوير موظفين",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 36,
+  "fields": {
+    "code": "AD-009",
+    "name": "سفر وانتدابات",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "ADHOC",
+    "behavior": "VARIABLE",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 37,
+  "fields": {
+    "code": "AD-010",
+    "name": "إهلاك الأصول الثابتة",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "MONTHLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 38,
+  "fields": {
+    "code": "AD-011",
+    "name": "تأمينات صحية للموظفين",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "YEARLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expensecategory",
+  "pk": 39,
+  "fields": {
+    "code": "AD-012",
+    "name": "رسوم/اشتراكات حكومية",
+    "nature": "AD",
+    "directness": "INDIRECT",
+    "frequency": "YEARLY",
+    "behavior": "FIXED",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 1,
+  "fields": {
+    "code": "OP-RENT",
+    "name": "إيجار موقع / مصنع / مستودع",
+    "category": 1,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 2,
+  "fields": {
+    "code": "OP-ELEC",
+    "name": "كهرباء تشغيل",
+    "category": 2,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 3,
+  "fields": {
+    "code": "OP-WATER",
+    "name": "مياه تشغيل",
+    "category": 2,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 4,
+  "fields": {
+    "code": "OP-GAS",
+    "name": "غاز تشغيل",
+    "category": 2,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 5,
+  "fields": {
+    "code": "OP-MAINT",
+    "name": "صيانة معدات وآلات",
+    "category": 3,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 6,
+  "fields": {
+    "code": "OP-SPARE",
+    "name": "قطع غيار واستهلاكات تشغيل",
+    "category": 4,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 7,
+  "fields": {
+    "code": "OP-FUEL",
+    "name": "وقود تشغيل داخلي",
+    "category": 5,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 8,
+  "fields": {
+    "code": "OP-EQ-RENT",
+    "name": "إيجار معدات / مولدات / رافعات",
+    "category": 6,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 9,
+  "fields": {
+    "code": "OP-CLEAN",
+    "name": "نظافة وتعقيم وتشغيل",
+    "category": 21,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 10,
+  "fields": {
+    "code": "OP-SAFETY",
+    "name": "مستلزمات السلامة المهنية (PPE)",
+    "category": 22,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 11,
+  "fields": {
+    "code": "OP-LICENSE",
+    "name": "رسوم بلدية/تصاريح/رخص تشغيل",
+    "category": 23,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 12,
+  "fields": {
+    "code": "OP-INSUR",
+    "name": "تأمينات تشغيلية (حريق/معدات)",
+    "category": 24,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 13,
+  "fields": {
+    "code": "OPD-WAGES",
+    "name": "رواتب عمال التشغيل المباشر",
+    "category": 7,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 14,
+  "fields": {
+    "code": "OPD-OT",
+    "name": "ساعات إضافية تشغيل",
+    "category": 8,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 15,
+  "fields": {
+    "code": "OPD-BONUS",
+    "name": "حوافز ومكافآت إنتاج",
+    "category": 9,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 16,
+  "fields": {
+    "code": "OPD-LOSS",
+    "name": "هالك وفاقد تشغيل",
+    "category": 25,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 17,
+  "fields": {
+    "code": "OPD-QUALITY",
+    "name": "فحص جودة / مختبر",
+    "category": 26,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 18,
+  "fields": {
+    "code": "OPD-TEMP",
+    "name": "عمالة موسمية / مؤقتة",
+    "category": 27,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 19,
+  "fields": {
+    "code": "OPD-UNIFORM",
+    "name": "ملابس عمال تشغيل",
+    "category": 28,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 20,
+  "fields": {
+    "code": "SA-ADS",
+    "name": "إعلانات وتسويق رقمي",
+    "category": 10,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 21,
+  "fields": {
+    "code": "SA-PAYFEE",
+    "name": "عمولات بوابات دفع",
+    "category": 11,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 22,
+  "fields": {
+    "code": "SA-DISCOUNT",
+    "name": "خصومات ومكافآت مبيعات",
+    "category": 12,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 23,
+  "fields": {
+    "code": "SA-SHIPPING",
+    "name": "شحن وتسليم للعملاء",
+    "category": 13,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 24,
+  "fields": {
+    "code": "SA-PACK",
+    "name": "تغليف ومواد تعبئة",
+    "category": 14,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 25,
+  "fields": {
+    "code": "SA-RETURNS",
+    "name": "مرتجعات وتالف مبيعات",
+    "category": 15,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 26,
+  "fields": {
+    "code": "SA-SALES-WAGES",
+    "name": "رواتب فريق المبيعات",
+    "category": 29,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 27,
+  "fields": {
+    "code": "SA-COMMISSION",
+    "name": "عمولات مندوبي المبيعات",
+    "category": 30,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 28,
+  "fields": {
+    "code": "SA-EXHIBIT",
+    "name": "معارض/تسويق ميداني",
+    "category": 31,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 29,
+  "fields": {
+    "code": "SA-CONTENT",
+    "name": "تصميم محتوى/تصوير منتجات",
+    "category": 32,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 30,
+  "fields": {
+    "code": "AD-WAGES",
+    "name": "رواتب الإدارة والموظفين الإداريين",
+    "category": 16,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 31,
+  "fields": {
+    "code": "AD-SYSTEMS",
+    "name": "اشتراكات أنظمة وبرامج",
+    "category": 17,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 32,
+  "fields": {
+    "code": "AD-INTERNET",
+    "name": "إنترنت واتصالات (إداري)",
+    "category": 18,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 33,
+  "fields": {
+    "code": "AD-BANK",
+    "name": "مصاريف بنكية ورسوم تحويل",
+    "category": 20,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 34,
+  "fields": {
+    "code": "AD-LEGAL",
+    "name": "استشارات محاسبية/قانونية",
+    "category": 19,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 35,
+  "fields": {
+    "code": "AD-OFFICE",
+    "name": "قرطاسية ومستلزمات مكتبية",
+    "category": 33,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 36,
+  "fields": {
+    "code": "AD-HOSP",
+    "name": "ضيافة واجتماعات",
+    "category": 34,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 37,
+  "fields": {
+    "code": "AD-TRAIN",
+    "name": "تدريب وتطوير",
+    "category": 35,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 38,
+  "fields": {
+    "code": "AD-TRAVEL",
+    "name": "سفر وانتدابات",
+    "category": 36,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 39,
+  "fields": {
+    "code": "AD-DEPR",
+    "name": "إهلاك الأصول",
+    "category": 37,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 40,
+  "fields": {
+    "code": "AD-INSUR",
+    "name": "تأمين صحي للموظفين",
+    "category": 38,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+},
+{
+  "model": "expenses.expenseitem",
+  "pk": 41,
+  "fields": {
+    "code": "AD-GOV",
+    "name": "اشتراكات/رسوم حكومية",
+    "category": 39,
+    "default_amount": "0.00",
+    "is_active": true
+  }
+}
+]

@@ -1,0 +1,182 @@
+{% load humanize %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>{{ title|default:"قائمة الدخل" }}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body{background:#f6f7fb}
+    .page-wrap{min-height:100vh}
+    .sidebar{
+      background:#fff;border:1px solid #e7e7ee;border-radius:14px;
+      height: calc(100vh - 24px);
+      position: sticky; top: 12px;
+      overflow:auto;
+    }
+    .period-btn{
+      border-radius:10px;
+      padding:.55rem .7rem;
+      display:flex; justify-content:space-between; align-items:center;
+      font-size:.95rem;
+    }
+    .period-btn small{opacity:.75}
+    .card-kpi{border-radius:16px;border:1px solid #e7e7ee}
+    .kpi-title{font-size:.8rem; color:#6b7280}
+    .kpi-value{font-size:1.35rem; font-weight:800}
+    .table-wrap{background:#fff;border:1px solid #e7e7ee;border-radius:16px}
+    .table td, .table th{vertical-align:middle}
+    justify-content:center;   /* ⬅️ توسيط أفقي */
+    align-items:center;       /* ⬅️ توسيط عمودي */
+    .row-total{background:#eaf7ef !important; font-weight:800}
+    .mono{font-variant-numeric: tabular-nums;}
+  </style>
+</head>
+
+<body>
+<div class="container-fluid px-3 py-3 page-wrap">
+  <div class="row g-3">
+
+    <!-- ===== Sidebar: الفترات كأزرار ===== -->
+    <div class="col-12 col-lg-3 col-xl-2">
+      <div class="sidebar p-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="fw-bold">🗓️ الفترات</div>
+          <a class="btn btn-sm btn-outline-secondary"
+             href="?">الافتراضي</a>
+        </div>
+
+        <div class="d-grid gap-2">
+          {% for p in periods %}
+            <a class="btn {% if current_period and p.id == current_period.id %}btn-primary{% else %}btn-outline-primary{% endif %} period-btn"
+               href="?period={{ p.id }}">
+              <span class="fw-bold">>{{ p }}</span>
+            </a>
+          {% empty %}
+            <div class="text-muted small">لا توجد فترات مسجلة.</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Main ===== -->
+    <div class="col-12 col-lg-9 col-xl-10">
+
+      <!-- عنوان + الفترة -->
+      <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3">
+        <div>
+          <h4 class="m-0">{{ title|default:"قائمة الدخل" }}</h4>
+          <div class="text-muted small">
+            {% if current_period %}الفترة: <b>{{ current_period }}</b>{% else %}اختر فترة{% endif %}
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== KPI Cards ===== -->
+      <div class="row g-3 mb-3">
+        <div class="col-12 col-md-3">
+          <div class="card card-kpi"><div class="card-body">
+            <div class="kpi-title">إجمالي المبيعات (Revenue)</div>
+            <div class="kpi-value mono">{{ revenue|floatformat:2|intcomma }}</div>
+          </div></div>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <div class="card card-kpi"><div class="card-body">
+            <div class="kpi-title">تكلفة المواد الخام (COGS)</div>
+            <div class="kpi-value mono">{{ cogs|floatformat:2|intcomma }}</div>
+          </div></div>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <div class="card card-kpi"><div class="card-body">
+            <div class="kpi-title">مجمل الربح (Gross Profit)</div>
+            <div class="kpi-value mono">{{ gross_profit|floatformat:2|intcomma }}</div>
+          </div></div>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <div class="card card-kpi border-2"><div class="card-body">
+            <div class="kpi-title">صافي الربح</div>
+            <div class="kpi-value mono">{{ net_profit|floatformat:2|intcomma }}</div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- مصروفات OP/SA/AD + الإجمالي -->
+      <div class="row g-3 mb-3">
+        <div class="col-12 col-md-3">
+          <div class="card card-kpi"><div class="card-body">
+            <div class="kpi-title">مصروفات تشغيلية (OP)</div>
+            <div class="kpi-value mono">{{ op|floatformat:2|intcomma }}</div>
+          </div></div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="card card-kpi"><div class="card-body">
+            <div class="kpi-title">مصروفات بيعية (SA)</div>
+            <div class="kpi-value mono">{{ sa|floatformat:2|intcomma }}</div>
+          </div></div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="card card-kpi"><div class="card-body">
+            <div class="kpi-title">مصروفات إدارية (AD)</div>
+            <div class="kpi-value mono">{{ ad|floatformat:2|intcomma }}</div>
+          </div></div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="card card-kpi"><div class="card-body">
+            <div class="kpi-title">إجمالي المصروفات</div>
+            <div class="kpi-value mono">{{ total_expenses|floatformat:2|intcomma }}</div>
+          </div></div>
+        </div>
+      </div>
+
+      <!-- ===== جدول قائمة الدخل ===== -->
+      <div class="table-wrap p-2">
+        <div class="table-responsive">
+          <table class="table table-bordered mb-0">
+            <tbody class="mono">
+              <tr>
+                <th style="width:55%">إجمالي المبيعات (Revenue)</th>
+                <td class="text-end">{{ revenue|floatformat:2|intcomma }}</td>
+              </tr>
+              <tr>
+                <th>تكلفة المواد الخام للمبيعات (COGS)</th>
+                <td class="text-end">{{ cogs|floatformat:2|intcomma }}</td>
+              </tr>
+              <tr class="table-light">
+                <th>مجمل الربح (Gross Profit)</th>
+                <td class="text-end fw-bold">{{ gross_profit|floatformat:2|intcomma }}</td>
+              </tr>
+
+              <tr>
+                <th>مصروفات تشغيلية (OP)</th>
+                <td class="text-end">{{ op|floatformat:2|intcomma }}</td>
+              </tr>
+              <tr>
+                <th>مصروفات بيعية (SA)</th>
+                <td class="text-end">{{ sa|floatformat:2|intcomma }}</td>
+              </tr>
+              <tr>
+                <th>مصروفات إدارية (AD)</th>
+                <td class="text-end">{{ ad|floatformat:2|intcomma }}</td>
+              </tr>
+              <tr class="table-light">
+                <th>إجمالي المصروفات</th>
+                <td class="text-end fw-bold">{{ total_expenses|floatformat:2|intcomma }}</td>
+              </tr>
+
+              <tr class="row-total">
+                <th>صافي الربح</th>
+                <td class="text-end">{{ net_profit|floatformat:2|intcomma }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

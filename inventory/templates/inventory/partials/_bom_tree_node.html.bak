@@ -1,0 +1,21 @@
+{% with p=node.product %}
+<div class="tree-node level-{{ level }}">
+    <strong>{{ p.code }} - {{ p.name }}</strong>
+    &nbsp; <span class="text-muted">(الكمية: {{ node.quantity|floatformat:4 }})</span>
+    {% if not node.components %}
+        <span class="badge bg-secondary ms-2">مادة خام</span>
+    {% elif p.is_semi_finished %}
+        <span class="badge bg-info ms-2">منتج نصف مصنع</span>
+    {% elif p.is_sellable %}
+        <span class="badge bg-primary ms-2">منتج نهائي</span>
+    {% endif %}
+</div>
+{% endwith %}
+
+{% if node.components %}
+    <div class="tree-children">
+        {% for child in node.components %}
+            {% include "inventory/partials/_bom_tree_node.html" with node=child level=level|add:1 %}
+        {% endfor %}
+    </div>
+{% endif %}

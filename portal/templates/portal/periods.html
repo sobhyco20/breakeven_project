@@ -1,0 +1,221 @@
+{% load static %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>الفترات + التحكم في الجرد</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f4f6f9;
+      --card:#fff;
+      --muted:#6c757d;
+      --border:#e6e8ee;
+      --shadow:0 10px 24px rgba(0,0,0,.06);
+      --radius:16px;
+      --ok:#16a34a;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+      --info:#2563eb;
+    }
+    body{background:var(--bg)}
+    .card-soft{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .title{font-weight:900}
+    .sub{color:var(--muted);font-size:.9rem}
+    .chip{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .6rem;border-radius:999px;border:1px solid var(--border);background:#f8fafc;font-size:.85rem}
+    .chip.ok{background:#eaf7ee}
+    .chip.bad{background:#fff1f2}
+    .chip.warn{background:#fff7e6}
+    .table thead th{background:#f8fafc}
+    .muted{color:var(--muted)}
+    .btn-xxs{padding:.2rem .45rem;font-size:.78rem;border-radius:10px}
+    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+  </style>
+</head>
+<body>
+
+<div class="container-fluid py-3">
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+    <div>
+      <h4 class="m-0 title">🗓 إدارة الفترات + 🔐 التحكم في الجرد</h4>
+      <div class="sub">فتح/قفل الجرد يتم من هنا فقط — مع قيود حسب وجود حركة.</div>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+      <span class="chip" id="chipCount">…</span>
+      <span class="chip warn">⚠️ جرد آخر المدة يُمنع فتحه إذا كانت الفترة التالية عليها حركة</span>
+    </div>
+  </div>
+
+  <div class="card-soft">
+    <div class="p-3">
+      <div class="table-responsive">
+        <table class="table table-bordered bg-white align-middle mb-0">
+          <thead>
+            <tr>
+              <th style="width:12%">الفترة</th>
+              <th style="width:12%">حالة الفترة</th>
+              <th style="width:12%">حركة</th>
+              <th style="width:32%">الجرد</th>
+              <th>ملاحظات</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="mt-3 small muted">
+        - فتح جرد أول المدة: لا يُسمح إذا الفترة عليها حركة.<br>
+        - فتح جرد آخر المدة: لا يُسمح إذا الفترة التالية عليها حركة.<br>
+        - تقدر تربط “الحركة” بكل موديلاتك (مبيعات/مشتريات/مخزون/مصروفات) داخل `_has_period_activity`.
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API_LIST  = "/portal/api/periods/list/";
+  const API_STOCK = "/portal/api/periods/stock-toggle/";
+
+  const tbody = document.getElementById("tbody");
+  const chipCount = document.getElementById("chipCount");
+
+  function csrfToken(){
+    const m = document.cookie.match(/csrftoken=([^;]+)/);
+    return m ? m[1] : "";
+  }
+
+  async function jget(url, params={}){
+    const u = new URL(url, window.location.origin);
+    Object.entries(params).forEach(([k,v])=>u.searchParams.set(k,v));
+    const r = await fetch(u.toString(), {credentials:"same-origin"});
+    return await r.json();
+  }
+
+  async function jpost(url, body={}){
+    const form = new FormData();
+    Object.entries(body).forEach(([k,v])=>form.append(k,v));
+    const r = await fetch(url, {
+      method:"POST",
+      body: form,
+      credentials:"same-origin",
+      headers: {"X-CSRFToken": csrfToken()}
+    });
+    const data = await r.json().catch(()=> ({}));
+    if(!r.ok) throw new Error(data.error || "Request failed");
+    return data;
+  }
+
+  function badgePeriodClosed(is_closed){
+    return is_closed
+      ? `<span class="chip bad">🔒 مقفلة</span>`
+      : `<span class="chip ok">✅ مفتوحة</span>`;
+  }
+
+  function badgeActivity(has){
+    return has
+      ? `<span class="chip warn">⚠️ عليها حركة</span>`
+      : `<span class="chip ok">✅ لا يوجد</span>`;
+  }
+
+  function stockControls(row){
+    const openingOn  = !!row.allow_opening_stock;
+    const closingOn  = !!row.allow_closing_stock;
+    const blocked    = !!row.closing_blocked;
+
+    const btnOpenOpening = openingOn
+      ? `<button class="btn btn-xxs btn-outline-danger js-stock" data-id="${row.id}" data-kind="opening" data-action="close">قفل جرد أول المدة</button>`
+      : `<button class="btn btn-xxs btn-outline-primary js-stock" data-id="${row.id}" data-kind="opening" data-action="open">فتح جرد أول المدة</button>`;
+
+    const btnOpenClosing = closingOn
+      ? `<button class="btn btn-xxs btn-outline-danger js-stock" data-id="${row.id}" data-kind="closing" data-action="close">قفل جرد آخر المدة</button>`
+      : `<button class="btn btn-xxs btn-outline-success js-stock" data-id="${row.id}" data-kind="closing" data-action="open" ${blocked ? "disabled" : ""}>فتح جرد آخر المدة</button>`;
+
+    const hint = blocked
+      ? `<span class="chip bad">🚫 ممنوع فتح آخر المدة (الفترة التالية عليها حركة)</span>`
+      : `<span class="chip ok">✅ مسموح حسب السياسة</span>`;
+
+    return `
+      <div class="d-flex flex-wrap gap-2 align-items-center">
+        <span class="chip ${openingOn?'ok':'warn'}">Opening: ${openingOn ? "مفتوح" : "مقفول"}</span>
+        <span class="chip ${closingOn?'ok':'warn'}">Closing: ${closingOn ? "مفتوح" : "مقفول"}</span>
+        ${hint}
+        <div class="d-flex gap-2 flex-wrap">
+          ${btnOpenOpening}
+          ${btnOpenClosing}
+          <a class="btn btn-xxs btn-outline-dark" target="_parent"
+             href="/portal/stockcount/?embed=1&period=${row.id}&type=opening">فتح شاشة جرد أول المدة</a>
+          <a class="btn btn-xxs btn-outline-dark" target="_parent"
+             href="/portal/stockcount/?embed=1&period=${row.id}&type=closing">فتح شاشة جرد آخر المدة</a>
+        </div>
+      </div>
+    `;
+  }
+
+  function notesCell(row){
+    const o = row.opening_note ? `🟠 ${row.opening_note}` : "";
+    const c = row.closing_note ? `🟢 ${row.closing_note}` : "";
+    if(!o && !c) return `<span class="muted">—</span>`;
+    return `<div class="small">${o ? `<div>${o}</div>`:""}${c ? `<div>${c}</div>`:""}</div>`;
+  }
+
+  function rowHtml(row){
+    return `
+      <tr>
+        <td class="text-nowrap"><span class="kbd">${row.label}</span></td>
+        <td>${badgePeriodClosed(row.is_closed)}</td>
+        <td>${badgeActivity(row.has_activity)}</td>
+        <td>${stockControls(row)}</td>
+        <td>${notesCell(row)}</td>
+      </tr>
+    `;
+  }
+
+  async function load(){
+    const data = await jget(API_LIST);
+    if(!data.ok){ alert(data.error || "خطأ"); return; }
+    const rows = data.rows || [];
+    chipCount.textContent = `📦 عدد الفترات: ${rows.length}`;
+    tbody.innerHTML = rows.map(rowHtml).join("");
+  }
+
+  async function handleStockToggle(btn){
+    const id = btn.getAttribute("data-id");
+    const kind = btn.getAttribute("data-kind");     // opening|closing
+    const action = btn.getAttribute("data-action"); // open|close
+
+    if(kind === "opening" && action === "open"){
+      if(!confirm("⚠️ فتح جرد أول المدة إجراء حساس. هل أنت متأكد؟")) return;
+      if(!confirm("🧨 تأكيد نهائي: لا تفتح أول المدة إلا قبل أي حركة. متابعة؟")) return;
+      if(!confirm("✅ آخر تأكيد: سيتم السماح بالدخول لشاشة جرد أول المدة من الآن. موافق؟")) return;
+    }
+
+    if(kind === "closing" && action === "open"){
+      if(!confirm("⚠️ فتح جرد آخر المدة. تأكد أن الفترة التالية لا تحتوي حركة. متابعة؟")) return;
+    }
+
+    if(action === "close"){
+      if(!confirm("⚠️ سيتم قفل الجرد. متابعة؟")) return;
+    }
+
+    try{
+      await jpost(API_STOCK, {id, kind, action});
+      await load();
+      alert("✅ تم التنفيذ");
+    }catch(e){
+      alert(e.message);
+      await load();
+    }
+  }
+
+  document.addEventListener("click", (e)=>{
+    const btn = e.target.closest(".js-stock");
+    if(btn) return handleStockToggle(btn);
+  });
+
+  load();
+</script>
+
+</body>
+</html>

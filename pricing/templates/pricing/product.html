@@ -1,0 +1,352 @@
+{% load static %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>تسعير منتج واحد</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <style>
+    body{background:#f4f6f9}
+    .card{border:0; border-radius:14px; box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .hint{font-size:.85rem; color:#6c757d; margin-top:.25rem}
+    .kpi{font-weight:700}
+    .badge-soft{background:#eef2ff;color:#2b3a67}
+    .mono{font-variant-numeric: tabular-nums;}
+    .small-label{font-size:.9rem; color:#495057}
+  </style>
+</head>
+<body class="{% if embed %}p-2{% else %}p-4{% endif %}">
+<div class="container-fluid">
+
+  <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
+    <div class="fw-bold fs-5">🧮 تسعير منتج واحد (ديناميكي)</div>
+    <span class="badge badge-soft">يحسب فوراً عند أي تعديل</span>
+  </div>
+
+  <div class="row g-3">
+    <!-- Inputs -->
+    <div class="col-lg-4">
+      <div class="card p-3">
+        <div class="fw-bold mb-2">المُدخلات</div>
+
+        <div class="mb-2">
+          <label class="form-label small-label">الفترة</label>
+          <select id="period" class="form-select">
+            {% for pr in periods %}
+              <option value="{{ pr.id }}" {% if period and pr.id == period.id %}selected{% endif %}>{{ pr }}</option>
+            {% endfor %}
+          </select>
+          <div class="hint">تُستخدم لاختيار تكلفة الفترة عند إعادة احتساب التكلفة (لو ما في BOM محفوظ).</div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label small-label">المنتج</label>
+          <select id="product" class="form-select">
+            {% for p in products %}
+              <option value="{{ p.id }}" {% if product and p.id == product.id %}selected{% endif %}>
+                {{ p.code }} - {{ p.name }}
+              </option>
+            {% endfor %}
+          </select>
+          <div class="hint">اختر المنتج الذي تريد حساب تسعيره وعرض P&amp;L الخاص به.</div>
+        </div>
+
+        <hr>
+
+        <div class="mb-2">
+          <label class="form-label small-label">المارك أب % (Markup)</label>
+          <input id="markup_sell" type="number" step="0.01" value="60" class="form-control">
+          <div class="hint">زيادة فوق تكلفة الوحدة. مثال: 60% ⇒ السعر = التكلفة × 1.60</div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label small-label">هامش مستهدف % (اختياري)</label>
+          <input id="target_margin" type="number" step="0.01" value="0" class="form-control">
+          <div class="hint">لو أدخلت هامش مستهدف، سيحسب السعر وفق المعادلة: السعر = التكلفة ÷ (1 - الهامش%).</div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label small-label">سعر مخصص (اختياري)</label>
+          <input id="custom_price" type="number" step="0.01" value="0" class="form-control">
+          <div class="hint">لو أدخلت سعر مخصص، سيتجاوز جميع السياسات ويصبح هو السعر المقترح.</div>
+        </div>
+
+        <hr>
+
+        <div class="mb-2">
+          <label class="form-label small-label">خصم %</label>
+          <input id="discount_percent" type="number" step="0.01" value="0" class="form-control">
+          <div class="hint">يتم خصمه من السعر المقترح بعد حسابه.</div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label small-label">حد أدنى للسعر</label>
+          <input id="min_price" type="number" step="0.01" value="0" class="form-control">
+          <div class="hint">إن كان السعر المقترح أقل من هذا الحد، سيتم رفعه لهذا الحد.</div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label small-label">ضريبة % (عرض فقط)</label>
+          <input id="vat_percent" type="number" step="0.01" value="0" class="form-control">
+          <div class="hint">لا تدخل في الربح عادةً، فقط لعرض السعر شامل الضريبة.</div>
+        </div>
+
+        <hr>
+
+        <div class="mb-2">
+          <label class="form-label small-label">تحميل مصروفات متغيرة % من السعر (OPEX%)</label>
+          <input id="opex_percent" type="number" step="0.01" value="0" class="form-control">
+          <div class="hint">مثلاً: 10% ⇒ سيتم خصم 10% من السعر كتحميل مصروفات للوحدة.</div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label small-label">تحميل مصروفات متغيرة ثابتة لكل وحدة (OPEX/Unit)</label>
+          <input id="opex_unit" type="number" step="0.01" value="0" class="form-control">
+          <div class="hint">مبلغ ثابت يُخصم لكل وحدة (تغليف/توصيل/عمولة..).</div>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label small-label">تكاليف ثابتة إجمالية للفترة (Fixed Cost Total)</label>
+          <input id="fixed_cost_total" type="number" step="0.01" value="0" class="form-control">
+          <div class="hint">لاستخدامها في حساب نقطة التعادل: عدد الوحدات اللازمة لتغطية التكاليف الثابتة.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="col-lg-8">
+      <div class="card p-3 mb-3">
+        <div class="fw-bold mb-2">النتائج (Pricing)</div>
+
+        <div class="row g-2">
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">تكلفة الوحدة</div>
+              <div class="kpi mono" id="r_cost">-</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">السعر الحالي</div>
+              <div class="kpi mono" id="r_current">-</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">السعر المقترح</div>
+              <div class="kpi mono" id="r_suggested">-</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">السعر شامل الضريبة</div>
+              <div class="kpi mono" id="r_suggested_vat">-</div>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">الربح الإجمالي</div>
+              <div class="kpi mono" id="r_gross_profit">-</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">هامش إجمالي %</div>
+              <div class="kpi mono" id="r_gross_margin">-</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">الربح الصافي</div>
+              <div class="kpi mono" id="r_net_profit">-</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">هامش صافي %</div>
+              <div class="kpi mono" id="r_net_margin">-</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">المساهمة لكل وحدة (Contribution/Unit)</div>
+              <div class="kpi mono" id="r_contribution">-</div>
+              <div class="hint">= السعر المقترح - تكلفة المواد - OPEX/Unit - OPEX% من السعر</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">نقطة التعادل (وحدات)</div>
+              <div class="kpi mono" id="r_breakeven">-</div>
+              <div class="hint">= التكاليف الثابتة ÷ المساهمة لكل وحدة</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-secondary mt-3 mb-0" id="r_notes" style="display:none"></div>
+      </div>
+
+      <div class="card p-3">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div class="fw-bold">قائمة دخل على مستوى المنتج (Product P&amp;L)</div>
+          <div class="d-flex gap-2">
+            <select id="alloc_mode" class="form-select form-select-sm" style="width:160px">
+              <option value="sales" selected>تحميل بالمبيعات</option>
+              <option value="qty">تحميل بالكمية</option>
+              <option value="hybrid">تحميل هجين</option>
+            </select>
+            <input id="w_sales" class="form-control form-control-sm" style="width:90px" type="number" value="50" step="1" title="وزن المبيعات">
+            <input id="w_qty" class="form-control form-control-sm" style="width:90px" type="number" value="50" step="1" title="وزن الكمية">
+          </div>
+        </div>
+
+        <div class="row g-2 mb-2">
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">مبيعات المنتج</div>
+              <div class="kpi mono" id="p_sales">-</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">تكلفة البضاعة (COGS)</div>
+              <div class="kpi mono" id="p_cogs">-</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">مجمل الربح</div>
+              <div class="kpi mono" id="p_gross">-</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="p-2 bg-light rounded">
+              <div class="text-muted small">صافي الربح</div>
+              <div class="kpi mono" id="p_net">-</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered bg-white mb-0">
+            <thead class="table-light">
+              <tr>
+                <th>تصنيف المصروف</th>
+                <th class="text-end">إجمالي الفترة</th>
+                <th class="text-end">المحمّل على المنتج</th>
+              </tr>
+            </thead>
+            <tbody id="p_groups">
+              <tr><td colspan="3" class="text-muted text-center">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="alert alert-warning mt-2 mb-0">
+          ملاحظة: حساب P&amp;L يعتمد على ربط المبيعات والمصروفات داخل API (get_sales_agg و get_expenses_by_group).
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const fmt = (v) => (v === null || v === undefined) ? "-" : Number(v).toLocaleString("ar-SA", {minimumFractionDigits:2, maximumFractionDigits:2});
+
+  const ids = [
+    "period","product","markup_sell","target_margin","custom_price","discount_percent","vat_percent","min_price",
+    "opex_percent","opex_unit","fixed_cost_total","alloc_mode","w_sales","w_qty"
+  ];
+
+  function qs(){
+    const p = new URLSearchParams();
+    ids.forEach(id => p.set(id, document.getElementById(id).value || ""));
+    return p.toString();
+  }
+
+  let t = null;
+  function schedule(){
+    if (t) clearTimeout(t);
+    t = setTimeout(runAll, 250); // debounce
+  }
+
+  async function runCalc(){
+    const url = "/pricing/api/product-calc/?" + qs();
+    const r = await fetch(url, {headers: {"X-Requested-With":"XMLHttpRequest"}});
+    const data = await r.json();
+    if (!data.ok) return;
+
+    document.getElementById("r_cost").textContent = fmt(data.cost);
+    document.getElementById("r_current").textContent = fmt(data.current_price);
+    document.getElementById("r_suggested").textContent = fmt(data.suggested_price);
+    document.getElementById("r_suggested_vat").textContent = fmt(data.suggested_price_vat);
+
+    document.getElementById("r_gross_profit").textContent = fmt(data.gross_profit);
+    document.getElementById("r_gross_margin").textContent = data.gross_margin_percent==null? "-" : fmt(data.gross_margin_percent) + "%";
+
+    document.getElementById("r_net_profit").textContent = fmt(data.net_profit);
+    document.getElementById("r_net_margin").textContent = data.net_margin_percent==null? "-" : fmt(data.net_margin_percent) + "%";
+
+    document.getElementById("r_contribution").textContent = fmt(data.contribution_per_unit);
+    document.getElementById("r_breakeven").textContent = fmt(data.breakeven_units);
+
+    const notesEl = document.getElementById("r_notes");
+    if (data.notes){
+      notesEl.style.display = "block";
+      notesEl.textContent = data.notes;
+    }else{
+      notesEl.style.display = "none";
+    }
+  }
+
+  async function runPnl(){
+    const url = "/pricing/api/product-pnl/?" + qs();
+    const r = await fetch(url, {headers: {"X-Requested-With":"XMLHttpRequest"}});
+    const data = await r.json();
+    if (!data.ok) return;
+
+    document.getElementById("p_sales").textContent = fmt(data.sales.prod_sales);
+    document.getElementById("p_cogs").textContent = fmt(data.cogs.cogs_total);
+    document.getElementById("p_gross").textContent = fmt(data.pnl.gross_profit);
+    document.getElementById("p_net").textContent = fmt(data.pnl.net_profit);
+
+    const body = document.getElementById("p_groups");
+    body.innerHTML = "";
+    if (data.expenses.groups && data.expenses.groups.length){
+      data.expenses.groups.forEach(g=>{
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${g.group}</td>
+          <td class="text-end mono">${fmt(g.total_period)}</td>
+          <td class="text-end mono">${fmt(g.allocated)}</td>
+        `;
+        body.appendChild(tr);
+      });
+    }else{
+      body.innerHTML = `<tr><td colspan="3" class="text-muted text-center">لا توجد بيانات مصروفات بعد (أو لم يتم ربطها).</td></tr>`;
+    }
+  }
+
+  async function runAll(){
+    await runCalc();
+    await runPnl();
+  }
+
+  // bind
+  ids.forEach(id=>{
+    const el = document.getElementById(id);
+    el.addEventListener("input", schedule);
+    el.addEventListener("change", schedule);
+  });
+
+  // first run
+  runAll();
+</script>
+</body>
+</html>

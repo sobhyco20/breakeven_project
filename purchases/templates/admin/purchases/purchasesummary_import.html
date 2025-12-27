@@ -1,0 +1,19 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <input type="submit" value="استيراد">
+</form>
+
+<p style="margin-top:20px; color: #555;">
+  ◀ تأكد أن ملف الإكسل يحتوي الأعمدة:
+  <br>اسم المادة – وحدة الشراء – الكمية – تكلفة الشراء للوحدة – (إجمالي الصنف اختياري).
+</p>
+{% endblock %}

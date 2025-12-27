@@ -1,0 +1,15 @@
+costing
+django.contrib.admin
+django.contrib.auth
+django.contrib.contenttypes
+django.contrib.humanize
+django.contrib.messages
+django.contrib.sessions
+django.contrib.staticfiles
+expenses
+inventory
+portal
+pricing
+purchases
+reports
+sales

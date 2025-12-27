@@ -1,0 +1,112 @@
+2025-12-25 14:36:36.910 +03 [30948] LOG:  starting PostgreSQL 16.11, compiled by Visual C++ build 1944, 64-bit
+2025-12-25 14:36:36.912 +03 [30948] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-12-25 14:36:36.987 +03 [10420] LOG:  database system was shut down at 2025-12-25 14:29:48 +03
+2025-12-25 14:36:37.030 +03 [30948] LOG:  database system is ready to accept connections
+2025-12-25 14:37:43.370 +03 [22652] FATAL:  password authentication failed for user "postgres"
+2025-12-25 14:37:43.370 +03 [22652] DETAIL:  User "postgres" has no password assigned.
+	Connection matched file "B:/breakeven_project/pgdata/pg_hba.conf" line 118: "host    all             all             127.0.0.1/32            scram-sha-256"
+2025-12-25 14:38:17.234 +03 [30948] LOG:  received fast shutdown request
+2025-12-25 14:38:17.236 +03 [30948] LOG:  aborting any active transactions
+2025-12-25 14:38:17.247 +03 [30948] LOG:  background worker "logical replication launcher" (PID 25604) exited with exit code 1
+2025-12-25 14:38:17.247 +03 [16680] LOG:  shutting down
+2025-12-25 14:38:17.248 +03 [16680] LOG:  checkpoint starting: shutdown immediate
+2025-12-25 14:38:17.264 +03 [16680] LOG:  checkpoint complete: wrote 44 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.008 s, total=0.017 s; sync files=11, longest=0.002 s, average=0.001 s; distance=253 kB, estimate=253 kB; lsn=0/15B6DA0, redo lsn=0/15B6DA0
+2025-12-25 14:38:17.271 +03 [30948] LOG:  database system is shut down
+2025-12-25 14:39:09.777 +03 [13592] LOG:  starting PostgreSQL 16.11, compiled by Visual C++ build 1944, 64-bit
+2025-12-25 14:39:09.779 +03 [13592] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-12-25 14:39:09.855 +03 [18960] LOG:  database system was shut down at 2025-12-25 14:38:17 +03
+2025-12-25 14:39:09.888 +03 [13592] LOG:  database system is ready to accept connections
+2025-12-25 14:39:36.915 +03 [28600] FATAL:  password authentication failed for user "postgres"
+2025-12-25 14:39:36.915 +03 [28600] DETAIL:  User "postgres" has no password assigned.
+	Connection matched file "B:/breakeven_project/pgdata/pg_hba.conf" line 119: "host    all             all             127.0.0.1/32            scram-sha-256"
+2025-12-25 14:40:24.351 +03 [13592] LOG:  received fast shutdown request
+2025-12-25 14:40:24.352 +03 [13592] LOG:  aborting any active transactions
+2025-12-25 14:40:24.360 +03 [13592] LOG:  background worker "logical replication launcher" (PID 21716) exited with exit code 1
+2025-12-25 14:40:24.360 +03 [22368] LOG:  shutting down
+2025-12-25 14:40:24.362 +03 [22368] LOG:  checkpoint starting: shutdown immediate
+2025-12-25 14:40:24.373 +03 [22368] LOG:  checkpoint complete: wrote 33 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.005 s, total=0.013 s; sync files=7, longest=0.001 s, average=0.001 s; distance=140 kB, estimate=140 kB; lsn=0/15DA078, redo lsn=0/15DA078
+2025-12-25 14:40:24.382 +03 [13592] LOG:  database system is shut down
+2025-12-25 14:40:38.895 +03 [28216] LOG:  starting PostgreSQL 16.11, compiled by Visual C++ build 1944, 64-bit
+2025-12-25 14:40:38.896 +03 [28216] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-12-25 14:40:38.972 +03 [27684] LOG:  database system was shut down at 2025-12-25 14:40:24 +03
+2025-12-25 14:40:39.006 +03 [28216] LOG:  database system is ready to accept connections
+2025-12-25 14:41:34.180 +03 [18052] FATAL:  password authentication failed for user "postgres"
+2025-12-25 14:41:34.180 +03 [18052] DETAIL:  User "postgres" has no password assigned.
+	Connection matched file "B:/breakeven_project/pgdata/pg_hba.conf" line 119: "host    all             all             127.0.0.1/32            scram-sha-256"
+2025-12-25 14:41:36.199 +03 [28216] LOG:  received fast shutdown request
+2025-12-25 14:41:36.201 +03 [28216] LOG:  aborting any active transactions
+2025-12-25 14:41:36.206 +03 [28216] LOG:  background worker "logical replication launcher" (PID 33688) exited with exit code 1
+2025-12-25 14:41:36.207 +03 [23360] LOG:  shutting down
+2025-12-25 14:41:36.209 +03 [23360] LOG:  checkpoint starting: shutdown immediate
+2025-12-25 14:41:36.217 +03 [23360] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.002 s, total=0.010 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/15DA128, redo lsn=0/15DA128
+2025-12-25 14:41:36.224 +03 [28216] LOG:  database system is shut down
+2025-12-25 14:42:19.749 +03 [27244] LOG:  starting PostgreSQL 16.11, compiled by Visual C++ build 1944, 64-bit
+2025-12-25 14:42:19.751 +03 [27244] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-12-25 14:42:19.835 +03 [29056] LOG:  database system was shut down at 2025-12-25 14:41:36 +03
+2025-12-25 14:42:19.867 +03 [27244] LOG:  database system is ready to accept connections
+2025-12-25 14:42:42.456 +03 [27244] LOG:  received fast shutdown request
+2025-12-25 14:42:42.458 +03 [27244] LOG:  aborting any active transactions
+2025-12-25 14:42:42.468 +03 [27244] LOG:  background worker "logical replication launcher" (PID 26464) exited with exit code 1
+2025-12-25 14:42:42.468 +03 [6188] LOG:  shutting down
+2025-12-25 14:42:42.469 +03 [6188] LOG:  checkpoint starting: shutdown immediate
+2025-12-25 14:42:42.479 +03 [6188] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.003 s, total=0.011 s; sync files=4, longest=0.001 s, average=0.001 s; distance=2 kB, estimate=2 kB; lsn=0/15DAA60, redo lsn=0/15DAA60
+2025-12-25 14:42:42.487 +03 [27244] LOG:  database system is shut down
+2025-12-25 14:43:23.571 +03 [21244] LOG:  starting PostgreSQL 16.11, compiled by Visual C++ build 1944, 64-bit
+2025-12-25 14:43:23.573 +03 [21244] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-12-25 14:43:23.640 +03 [23236] LOG:  database system was shut down at 2025-12-25 14:42:42 +03
+2025-12-25 14:43:23.675 +03 [21244] LOG:  database system is ready to accept connections
+2025-12-25 14:44:15.721 +03 [11916] FATAL:  password authentication failed for user "postgres"
+2025-12-25 14:44:15.721 +03 [11916] DETAIL:  Connection matched file "B:/breakeven_project/pgdata/pg_hba.conf" line 119: "host    all             all             127.0.0.1/32            scram-sha-256"
+2025-12-25 14:46:42.206 +03 [30800] FATAL:  password authentication failed for user "postgres"
+2025-12-25 14:46:42.206 +03 [30800] DETAIL:  Connection matched file "B:/breakeven_project/pgdata/pg_hba.conf" line 119: "host    all             all             127.0.0.1/32            scram-sha-256"
+2025-12-25 14:48:18.494 +03 [21244] LOG:  received fast shutdown request
+2025-12-25 14:48:18.496 +03 [21244] LOG:  aborting any active transactions
+2025-12-25 14:48:18.506 +03 [21244] LOG:  background worker "logical replication launcher" (PID 21276) exited with exit code 1
+2025-12-25 14:48:18.507 +03 [19748] LOG:  shutting down
+2025-12-25 14:48:18.509 +03 [19748] LOG:  checkpoint starting: shutdown immediate
+2025-12-25 14:48:18.519 +03 [19748] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.002 s, total=0.012 s; sync files=3, longest=0.001 s, average=0.001 s; distance=2 kB, estimate=2 kB; lsn=0/15DB4D0, redo lsn=0/15DB4D0
+2025-12-25 14:48:18.526 +03 [21244] LOG:  database system is shut down
+2025-12-25 15:24:39.550 +03 [23400] LOG:  starting PostgreSQL 16.11, compiled by Visual C++ build 1944, 64-bit
+2025-12-25 15:24:39.552 +03 [23400] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-12-25 15:24:39.628 +03 [28268] LOG:  database system was shut down at 2025-12-25 14:53:26 +03
+2025-12-25 15:24:39.668 +03 [23400] LOG:  database system is ready to accept connections
+2025-12-25 15:29:39.641 +03 [19360] LOG:  checkpoint starting: time
+2025-12-25 15:30:07.486 +03 [19360] LOG:  checkpoint complete: wrote 258 buffers (1.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=27.745 s, sync=0.076 s, total=27.847 s; sync files=301, longest=0.002 s, average=0.001 s; distance=1712 kB, estimate=1712 kB; lsn=0/1BFDFB0, redo lsn=0/1BFDF78
+2025-12-25 15:31:42.257 +03 [27656] ERROR:  canceling statement due to user request
+2025-12-25 15:31:42.260 +03 [23400] LOG:  received fast shutdown request
+2025-12-25 15:31:42.264 +03 [23400] LOG:  aborting any active transactions
+2025-12-25 15:31:42.270 +03 [23400] LOG:  background worker "logical replication launcher" (PID 27656) exited with exit code 1
+2025-12-25 15:31:42.277 +03 [19360] LOG:  shutting down
+2025-12-25 15:31:42.278 +03 [19360] LOG:  checkpoint starting: shutdown immediate
+2025-12-25 15:31:42.286 +03 [19360] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.002 s, total=0.009 s; sync files=2, longest=0.001 s, average=0.001 s; distance=20 kB, estimate=1543 kB; lsn=0/1C02F80, redo lsn=0/1C02F80
+2025-12-25 15:31:42.296 +03 [23400] LOG:  database system is shut down
+2025-12-25 15:34:57.858 +03 [18656] LOG:  starting PostgreSQL 16.11, compiled by Visual C++ build 1944, 64-bit
+2025-12-25 15:34:57.861 +03 [18656] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-12-25 15:34:57.931 +03 [26980] LOG:  database system was shut down at 2025-12-25 15:31:42 +03
+2025-12-25 15:34:58.002 +03 [18656] LOG:  database system is ready to accept connections
+2025-12-25 15:37:37.298 +03 [29460] ERROR:  canceling statement due to user request
+2025-12-25 15:37:37.302 +03 [18656] LOG:  received fast shutdown request
+2025-12-25 15:37:37.305 +03 [18656] LOG:  aborting any active transactions
+2025-12-25 15:37:37.311 +03 [18656] LOG:  background worker "logical replication launcher" (PID 29460) exited with exit code 1
+2025-12-25 15:37:37.317 +03 [24936] LOG:  shutting down
+2025-12-25 15:37:37.318 +03 [24936] LOG:  checkpoint starting: shutdown immediate
+2025-12-25 15:37:37.326 +03 [24936] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.002 s, total=0.010 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/1C03030, redo lsn=0/1C03030
+2025-12-25 15:37:37.333 +03 [18656] LOG:  database system is shut down
+2025-12-25 15:46:13.587 +03 [5088] LOG:  starting PostgreSQL 16.11, compiled by Visual C++ build 1944, 64-bit
+2025-12-25 15:46:13.589 +03 [5088] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-12-25 15:46:13.655 +03 [31816] LOG:  database system was shut down at 2025-12-25 15:37:37 +03
+2025-12-25 15:46:13.690 +03 [5088] LOG:  database system is ready to accept connections
+2025-12-25 15:51:13.653 +03 [26416] LOG:  checkpoint starting: time
+2025-12-25 15:51:13.673 +03 [26416] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.007 s, sync=0.002 s, total=0.022 s; sync files=2, longest=0.001 s, average=0.001 s; distance=0 kB, estimate=0 kB; lsn=0/1C03118, redo lsn=0/1C030E0
+2025-12-25 15:56:13.693 +03 [26416] LOG:  checkpoint starting: time
+2025-12-25 15:56:57.852 +03 [26416] LOG:  checkpoint complete: wrote 407 buffers (2.5%); 0 WAL file(s) added, 0 removed, 0 recycled; write=44.062 s, sync=0.084 s, total=44.160 s; sync files=157, longest=0.002 s, average=0.001 s; distance=3255 kB, estimate=3255 kB; lsn=0/1F30D48, redo lsn=0/1F30D10
+2025-12-25 16:01:13.871 +03 [26416] LOG:  checkpoint starting: time
+2025-12-25 16:01:15.980 +03 [26416] LOG:  checkpoint complete: wrote 20 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.083 s, sync=0.011 s, total=2.111 s; sync files=11, longest=0.003 s, average=0.001 s; distance=4 kB, estimate=2930 kB; lsn=0/1F31FE8, redo lsn=0/1F31FB0
+2025-12-25 16:02:32.182 +03 [5088] LOG:  received fast shutdown request
+2025-12-25 16:02:32.185 +03 [5088] LOG:  aborting any active transactions
+2025-12-25 16:02:32.187 +03 [27488] ERROR:  canceling statement due to user request
+2025-12-25 16:02:32.207 +03 [5088] LOG:  background worker "logical replication launcher" (PID 27488) exited with exit code 1
+2025-12-25 16:02:32.208 +03 [26416] LOG:  shutting down
+2025-12-25 16:02:32.210 +03 [26416] LOG:  checkpoint starting: shutdown immediate
+2025-12-25 16:02:32.220 +03 [26416] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.001 s, total=0.012 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=2637 kB; lsn=0/1F320B0, redo lsn=0/1F320B0
+2025-12-25 16:02:32.233 +03 [5088] LOG:  database system is shut down

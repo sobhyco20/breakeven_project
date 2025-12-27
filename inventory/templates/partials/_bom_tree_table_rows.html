@@ -1,0 +1,40 @@
+{% for row in rows %}
+    {% with p=row.product parent=row.parent %}
+        {% load numfmt %}
+<tr>
+            <td class="text-center">{{ row.level }}</td>
+
+            <td>
+                {% if p.code %}{{ p.code }}
+                {% elif p.sku %}{{ p.sku }}
+                {% else %}-{% endif %}
+            </td>
+
+            <td>{{ p.name|default:p }}</td>
+
+            <td>
+                {% if row.is_leaf %}
+                    <span class="badge badge-type badge-raw">مادة خام</span>
+                {% elif p.is_semi_finished %}
+                    <span class="badge badge-type badge-semi">منتج نصف مصنع</span>
+                {% elif p.is_sellable %}
+                    <span class="badge badge-type badge-final">منتج نهائي</span>
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+
+            <td class="qty-cell">{{ row.quantity|num:4 }}</td>
+
+            <td>
+                {% if parent %}
+                    {% if parent.code %}{{ parent.code }}
+                    {% elif parent.sku %}{{ parent.sku }}
+                    {% else %}{{ parent }}{% endif %}
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+        </tr>
+    {% endwith %}
+{% endfor %}

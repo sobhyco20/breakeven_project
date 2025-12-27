@@ -1,0 +1,1168 @@
+{% load static %}
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <title>BOM Drag & Drop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --border: #e6e6e6;
+      --muted: #6c757d;
+
+      --raw:  #dc3545;
+      --raw-100:#fff1f2;
+
+      --semi: #0d6efd;
+      --semi-100:#eff6ff;
+
+      --fg:   #198754;
+      --fg-100:#ecfdf3;
+
+      --shadow-soft: 0 6px 18px rgba(0,0,0,.06);
+      --r: 16px;
+    }
+
+    body{background:var(--bg)}
+    .card-soft{border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow-soft);background:var(--card)}
+    .muted{color:var(--muted);font-size:.88rem}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
+
+    .sticky-topx{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0}
+    .chip{display:inline-flex;align-items:center;gap:.35rem;padding:.25rem .6rem;border-radius:999px;background:#eef2ff;font-size:.82rem;font-weight:800;border:1px solid #e5e7eb}
+
+    .btn{border-radius:12px}
+    .btn-sm{padding:.35rem .6rem}
+    .btn-danger-soft{background:var(--raw);color:#fff;border:none}
+    .btn-danger-soft:hover{background:#b02a37}
+
+    /* ====== Workspace: شاشة واحدة ====== */
+    .bom-workspace{
+      display:grid;
+      grid-template-rows: auto auto 1fr;
+      gap:10px;
+      height: calc(100vh - 18px);
+    }
+
+    /* ====== Header Form Compact ====== */
+    .header-form .form-label{font-size:.82rem;color:#495057;font-weight:800;margin-bottom:.25rem}
+    .header-form .form-control,
+    .header-form .form-select{height:36px;border-radius:12px}
+
+    /* ====== Save gate ====== */
+    .gate{
+      display:none;
+      border:1px solid #ffe69c;
+      background:#fff3cd;
+      color:#664d03;
+      border-radius:14px;
+      padding:10px 12px;
+      font-size:.92rem;
+    }
+    .gate strong{font-weight:900}
+
+    /* ====== Palette (فوق) ====== */
+    .palette-area{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      height: 32vh;
+      min-height: 220px;
+    }
+
+    .palette-box{
+      display:flex;flex-direction:column;overflow:hidden;
+      border:1px solid var(--border);border-radius:var(--r);
+      background:var(--card); box-shadow: var(--shadow-soft);
+    }
+    .palette-box .box-head{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:8px 10px;border-bottom:1px solid #f0f0f0;
+      background: linear-gradient(90deg, #f8fafc, #ffffff);
+      font-weight:900;
+    }
+    .palette-box .count-pill{
+      font-weight:900;border-radius:999px;padding:.1rem .55rem;
+      color:#fff;font-size:.78rem;
+    }
+    .palette-box.raw .box-head{background:linear-gradient(90deg,var(--raw-100),#fff);color:#9f1239}
+    .palette-box.raw .count-pill{background:var(--raw)}
+    .palette-box.semi .box-head{background:linear-gradient(90deg,var(--semi-100),#fff);color:#1d4ed8}
+    .palette-box.semi .count-pill{background:var(--semi)}
+
+    .palette-box .box-tools{padding:8px 10px;border-bottom:1px solid #f6f6f6}
+    .palette-box .box-body{
+      flex:1; overflow:auto; padding:8px;
+      background:
+        radial-gradient(900px 260px at 10% 0%, rgba(13,110,253,.06), transparent 60%),
+        radial-gradient(900px 260px at 90% 0%, rgba(220,53,69,.06), transparent 60%);
+    }
+
+    .pal-item{
+      border:1px solid #eee;border-radius:12px;padding:8px 10px;margin-bottom:8px;
+      cursor:grab;background:#fff; user-select:none;
+      transition:.12s ease;
+    }
+    .pal-item:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(0,0,0,.08)}
+    .pal-item:active{cursor:grabbing;transform:scale(.99)}
+    .pal-meta{font-size:.78rem;color:var(--muted)}
+
+    .badge-raw{background:var(--raw)}
+    .badge-semi{background:var(--semi)}
+    .badge-fg{background:var(--fg)}
+
+    /* ====== Summary row ====== */
+    .summary-area{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+    }
+    .kpi-card{
+      border-radius:14px;border:1px solid var(--border);background:#fff;padding:10px;
+      box-shadow:var(--shadow-soft);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+    }
+    .kpi-card .lbl{font-size:.82rem;font-weight:900;color:#6b7280}
+    .kpi-card .val{font-size:1.05rem;font-weight:900}
+    .kpi-card.raw{background:linear-gradient(180deg,var(--raw-100),#fff)}
+    .kpi-card.semi{background:linear-gradient(180deg,var(--semi-100),#fff)}
+    .kpi-card.total{background:linear-gradient(180deg,#f8fafc,#fff)}
+    .kpi-card.unit{background:linear-gradient(180deg,var(--fg-100),#fff)}
+
+    @media (max-width: 992px){
+      .bom-workspace{height:auto}
+      .palette-area{grid-template-columns:1fr;height:auto}
+      .summary-area{grid-template-columns:1fr 1fr}
+      .drop-area{grid-template-columns:1fr}
+    }
+
+    /* خلفية سوداء لصف الـ KPI فقط */
+    .summary-bg{
+      background: #474747ff;
+      padding:14px;
+      border-radius:18px;
+    }
+    .summary-bg .kpi-card{
+      background:#111;
+      color:#fff;
+      border:1px solid #222;
+    }
+    .summary-bg .kpi-card .lbl{ color:#9ca3af; }
+    .summary-bg .kpi-card .val{ color:#fff; }
+
+    /* ====== Drop area (تحت) ====== */
+    .drop-area{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      min-height: 240px;
+    }
+    .drop-box{
+      display:flex;flex-direction:column;overflow:hidden;
+      border-radius:var(--r); background:#fff; box-shadow:var(--shadow-soft);
+      border:1px solid var(--border);
+    }
+    .drop-box .box-head{
+      padding:8px 10px;display:flex;align-items:center;justify-content:space-between;gap:10px;
+      font-weight:900;font-size:.92rem;border-bottom:1px solid #f0f0f0;
+    }
+    .drop-box.raw .box-head{background:linear-gradient(90deg,var(--raw-100),#fff);color:#9f1239}
+    .drop-box.semi .box-head{background:linear-gradient(90deg,var(--semi-100),#fff);color:#1d4ed8}
+
+    .dropzone{
+      flex:1;
+      border:2px dashed #cbd5e1;
+      border-radius:16px;
+      margin:10px;
+      padding:8px;
+      background:#fff;
+      overflow:auto;
+      transition:.12s ease;
+    }
+    .drop-box.raw .dropzone{border-color:rgba(220,53,69,.35);background:linear-gradient(180deg,var(--raw-100),#fff)}
+    .drop-box.semi .dropzone{border-color:rgba(13,110,253,.35);background:linear-gradient(180deg,var(--semi-100),#fff)}
+    .dropzone.dragover{border-color:#111827;background:#fff; box-shadow:0 12px 26px rgba(0,0,0,.10)}
+
+    .table td,.table th{vertical-align:middle}
+    .table.table-sm> :not(caption)>*>*{padding:.35rem .45rem}
+    .table thead th{font-size:.82rem}
+    .money{font-variant-numeric: tabular-nums}
+    .cost-cell .big{font-weight:900}
+    .cost-cell .sub{font-size:.74rem;color:var(--muted)}
+
+    /* =========================
+       قفل الجزء السفلي فقط (تحت الهيدر)
+       ========================= */
+    #mainAreaWrap{ position: relative; }
+    #mainArea.locked {
+      pointer-events: none;
+      user-select: none;
+      filter: grayscale(0.2) blur(0.5px);
+      opacity: 0.45;
+    }
+    #mainAreaOverlay{
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.30);
+      display: none;
+      z-index: 50;
+      border-radius: 14px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container-fluid">
+  <main class="p-3">
+
+    <div class="bom-workspace">
+
+      <!-- Top Bar -->
+      <div class="sticky-topx">
+        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-between">
+          <div class="d-flex gap-2 align-items-center">
+            <span class="chip">🧩 شاشة الوصفة</span>
+            <span class="chip" id="bomBadge">BOM: —</span>
+            <span class="chip" id="lockBadge" style="display:none;">🔒 مقفلة</span>
+            <span class="chip" id="activeBadge" style="display:none;">✅ فعّالة</span>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button class="btn btn-sm btn-outline-danger" id="btnClearRaw" type="button">مسح RAW</button>
+            <button class="btn btn-sm btn-outline-danger" id="btnClearSemi" type="button">مسح SEMI</button>
+            <button class="btn btn-lg btn-danger-soft px-4" id="btnSave" type="button">💾 حفظ</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Header Form (يبقى المنتج شغال حتى مع القفل) -->
+      <div class="card-soft p-3 header-form" id="headerForm">
+        <div class="row g-2 align-items-end">
+
+          <div class="col-lg-6">
+            <label class="form-label">المنتج (FG)</label>
+            <select class="form-select" id="productSelect">
+              <option value="">— اختر المنتج —</option>
+            </select>
+            <div class="small text-muted mt-1">اختيار المنتج يفتح/ينشئ BOM تلقائيًا بدون تحديث الصفحة.</div>
+          </div>
+
+          <div class="col-lg-6">
+            <label class="form-label">اسم الوصفة</label>
+            <input class="form-control" id="bomName" placeholder="مثال: مكونات المنتج...">
+          </div>
+
+          <div class="col-md-2">
+            <label class="form-label">فعّالة؟</label>
+            <select class="form-select" id="isActive">
+              <option value="1">✅ نعم</option>
+              <option value="0">⛔ لا</option>
+            </select>
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">كمية الإنتاج</label>
+            <input class="form-control" id="batchQty" type="number" step="0.0001" placeholder="مثال: 30">
+          </div>
+
+          <div class="col-md-3">
+            <label class="form-label">وحدة الإنتاج</label>
+            <select class="form-select" id="batchUnit"></select>
+          </div>
+
+          <div class="col-md-4">
+            <div class="alert alert-light border mb-0 small">
+              قم بإضافة المواد الخام و المنتجات النصف مصنعه عن طريق امساك العنصر و افلاته
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="gate" id="saveGate">
+              ⚠️ <strong>لا يمكن الحفظ الآن:</strong> <span id="gateMsg">—</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ====== Main Area (كل شيء تحت الهيدر) ====== -->
+      <div id="mainAreaWrap">
+        <div id="mainAreaOverlay"></div>
+
+        <div id="mainArea">
+          <div id="lockedArea">
+
+            <!-- Palette + Summary -->
+            <div>
+              <div class="palette-area">
+                <div class="palette-box raw">
+                  <div class="box-head">
+                    <div>🧱 المواد الخام <span class="badge badge-raw text-white">RAW</span></div>
+                    <div class="count-pill" id="rawCount">0</div>
+                  </div>
+                  <div class="box-tools">
+                    <div class="input-group input-group-sm">
+                      <span class="input-group-text">🔎</span>
+                      <input class="form-control" id="qRaw" placeholder="بحث بالاسم أو الكود...">
+                    </div>
+                  </div>
+                  <div class="box-body" id="rawList">
+                    <div class="text-muted small">اضغط تحديث…</div>
+                  </div>
+                </div>
+
+                <div class="palette-box semi">
+                  <div class="box-head">
+                    <div>🧪 نصف مصنع <span class="badge badge-semi text-white">SEMI</span></div>
+                    <div class="count-pill" id="semiCount">0</div>
+                  </div>
+                  <div class="box-tools">
+                    <div class="input-group input-group-sm">
+                      <span class="input-group-text">🔎</span>
+                      <input class="form-control" id="qSemi" placeholder="بحث بالاسم أو الكود...">
+                    </div>
+                  </div>
+                  <div class="box-body" id="semiList">
+                    <div class="text-muted small">اضغط تحديث…</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Summary -->
+              <div class="summary-bg mt-2">
+                <div class="summary-area">
+                  <div class="kpi-card raw"><div class="lbl">إجمالي RAW</div><div class="val money" id="kpiRawCost">0.00</div></div>
+                  <div class="kpi-card semi"><div class="lbl">إجمالي SEMI</div><div class="val money" id="kpiSemiCost">0.00</div></div>
+                  <div class="kpi-card total"><div class="lbl">الإجمالي</div><div class="val money" id="kpiTotalCost">0.00</div></div>
+                  <div class="kpi-card unit"><div class="lbl">تكلفة الوحدة</div><div class="val money" id="kpiUnitCost">0.00</div></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Drop area -->
+            <div class="drop-area">
+              <div class="drop-box raw">
+                <div class="box-head">
+                  <div>🧱 المواد الخام <span class="badge badge-raw text-white">RAW</span></div>
+                  <div class="muted">اسحب RAW هنا</div>
+                </div>
+                <div class="dropzone" id="rawDrop">
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-sm bg-white m-0" id="rawTable">
+                      <thead class="table-light">
+                        <tr>
+                          <th style="width:40%">المادة</th>
+                          <th style="width:16%">الكمية</th>
+                          <th style="width:20%">الوحدة</th>
+                          <th style="width:14%">التكلفة</th>
+                          <th style="width:10%">🗑</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                  <div class="small text-muted mt-2">✨ اسحب RAW من المكتبة بالأعلى.</div>
+                </div>
+              </div>
+
+              <div class="drop-box semi">
+                <div class="box-head">
+                  <div>🧪 النصف مصنع <span class="badge badge-semi text-white">SEMI</span></div>
+                  <div class="muted">اسحب SEMI هنا</div>
+                </div>
+                <div class="dropzone" id="semiDrop">
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-sm bg-white m-0" id="semiTable">
+                      <thead class="table-light">
+                        <tr>
+                          <th style="width:40%">المنتج</th>
+                          <th style="width:16%">الكمية</th>
+                          <th style="width:20%">الوحدة</th>
+                          <th style="width:14%">التكلفة</th>
+                          <th style="width:10%">🗑</th>
+                        </tr>
+                      </thead>
+                      <tbody></tbody>
+                    </table>
+                  </div>
+                  <div class="small text-muted mt-2">🎯 اسحب SEMI من المكتبة بالأعلى.</div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /lockedArea -->
+        </div><!-- /mainArea -->
+      </div><!-- /mainAreaWrap -->
+
+    </div><!-- /bom-workspace -->
+
+    <!-- Toast -->
+    <div class="position-fixed bottom-0 start-0 p-3" style="z-index:9999">
+      <div id="toast" class="toast align-items-center text-bg-dark border-0" role="alert">
+        <div class="d-flex">
+          <div class="toast-body" id="toastMsg">—</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* ==========================================================
+   BOM Drag & Drop - FINAL ✅ (Paste Only)
+   - الصفحة تبدأ مقفولة (تحت الهيدر فقط) حتى اختيار FG
+   - المنتجات لا تختفي: حماية + تشخيص
+   - تحميل bom_id إن وجد: يفتح تلقائيًا
+   - Lock الحقيقي من السيرفر (is_locked) يمنع التعديل
+   ========================================================== */
+
+  // ===== APIs =====
+  let currentBomId = "{{ bom_id|default:'' }}";
+
+  const API_PALETTE = "/portal/api/bom/palette/";
+  const API_GET     = (id) => `/portal/api/bom/get/${id}/`;
+  const API_SAVE    = (id) => `/portal/api/bom/save/${id}/`;
+  const API_LOCK    = (id) => `/portal/api/bom/lock-status/${id}/`;
+  const API_OPEN_BY_PRODUCT = (productId) => `/portal/api/bom/open-by-product/${productId}/`;
+  const API_PRODUCTS_FG = "/portal/api/bom/fg-products/";
+
+  // ===== Elements =====
+  const $ = (id) => document.getElementById(id);
+
+  const btnClearRaw   = $("btnClearRaw");
+  const btnClearSemi  = $("btnClearSemi");
+  const btnSave       = $("btnSave");
+
+  const productSelect = $("productSelect");
+  const bomName       = $("bomName");
+  const isActive      = $("isActive");
+  const batchQty      = $("batchQty");
+  const batchUnit     = $("batchUnit");
+
+  const saveGate      = $("saveGate");
+  const gateMsg       = $("gateMsg");
+
+  const rawDrop       = $("rawDrop");
+  const semiDrop      = $("semiDrop");
+  const rawTbody      = document.querySelector("#rawTable tbody");
+  const semiTbody     = document.querySelector("#semiTable tbody");
+
+  const rawList       = $("rawList");
+  const semiList      = $("semiList");
+  const qRaw          = $("qRaw");
+  const qSemi         = $("qSemi");
+  const rawCount      = $("rawCount");
+  const semiCount     = $("semiCount");
+
+  const bomBadge      = $("bomBadge");
+  const lockBadge     = $("lockBadge");
+  const activeBadge   = $("activeBadge");
+
+  const kpiRawCost    = $("kpiRawCost");
+  const kpiSemiCost   = $("kpiSemiCost");
+  const kpiTotalCost  = $("kpiTotalCost");
+  const kpiUnitCost   = $("kpiUnitCost");
+
+  const toastEl       = $("toast");
+  const toastMsgEl    = $("toastMsg");
+
+  const mainArea      = $("mainArea");
+  const mainOverlay   = $("mainAreaOverlay");
+
+  // ===== State =====
+  let isLocked = false;      // locked بسبب حركات (من السيرفر)
+  let isDirty  = false;
+
+  let paletteAll = [];       // RAW/SEMI
+  let fgItems    = [];       // FG products list
+  let selectedProduct = null;
+
+  // ===== Helpers =====
+  function toast(msg){
+    if(!toastEl) return alert(msg);
+    toastMsgEl.textContent = msg;
+    new bootstrap.Toast(toastEl, {delay:2200}).show();
+  }
+
+  function norm(s){ return (s||"").toString().trim().toLowerCase(); }
+
+  function formatMoney(x){
+    const n = Number(x || 0);
+    return n.toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+
+  function dzHover(el, on){ el.classList.toggle("dragover", on); }
+
+  function markDirty(){
+    if(!isLocked) isDirty = true;
+  }
+
+  window.addEventListener("beforeunload", (e)=>{
+    if(!isDirty) return;
+    e.preventDefault();
+    e.returnValue = "";
+  });
+
+  // ===== UI Lock (تحت الهيدر فقط) =====
+  function lockUI(msg){
+    if(mainArea) mainArea.classList.add("locked");
+    if(mainOverlay) mainOverlay.style.display = "block";
+
+    // قفل أزرار التعديل فقط
+    btnSave.disabled = true;
+    btnClearRaw.disabled = true;
+    btnClearSemi.disabled = true;
+
+    // قفل حقول الهيدر ما عدا المنتج
+    bomName.disabled   = true;
+    isActive.disabled  = true;
+    batchQty.disabled  = true;
+    batchUnit.disabled = true;
+
+    // المنتج دائمًا شغال
+    productSelect.disabled = false;
+
+    if(saveGate){
+      saveGate.style.display = "block";
+      gateMsg.textContent = msg || "اختر المنتج أولاً.";
+    }
+  }
+
+  function unlockUI(){
+    if(mainArea) mainArea.classList.remove("locked");
+    if(mainOverlay) mainOverlay.style.display = "none";
+  }
+
+  function applyUiState(){
+    // 1) prelock: لا منتج أو لا BOM
+    if(!selectedProduct?.id || !currentBomId){
+      lockBadge.style.display = "none";
+      activeBadge.style.display = "none";
+      lockUI("اختر المنتج (FG) أولاً لفتح/إنشاء BOM.");
+      renderSaveGate();
+      return;
+    }
+
+    // 2) في حالة وجود BOM: افتح الجزء السفلي
+    unlockUI();
+
+    // 3) lock الحقيقي بسبب الحركات
+    lockBadge.style.display = isLocked ? "inline-flex" : "none";
+
+    const disabled = !!isLocked;
+    bomName.disabled   = disabled;
+    isActive.disabled  = disabled;
+    batchQty.disabled  = disabled;
+    batchUnit.disabled = disabled;
+
+    btnSave.disabled      = disabled;
+    btnClearRaw.disabled  = disabled;
+    btnClearSemi.disabled = disabled;
+
+    if(disabled){
+      if(saveGate){
+        saveGate.style.display = "block";
+        gateMsg.textContent = "الوصفة مقفلة (يوجد حركات تمنع الحفظ).";
+      }
+    }else{
+      renderSaveGate();
+    }
+  }
+
+  function setLocked(v){
+    isLocked = !!v;
+    if(isLocked) toast("🔒 الوصفة مقفلة: يوجد حركات تمنع الحفظ");
+    applyUiState();
+  }
+
+  // ===== Save Gate =====
+  function validateForSave(){
+    if(!selectedProduct?.id) return {ok:false, msg:"اختر المنتج أولاً من القائمة بالأعلى."};
+    if(!currentBomId) return {ok:false, msg:"لا يوجد BOM مفتوح لهذا المنتج."};
+
+    if(isLocked) return {ok:false, msg:"الوصفة مقفلة (يوجد حركات تمنع الحفظ)."};
+    if(!bomName.value.trim()) return {ok:false, msg:"اكتب اسم الوصفة."};
+
+    const produced = Number(batchQty.value || 0);
+    if(!(produced > 0)) return {ok:false, msg:"كمية الإنتاج يجب أن تكون أكبر من صفر."};
+    if(!batchUnit.value) return {ok:false, msg:"اختر وحدة الإنتاج."};
+
+    const rawRows  = rawTbody.querySelectorAll("tr").length;
+    const semiRows = semiTbody.querySelectorAll("tr").length;
+    if(rawRows + semiRows === 0) return {ok:false, msg:"أضف سطر واحد على الأقل (RAW أو SEMI)."};
+    return {ok:true, msg:""};
+  }
+
+  function renderSaveGate(){
+    if(!selectedProduct?.id || !currentBomId){
+      if(saveGate){
+        saveGate.style.display = "block";
+        gateMsg.textContent = "اختر المنتج (FG) أولاً لفتح/إنشاء BOM.";
+      }
+      btnSave.disabled = true;
+      return;
+    }
+
+    const v = validateForSave();
+    if(v.ok){
+      if(saveGate) saveGate.style.display = "none";
+      btnSave.disabled = isLocked;
+    }else{
+      if(saveGate){
+        saveGate.style.display = "block";
+        gateMsg.textContent = v.msg;
+      }
+      btnSave.disabled = true;
+    }
+  }
+
+  // ===== Costs =====
+  function recomputeCosts(){
+    const rawRows  = Array.from(rawTbody.querySelectorAll("tr"));
+    const semiRows = Array.from(semiTbody.querySelectorAll("tr"));
+
+    let rawCost = 0, semiCost = 0;
+
+    function calcRow(tr){
+      const unitCost = Number(tr.dataset.unitCost || 0);
+      const qty = Number(tr.querySelector("input.qty")?.value || 0);
+      const lineCost = unitCost * qty;
+      const el = tr.querySelector(".lineCost");
+      if(el) el.textContent = formatMoney(lineCost);
+      return lineCost;
+    }
+
+    rawRows.forEach(tr => rawCost += calcRow(tr));
+    semiRows.forEach(tr => semiCost += calcRow(tr));
+
+    const total = rawCost + semiCost;
+    const produced = Number(batchQty.value || 0);
+    const unitCost = produced > 0 ? (total / produced) : 0;
+
+    kpiRawCost.textContent   = formatMoney(rawCost);
+    kpiSemiCost.textContent  = formatMoney(semiCost);
+    kpiTotalCost.textContent = formatMoney(total);
+    kpiUnitCost.textContent  = formatMoney(unitCost);
+  }
+
+  document.addEventListener("input", (e)=>{
+    if(e.target.closest("#rawTable") || e.target.closest("#semiTable") || ["batchQty","bomName"].includes(e.target.id)){
+      markDirty();
+      recomputeCosts();
+      renderSaveGate();
+    }
+  }, true);
+
+  document.addEventListener("change", (e)=>{
+    if(["bomName","isActive","batchQty","batchUnit"].includes(e.target.id)){
+      markDirty();
+      recomputeCosts();
+      renderSaveGate();
+    }
+  }, true);
+
+  // ===== Palette =====
+  function makePalItem(x){
+    const div = document.createElement("div");
+    div.className = "pal-item";
+    div.draggable = true;
+    div.dataset.payload = JSON.stringify(x);
+
+    const badge = x.kind === "RAW"
+      ? `<span class="badge badge-raw text-white">RAW</span>`
+      : `<span class="badge badge-semi text-white">SEMI</span>`;
+
+    div.innerHTML = `
+      <div class="d-flex justify-content-between align-items-start gap-2">
+        <div>
+          <div class="fw-bold">${(x.code||"")} ${x.name||""}</div>
+          <div class="pal-meta">
+            وحدة: <span class="mono">${x.unit_name || "-"}</span>
+            • تكلفة: <span class="mono">${formatMoney(x.unit_cost || 0)}</span>
+          </div>
+        </div>
+        ${badge}
+      </div>
+    `;
+
+    div.addEventListener("dragstart", (e)=>{
+      e.dataTransfer.setData("text/plain", div.dataset.payload);
+      e.dataTransfer.effectAllowed = "copy";
+    });
+
+    return div;
+  }
+
+  function renderPalette(){
+    const q1 = norm(qRaw.value);
+    const q2 = norm(qSemi.value);
+
+    const raws  = paletteAll.filter(x=>x.kind==="RAW"  && (!q1 || norm(x.name).includes(q1) || norm(x.code).includes(q1)));
+    const semis = paletteAll.filter(x=>x.kind==="SEMI" && (!q2 || norm(x.name).includes(q2) || norm(x.code).includes(q2)));
+
+    rawList.innerHTML = "";
+    semiList.innerHTML = "";
+
+    if(!raws.length)  rawList.innerHTML  = `<div class="text-muted small">لا توجد نتائج…</div>`;
+    if(!semis.length) semiList.innerHTML = `<div class="text-muted small">لا توجد نتائج…</div>`;
+
+    raws.forEach(x=>rawList.appendChild(makePalItem(x)));
+    semis.forEach(x=>semiList.appendChild(makePalItem(x)));
+
+    rawCount.textContent  = raws.length;
+    semiCount.textContent = semis.length;
+  }
+
+  async function loadPalette(){
+    const r = await fetch(API_PALETTE);
+    const data = await r.json();
+    paletteAll = (data.items || []).map(x => ({
+      id: x.id,
+      code: x.code,
+      name: x.name,
+      kind: x.kind,
+      unit_id: x.unit_id,
+      unit_name: x.unit_name,
+      unit_cost: Number(String(x.unit_cost || "0").replaceAll(",", "")) || 0,
+    }));
+    renderPalette();
+  }
+
+  // ===== FG Products =====
+  function ensureProductOption(p){
+    if(!p?.id || !productSelect) return;
+    const idStr = String(p.id);
+    let opt = Array.from(productSelect.options).find(o => o.value === idStr);
+    if(!opt){
+      opt = document.createElement("option");
+      opt.value = idStr;
+      opt.textContent = `${p.code || ""} - ${p.name || ""}`.trim();
+      productSelect.appendChild(opt);
+    }
+  }
+
+  function fillProductSelect(){
+    if(!productSelect) return;
+
+    const current = productSelect.value;
+    productSelect.innerHTML = `<option value="">— اختر المنتج —</option>`;
+
+    const items = [...fgItems].sort((a,b)=> String(a.code||"").localeCompare(String(b.code||"")));
+    items.forEach(p=>{
+      const opt = document.createElement("option");
+      opt.value = String(p.id);
+      opt.textContent = `${p.code || ""} - ${p.name || ""}`.trim();
+      productSelect.appendChild(opt);
+    });
+
+    // لو المنتج الحالي مش موجود (bom_id قديم) ضيفه مؤقتًا
+    if(selectedProduct?.id && !fgItems.some(x => String(x.id) === String(selectedProduct.id))){
+      ensureProductOption(selectedProduct);
+    }
+
+    // إعادة التحديد
+    if(selectedProduct?.id) productSelect.value = String(selectedProduct.id);
+    else if(current) productSelect.value = current;
+  }
+
+  async function loadFGProducts(){
+    try{
+      const r = await fetch(API_PRODUCTS_FG, {headers: {"Accept":"application/json"}});
+      if(!r.ok){
+        const t = await r.text();
+        console.error("FG products API failed:", r.status, t);
+        toast("❌ فشل تحميل المنتجات (API)");
+        fgItems = [];
+        fillProductSelect();
+        return;
+      }
+      const data = await r.json();
+      fgItems = (data.items || []).map(x => ({
+        id: x.id,
+        code: x.code,
+        name: x.name
+      }));
+      console.log("FG Loaded:", fgItems.length);
+      fillProductSelect();
+      if(fgItems.length === 0) toast("⚠️ لا توجد منتجات FG مرجعة من السيرفر");
+    }catch(err){
+      console.error("loadFGProducts error:", err);
+      toast("❌ خطأ أثناء تحميل المنتجات (Console)");
+      fgItems = [];
+      fillProductSelect();
+    }
+  }
+
+  // ===== Rows =====
+  function rowHtml(item){
+    const unitCost = Number(item.unit_cost || 0);
+    const qty = Number(item.qty ?? 1);
+    const lineCost = unitCost * qty;
+
+    const badge = item.kind === "RAW"
+      ? `<span class="badge badge-raw text-white">RAW</span>`
+      : `<span class="badge badge-semi text-white">SEMI</span>`;
+
+    return `
+      <tr data-kind="${item.kind}" data-id="${item.item_id}" data-unit-cost="${unitCost}">
+        <td>
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="fw-bold">${item.code || ""} ${item.name}</div>
+            ${badge}
+          </div>
+          <div class="small text-muted">وحدة: ${item.unit_name || "-"}</div>
+        </td>
+
+        <td><input class="form-control form-control-sm qty" type="number" step="0.0001" value="${qty}"></td>
+
+        <td>
+          <input class="form-control form-control-sm" value="${item.unit_name || "-"}" disabled>
+          <input type="hidden" value="${item.unit_id || ""}">
+        </td>
+
+        <td class="money cost-cell">
+          <div class="big lineCost">${formatMoney(lineCost)}</div>
+          <div class="sub">وحدة: ${formatMoney(unitCost)}</div>
+        </td>
+
+        <td class="text-center">
+          <button type="button" class="btn btn-sm btn-outline-danger btn-del">حذف</button>
+        </td>
+      </tr>
+    `;
+  }
+
+  function addRow(targetTbody, payload, {silent=false}={}){
+    const x = typeof payload === "string" ? JSON.parse(payload) : payload;
+    const isRawZone = targetTbody === rawTbody;
+
+    if(isRawZone && x.kind !== "RAW"){ if(!silent) toast("❗ اسحب RAW فقط داخل المواد الخام"); return; }
+    if(!isRawZone && x.kind !== "SEMI"){ if(!silent) toast("❗ اسحب SEMI فقط داخل النصف مصنع"); return; }
+
+    const exists = targetTbody.querySelector(`tr[data-kind="${x.kind}"][data-id="${x.id}"]`);
+    if(exists){ if(!silent) toast("⚠️ هذا العنصر موجود بالفعل"); return; }
+
+    const item = {
+      kind: x.kind,
+      item_id: x.id,
+      code: x.code,
+      name: x.name,
+      qty: x.qty ?? 1,
+      unit_id: x.unit_id,
+      unit_name: x.unit_name,
+      unit_cost: Number(String(x.unit_cost || "0").replaceAll(",", "")) || 0,
+    };
+
+    const temp = document.createElement("tbody");
+    temp.innerHTML = rowHtml(item);
+    const tr = temp.firstElementChild;
+
+    tr.querySelector(".btn-del").addEventListener("click", ()=>{
+      if(isLocked) return toast("🔒 ممنوع الحذف: الوصفة مقفلة");
+      tr.remove();
+      markDirty();
+      recomputeCosts();
+      renderSaveGate();
+    });
+
+    targetTbody.appendChild(tr);
+    if(!silent){
+      markDirty();
+      recomputeCosts();
+      renderSaveGate();
+    }
+  }
+
+  function setupDropzone(zoneEl, targetTbody){
+    zoneEl.addEventListener("dragover", (e)=>{ e.preventDefault(); dzHover(zoneEl, true); });
+    zoneEl.addEventListener("dragleave", ()=> dzHover(zoneEl, false));
+    zoneEl.addEventListener("drop", (e)=>{
+      e.preventDefault(); dzHover(zoneEl, false);
+
+      if(!selectedProduct?.id) return toast("اختر المنتج أولاً.");
+      if(isLocked) return toast("🔒 ممنوع التعديل: الوصفة مقفلة");
+
+      const payload = e.dataTransfer.getData("text/plain");
+      if(!payload) return;
+      addRow(targetTbody, payload);
+    });
+  }
+
+  function collectLines(tbody){
+    return Array.from(tbody.querySelectorAll("tr")).map(tr => ({
+      kind: tr.dataset.kind,
+      item_id: tr.dataset.id,
+      qty: tr.querySelector("input.qty").value,
+    }));
+  }
+
+  function fillUnitSelect(sel, units, selectedId){
+    sel.innerHTML = `<option value="">—</option>`;
+    (units||[]).forEach(u=>{
+      const opt = document.createElement("option");
+      opt.value = u.id;
+      opt.textContent = u.name;
+      if(String(u.id) === String(selectedId)) opt.selected = true;
+      sel.appendChild(opt);
+    });
+  }
+
+  function resetBOMUI(){
+    currentBomId = "";
+    selectedProduct = null;
+
+    bomBadge.textContent = "BOM: —";
+    activeBadge.style.display = "none";
+    lockBadge.style.display = "none";
+
+    bomName.value = "";
+    isActive.value = "1";
+    batchQty.value = "";
+    batchUnit.innerHTML = "";
+
+    rawTbody.innerHTML = "";
+    semiTbody.innerHTML = "";
+
+    kpiRawCost.textContent = "0.00";
+    kpiSemiCost.textContent = "0.00";
+    kpiTotalCost.textContent = "0.00";
+    kpiUnitCost.textContent = "0.00";
+
+    isDirty = false;
+
+    fillProductSelect();
+    applyUiState();
+  }
+
+  // ===== Load BOM =====
+  async function loadBOMById(id){
+    currentBomId = String(id || "");
+    if(!currentBomId){
+      resetBOMUI();
+      return;
+    }
+
+    // lock-status
+    const lockRes = await fetch(API_LOCK(id));
+    const lockData = await lockRes.json();
+    isLocked = !!lockData.is_locked;
+
+    const r = await fetch(API_GET(id));
+    const data = await r.json();
+
+    bomBadge.textContent = `BOM: ${data.bom.id}`;
+
+    const pid = data.bom.product_id;
+
+    // حاول من fgItems
+    const fgFound = fgItems.find(p => String(p.id) === String(pid)) || null;
+    selectedProduct = fgFound || {
+      id: pid,
+      code: data.bom.product_code || "",
+      name: data.bom.product_name || "",
+    };
+
+    fillProductSelect();
+    ensureProductOption(selectedProduct);
+    productSelect.value = String(selectedProduct.id);
+
+    bomName.value = data.bom.name || "";
+    isActive.value = data.bom.is_active ? "1" : "0";
+    activeBadge.style.display = data.bom.is_active ? "inline-flex" : "none";
+
+    batchQty.value = data.bom.batch_output_quantity || "";
+    fillUnitSelect(batchUnit, data.units, data.bom.batch_output_unit_id);
+
+    rawTbody.innerHTML = "";
+    semiTbody.innerHTML = "";
+
+    (data.raw_lines || []).forEach(line=>{
+      addRow(rawTbody, {
+        kind:"RAW",
+        id: line.item_id,
+        code: line.code,
+        name: line.name,
+        qty: Number(line.qty || 0),
+        unit_id: line.unit_id,
+        unit_name: line.unit_name,
+        unit_cost: line.unit_cost || 0,
+      }, {silent:true});
+      const tr = rawTbody.querySelector(`tr[data-kind="RAW"][data-id="${line.item_id}"]`);
+      if(tr) tr.querySelector("input.qty").value = line.qty;
+    });
+
+    (data.semi_lines || []).forEach(line=>{
+      addRow(semiTbody, {
+        kind:"SEMI",
+        id: line.item_id,
+        code: line.code,
+        name: line.name,
+        qty: Number(line.qty || 0),
+        unit_id: line.unit_id,
+        unit_name: line.unit_name,
+        unit_cost: line.unit_cost || 0,
+      }, {silent:true});
+      const tr = semiTbody.querySelector(`tr[data-kind="SEMI"][data-id="${line.item_id}"]`);
+      if(tr) tr.querySelector("input.qty").value = line.qty;
+    });
+
+    applyUiState();
+
+    isDirty = false;
+    recomputeCosts();
+    renderSaveGate();
+
+    toast("✅ تم تحميل الوصفة");
+  }
+
+  // ===== Save BOM =====
+  async function saveBOM(){
+    const v = validateForSave();
+    if(!v.ok){ toast("❌ " + v.msg); renderSaveGate(); return false; }
+
+    const payload = {
+      name: bomName.value,
+      is_active: (isActive.value === "1"),
+      batch_output_quantity: batchQty.value,
+      batch_output_unit_id: batchUnit.value,
+      raw_lines: collectLines(rawTbody),
+      semi_lines: collectLines(semiTbody),
+    };
+
+    const r = await fetch(API_SAVE(currentBomId), {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+        "X-CSRFToken":"{{ csrf_token }}"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await r.json();
+    if(!r.ok){ toast("❌ " + (data.error || "فشل الحفظ")); return false; }
+
+    toast("💾 تم الحفظ بنجاح");
+    isDirty = false;
+    await loadBOMById(currentBomId);
+    return true;
+  }
+
+  // ===== Product select =====
+  productSelect.addEventListener("change", async ()=>{
+    const pid = productSelect.value;
+
+    if(!pid){
+      resetBOMUI();
+      const url = new URL(window.location.href);
+      url.searchParams.set("embed","1");
+      url.searchParams.delete("bom_id");
+      history.replaceState({}, "", url.toString());
+      return;
+    }
+
+    if(isDirty){
+      const go = confirm("⚠️ توجد تعديلات غير محفوظة.\nOK = حفظ ثم فتح BOM للمنتج\nCancel = فتح بدون حفظ");
+      if(go){
+        const ok = await saveBOM();
+        if(!ok){
+          fillProductSelect();
+          renderSaveGate();
+          return;
+        }
+      }
+    }
+
+    selectedProduct = fgItems.find(x => String(x.id) === String(pid)) || {id: pid, code:"", name:""};
+    applyUiState();
+
+    const r = await fetch(API_OPEN_BY_PRODUCT(pid));
+    const data = await r.json();
+
+    if(!r.ok || !data.bom_id){
+      toast("❌ لا يمكن فتح BOM لهذا المنتج");
+      // نحافظ على اختيار المنتج لكن يظل مقفول حتى يوجد bom_id
+      currentBomId = "";
+      applyUiState();
+      renderSaveGate();
+      return;
+    }
+
+    const newBomId = String(data.bom_id);
+    await loadBOMById(newBomId);
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("embed", "1");
+    url.searchParams.set("bom_id", newBomId);
+    history.replaceState({}, "", url.toString());
+  });
+
+  // ===== Buttons =====
+  btnSave.addEventListener("click", async ()=>{
+    if(!selectedProduct?.id) return toast("اختر المنتج أولاً.");
+    if(isLocked) return toast("🔒 الوصفة مقفلة: ممنوع الحفظ");
+
+    const v = validateForSave();
+    if(!v.ok) return toast("❌ " + v.msg);
+    if(!confirm("⚠️ هل تريد حفظ الوصفة الآن؟")) return;
+
+    await saveBOM();
+  });
+
+  btnClearRaw.addEventListener("click", ()=>{
+    if(!selectedProduct?.id) return toast("اختر المنتج أولاً.");
+    if(isLocked) return toast("🔒 ممنوع المسح: الوصفة مقفلة");
+    if(confirm("تحذير: مسح جميع أسطر RAW؟")){
+      rawTbody.innerHTML="";
+      markDirty();
+      recomputeCosts();
+      renderSaveGate();
+    }
+  });
+
+  btnClearSemi.addEventListener("click", ()=>{
+    if(!selectedProduct?.id) return toast("اختر المنتج أولاً.");
+    if(isLocked) return toast("🔒 ممنوع المسح: الوصفة مقفلة");
+    if(confirm("تحذير: مسح جميع أسطر SEMI؟")){
+      semiTbody.innerHTML="";
+      markDirty();
+      recomputeCosts();
+      renderSaveGate();
+    }
+  });
+
+  qRaw.addEventListener("input", renderPalette);
+  qSemi.addEventListener("input", renderPalette);
+
+  // ===== Init =====
+  (async function init(){
+    // ابدأ بقفل الجزء السفلي فقط
+    selectedProduct = null;
+    currentBomId = String(currentBomId || "");
+    applyUiState();
+
+    setupDropzone(rawDrop, rawTbody);
+    setupDropzone(semiDrop, semiTbody);
+
+    await loadPalette();
+    await loadFGProducts();
+
+    if(currentBomId){
+      await loadBOMById(currentBomId);
+    }else{
+      resetBOMUI();
+    }
+
+    renderSaveGate();
+  })();
+</script>
+
+</body>
+</html>
