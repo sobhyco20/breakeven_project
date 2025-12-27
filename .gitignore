@@ -1,16 +1,2 @@
-# Python venv
-venv/
-.venv/
-
-# Python cache
-__pycache__/
-*.pyc
-
-# Local DB / media
-db.sqlite3
-media/
-staticfiles/
-
-# Env
-.env
-.env.*
+# local postgres / pgadmin
+postgres/
