@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'breakeven_project.wsgi.application'
 import os
 from urllib.parse import urlparse
 
-DATABASE_URL = os.getenv("DATABASE_URL", "").strip()
+DATABASE_URL = (os.getenv("DATABASE_URL") or "").strip()
 
 if DATABASE_URL:
     u = urlparse(DATABASE_URL)
@@ -106,13 +106,14 @@ if DATABASE_URL:
         }
     }
 else:
-    # fallback (مثلاً sqlite محلياً)
+    # Local fallback
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+
 
 
 
