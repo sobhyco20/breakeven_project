@@ -19,3 +19,25 @@ DATABASES = {
         "CONN_MAX_AGE": 60,
     }
 }
+# =========================
+# ALLOWED_HOSTS (Render)
+# =========================
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
+ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS if h.strip()]
+
+# ✅ Render domains
+ALLOWED_HOSTS += [
+    "breakeven-project-1.onrender.com",
+    ".onrender.com",
+]
+
+# إزالة التكرار
+ALLOWED_HOSTS = list(dict.fromkeys(ALLOWED_HOSTS))
+
+
+# =========================
+# CSRF (Render)
+# =========================
+CSRF_TRUSTED_ORIGINS = [
+    "https://breakeven-project-1.onrender.com",
+]
